@@ -30,10 +30,28 @@
     </div>
   </div>
   <div>
-    <ion-list>
-      <ion-item-divider text-uppercase no-lines>{{data.name}}</ion-item-divider>
-      <input type="text" name="name" placeholder="Current Name">
-    </ion-list>
-    
+
+   <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input type="text" value="{{data.firstname}}" [(ngModel)]="firstname" name="firstname"></ion-input>
+   </ion-item>
+
+   <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input type="text" value="{{data.lastname}}" [(ngModel)]="lastname" name="lastname"></ion-input>
+   </ion-item>
+
+   <ion-item>
+      <ion-label floating>New Password</ion-label>
+      <ion-input type="password" value="" [(ngModel)]="newpass" name="newpass"></ion-input>
+      
+   </ion-item>
+
+   <ion-item>
+      <ion-label floating>Confirm Password</ion-label>
+      <ion-input type="password" value="" [(ngModel)]="confirmpass" name="confirmpass"></ion-input>
+      
+   </ion-item>
+
   </div>
 </ion-content>
