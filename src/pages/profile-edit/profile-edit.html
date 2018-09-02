@@ -1,11 +1,10 @@
 <ion-header header-ios>
   <ion-navbar no-border-bottom>
     <ion-buttons right>
-      <button ion-button clear (click)="editProfile()">
+      <button ion-button clear (click)="uploadFile()">
         Save
       </button>
     </ion-buttons>
-
 
     <ion-buttons left>
       <button ion-button clear (click)="dismiss()">
@@ -26,8 +25,21 @@
       </ion-thumbnail>
       <!-- Parallx Title -->
       <h1 text-center [ngStyle]="{'font-size': '20px', 'color': '#FFFFFF'}" *ngIf="data != null">{{data.title}}</h1>
+     
       
     </div>
+  </div>
+
+  <div class="block-insert" text-center>
+      <ion-item>
+          <p>{{imageURI}}</p>
+          <button ion-button color="secondary" (click)="getImage()">Get Image</button>
+        </ion-item>
+        <ion-item>
+          <h4>Image Preview</h4>
+          <img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
+        </ion-item>
+    
   </div>
   <div>
 
@@ -52,6 +64,14 @@
       <ion-input type="password" value="" [(ngModel)]="confirmpass" name="confirmpass"></ion-input>
       
    </ion-item>
+
+   <ion-row>
+      <ion-col text-center>
+        <button ion-button color="default" (click)="editProfile()">
+          SUBMIT
+        </button>
+      </ion-col>
+  </ion-row>
 
   </div>
 </ion-content>

@@ -14,6 +14,9 @@ import { IonicImageLoader } from 'ionic-image-loader';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppSettings } from '../services/app-settings';
 
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { Camera } from '@ionic-native/camera';
 
 
 //firebase
@@ -90,7 +93,12 @@ import { InterestService } from '../services/interest.service';
     TransactionService,
     LoadingService,
     InterestService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FileTransfer,
+    // FileUploadOptions,
+    FileTransferObject,
+    File,
+    Camera
   ]
 })
 export class AppModule {}

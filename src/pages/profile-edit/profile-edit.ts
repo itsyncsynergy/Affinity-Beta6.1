@@ -1,9 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController  } from 'ionic-angular';
 import { AppSettings } from '../../app/appSettings';
 import { AuthService } from '../../services/authservice';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
  * Generated class for the ProfileEditPage page.
@@ -24,7 +26,7 @@ export class ProfileEditPage {
   events: any;
   profile_segment: string
   base_url: any = "";
-
+  pic: any;
   redemption: any;
   interest: any;
   activities: any;
@@ -37,8 +39,15 @@ export class ProfileEditPage {
   newpass: string;
   confirmpass: string;
 
+  imageURI:any;
+  imageFileName:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, private alertCtrl: AlertController,public authservice: AuthService,public storage: Storage) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: HttpClient, private alertCtrl: AlertController,public authservice: AuthService,public storage: Storage,
+    private transfer: FileTransfer,
+    private camera: Camera,
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController) {
     this.profile_segment = 'interest';
     this.base_url = AppSettings.BASE_URL;
     var user_name = localStorage.getItem('firstname') + ' ' + localStorage.getItem('lastname');
@@ -125,6 +134,107 @@ export class ProfileEditPage {
         return;
       }
     });
+  }
+
+  getImage() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+  
+    this.camera.getPicture(options).then((imageData) => {
+      this.imageURI = imageData;
+    }, (err) => {
+      console.log(err);
+      this.presentToast(err);
+    });
+  }
+
+  // upload(){
+  //   console.log('got here upload');
+  //   var url= 'http://192.168.8.100/api/auth/changepic?key=value';
+  //   let imageData = new FormData();
+  //   imageData.append('key', 'value');
+  //   imageData.append('username', this.data.username);
+  //   imageData.append('pic', this.pic);
+
+  //   this.data = this.http.post(url, imageData);
+
+  //   this.data.subscribe(data => {
+  //     if(data['code'] == 200){
+  //       let alert = this.alertCtrl.create({
+  //         title: 'Message',
+  //         subTitle: data['message'],
+  //         buttons: [{
+  //           text: 'OK',
+  //           handler: () => {
+  //             this.navCtrl.pop();
+  //           }
+  //         }]
+          
+  //       });
+  //       alert.present();
+  //     }
+  //     else if(data['code'] == 201){
+  //       let alert = this.alertCtrl.create({
+  //         title: 'Message',
+  //         subTitle: data['message'],
+  //         buttons: [{
+  //           text: 'OK',
+  //           handler: () => {
+  //             this.navCtrl.pop();
+  //           }
+  //         }]
+          
+  //       });
+  //       alert.present();
+  //     }
+  //   });
+
+    
+  // }
+
+  uploadFile() {
+    let loader = this.loadingCtrl.create({
+      content: "Uploading..."
+    });
+    loader.present();
+    const fileTransfer: FileTransferObject = this.transfer.create();
+  
+    let options: FileUploadOptions = {
+      fileKey: 'ionicfile',
+      fileName: 'ionicfile',
+      chunkedMode: false,
+      mimeType: "image/jpeg",
+      headers: {}
+    }
+  
+    fileTransfer.upload(this.imageURI, 'http://backend.theaffinityclub.com/api/auth/changepic', options)
+      .then((data) => {
+      console.log(data+" Uploaded Successfully");
+      this.imageFileName = "ionicfile.jpg"
+      loader.dismiss();
+      this.presentToast("Image uploaded successfully");
+    }, (err) => {
+      console.log(err);
+      loader.dismiss();
+      this.presentToast(err);
+    });
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
   }
 
 }
