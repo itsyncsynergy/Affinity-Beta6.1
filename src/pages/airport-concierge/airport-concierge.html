@@ -1,0 +1,762 @@
+
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}">Airport Concierge</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+  </ion-header>
+  
+<ion-content>
+    <ion-toolbar no-border-top color="royal">
+        <ion-segment [(ngModel)]="concierge">
+            <ion-segment-button color="royal" value="departure">
+                Departure
+            </ion-segment-button>
+            <ion-segment-button color="royal" value="arrival">
+                Arrival
+            </ion-segment-button>
+            <ion-segment-button color="royal" value="roundtrip">
+                Round Trip
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+
+    <div [ngSwitch]="concierge">
+      <!-- Departure Segment Starts here -->
+      <div *ngSwitchCase="'departure'">
+            <p padding-left="" margin-bottom="">Please fill out the form, and tick where appropriate</p>
+
+                    <ion-list>
+                           <ion-item>
+                                <ion-input type="text" value="{{data.customer_id}}" [(ngModel)]="customer_id" name="customer_id"></ion-input>
+                           </ion-item>
+                            <ion-item>
+                              <ion-label floating>Departure Airport</ion-label>
+                              <ion-select [(ngModel)]="dep_from" name="dep_from">
+                                <ion-option value="Abu Dhabi - Abu Dhabi International, UAE(AUH)">Abu Dhabi - Abu Dhabi International, UAE(AUH)</ion-option>
+                                <ion-option value="Abuja, Nnamdi Azikiwe, Nigeria (ABV)">Abuja, Nnamdi Azikiwe, Nigeria (ABV)</ion-option>
+                                <ion-option value="Accra - Accra, Ghana (ACC)">Accra - Accra, Ghana (ACC)</ion-option>
+                                <ion-option value="Atlanta - Hartsfield–Jackson, Georgia	(ATL)">Atlanta - Hartsfield–Jackson, Georgia (ATL)</ion-option>
+                                <ion-option value="Dubai - Dubai International, UAE (DXB)">Dubai - Dubai International, UAE (DXB)</ion-option>
+                                <ion-option value="Guangzhou - Guangzhou Baiyun, China (CAN)">Guangzhou - Guangzhou Baiyun, China (CAN)</ion-option>
+                                <ion-option value="Houston - Houston Intercontl, Texas	(IAH)">Houston - Houston Intercontl, Texas (IAH)</ion-option>
+                                <ion-option value="Istanbul - Ataturk International, Turkey 	(IST)">Istanbul - Ataturk International, Turkey
+                                  (IST)</ion-option>
+                                <ion-option value="Johannesburg - O.R Tambo International, South Africa	(JNB)">Johannesburg - O.R Tambo International,
+                                  South Africa (JNB)</ion-option>
+                                <ion-option value="Lagos - Murtala Muhammed, Nigeria	(LOS)">Lagos - Murtala Muhammed, Nigeria (LOS)</ion-option>
+                                <ion-option value="London – Heathrow, United Kingdom	(LHR)">London – Heathrow, United Kingdom (LHR)</ion-option>
+                                <ion-option value="London – Gatwick, United Kingdom 	(LGW)">London – Gatwick, United Kingdom (LGW)</ion-option>
+                                <ion-option value="London - London City, United Kingdom  	(LCY)">London - London City, United Kingdom (LCY)</ion-option>
+                                <ion-option value="New York - Kennedy, NY (JFK)">New York - Kennedy, NY (JFK)</ion-option>
+                                <ion-option value="Paris - Charles de Gaulle Airport, France (CDG)">Paris - Charles de Gaulle Airport, France
+                                  (CDG)</ion-option>
+                  
+                              </ion-select>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-label floating>Class</ion-label>
+                                <ion-select [(ngModel)]="depar_suite" name="depar_suite">
+                                      <ion-option value="Business Class">Business Class</ion-option>
+                                      <ion-option value="Economy Class">Economy Class</ion-option>
+                                      <ion-option value="First Class">First Class</ion-option>
+                                      <ion-option value="Premium Class">Premium Class</ion-option>
+                                      <ion-option value="Upper Class">Upper Class</ion-option>
+                                </ion-select>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-label floating>No of Passengers</ion-label>
+                                    <ion-select [(ngModel)]="depar_pass" name="depar_pass" interface="popover">
+                                      <ion-option selected value="1">1</ion-option>
+                                      <ion-option value="2">2</ion-option>
+                                      <ion-option value="3">3</ion-option>
+                                      <ion-option value="4">4</ion-option>
+                                      <ion-option value="5">5</ion-option>
+                                      <ion-option value="6">6</ion-option>
+                                      <ion-option value="7">7</ion-option>
+                                      <ion-option value="8">8</ion-option>
+                                      <ion-option value="9">9</ion-option>
+                                    </ion-select>
+                            </ion-item>
+
+                            <ion-row>
+                                        <ion-col col-6>
+                                          <ion-item>
+                                            <ion-label floating>Date</ion-label>
+                                            <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="expected_date" required></ion-datetime>
+                                          </ion-item>
+                                        </ion-col>
+                                        <ion-col col-6>
+                            
+                                          <ion-item>
+                                            <ion-label floating>Time</ion-label>
+                                            <ion-datetime displayFormat="h:mm:ss A" pickerFormat="h mm:ss A" [(ngModel)]="expected_time"></ion-datetime>
+                                          </ion-item>
+                                        </ion-col>
+                            </ion-row>
+                        
+                    </ion-list>
+                    <p text-center>Additional Services</p>
+                    <ion-list>
+                            
+                            <ion-item>
+                              <ion-label floating>Baggage Porters</ion-label>
+                              
+                              <ion-select [(ngModel)]="depar_porters" name="depar_porters" interface="popover">
+                                    <ion-option value="1">1</ion-option>
+                                    <ion-option value="2">2</ion-option>
+                                    <ion-option value="3">3</ion-option>
+                                    <ion-option value="4">4</ion-option>
+                                    <ion-option value="5">5</ion-option>
+                                    <ion-option value="6">6</ion-option>
+                                    <ion-option value="7">7</ion-option>
+                                    <ion-option value="8">8</ion-option>
+                                    <ion-option value="9">9</ion-option>
+                                </ion-select>
+                            </ion-item>
+                  
+                            <ion-item>
+                              <ion-label floating>Airport Lounge</ion-label>
+                              <ion-select [(ngModel)]="depar_lounge" name="depar_lounge" interface="popover">
+                                    <ion-option value="1">1</ion-option>
+                                    <ion-option value="2">2</ion-option>
+                                    <ion-option value="3">3</ion-option>
+                                    <ion-option value="4">4</ion-option>
+                                    <ion-option value="5">5</ion-option>
+                                    <ion-option value="6">6</ion-option>
+                                    <ion-option value="7">7</ion-option>
+                                    <ion-option value="8">8</ion-option>
+                                    <ion-option value="9">9</ion-option>
+                                </ion-select>
+                            </ion-item>
+                  
+                            <ion-item>
+                              <ion-label floating>Push Chairs (Infants)</ion-label>
+                              <ion-select [(ngModel)]="depar_push_chairs" name="depar_push_chairs" interface="popover">
+                                    <ion-option value="1">1</ion-option>
+                                    <ion-option value="2">2</ion-option>
+                                    <ion-option value="3">3</ion-option>
+                                    <ion-option value="4">4</ion-option>
+                                    <ion-option value="5">5</ion-option>
+                                    <ion-option value="6">6</ion-option>
+                                    <ion-option value="7">7</ion-option>
+                                    <ion-option value="8">8</ion-option>
+                                    <ion-option value="9">9</ion-option>
+                                </ion-select>
+                            </ion-item>
+                  
+                            <ion-item>
+                              <ion-label floating>Vallet</ion-label>
+                              <ion-select [(ngModel)]="depar_vallet" name="depar_vallet" interface="popover">
+                                    <ion-option value="1">1</ion-option>
+                                    <ion-option value="2">2</ion-option>
+                                    <ion-option value="3">3</ion-option>
+                                    <ion-option value="4">4</ion-option>
+                                    <ion-option value="5">5</ion-option>
+                                    <ion-option value="6">6</ion-option>
+                                    <ion-option value="7">7</ion-option>
+                                    <ion-option value="8">8</ion-option>
+                                    <ion-option value="9">9</ion-option>
+                                </ion-select>
+                            </ion-item>
+                  
+                            <ion-item>
+                              <ion-label floating>VAT Reclaim</ion-label>
+                              <ion-select [(ngModel)]="depar_vat_reclaim" name="depar_vat_reclaim" interface="popover">
+                                    <ion-option value="1">1</ion-option>
+                                    <ion-option value="2">2</ion-option>
+                                    <ion-option value="3">3</ion-option>
+                                    <ion-option value="4">4</ion-option>
+                                    <ion-option value="5">5</ion-option>
+                                    <ion-option value="6">6</ion-option>
+                                    <ion-option value="7">7</ion-option>
+                                    <ion-option value="8">8</ion-option>
+                                    <ion-option value="9">9</ion-option>
+                                </ion-select>
+                              
+                            </ion-item>
+                  
+                            <ion-item>
+                              <ion-label floating>Chaffeur</ion-label>
+                              <ion-select [(ngModel)]="depar_chaffeur" name="depar_chaffeur" interface="popover">
+                                    <ion-option value="1">1</ion-option>
+                                    <ion-option value="2">2</ion-option>
+                                    <ion-option value="3">3</ion-option>
+                                    <ion-option value="4">4</ion-option>
+                                    <ion-option value="5">5</ion-option>
+                                    <ion-option value="6">6</ion-option>
+                                    <ion-option value="7">7</ion-option>
+                                    <ion-option value="8">8</ion-option>
+                                    <ion-option value="9">9</ion-option>
+                                </ion-select>
+                            </ion-item>
+                  
+                            <ion-item>
+                              
+                              <ion-label floating>Prearranged gifts</ion-label>
+                              <ion-select [(ngModel)]="depar_gifts" name="depar_gifts" interface="popover">
+                                    <ion-option value="1">1</ion-option>
+                                    <ion-option value="2">2</ion-option>
+                                    <ion-option value="3">3</ion-option>
+                                    <ion-option value="4">4</ion-option>
+                                    <ion-option value="5">5</ion-option>
+                                    <ion-option value="6">6</ion-option>
+                                    <ion-option value="7">7</ion-option>
+                                    <ion-option value="8">8</ion-option>
+                                    <ion-option value="9">9</ion-option>
+                                </ion-select>
+                            </ion-item>
+
+                            <ion-item>
+                                    <ion-label floating>Others</ion-label>
+                                    <ion-textarea [(ngModel)]="depar_others" name="depar_others"></ion-textarea>
+                            </ion-item>
+
+                            <ion-row>
+                                    <ion-col text-center>
+                                      <button ion-button color="default" (click)="sendDeparture()">
+                                        SUBMIT
+                                      </button>
+                                    </ion-col>
+                            </ion-row>
+                  
+                          </ion-list>
+            
+      </div>
+      <!-- Departure Segment Ends here -->
+      
+      <!-- Arrival Segment Starts here -->
+      <div *ngSwitchCase="'arrival'">
+            <p padding-left="" margin-bottom="">Please fill out the form, and tick where appropriate</p>
+        <ion-list>
+               
+            <ion-item>
+                    <ion-label floating>Arrival Aiport</ion-label>
+                    <ion-select [(ngModel)]="arrival_to" name="arrival_to">
+                      <ion-option value="Abu Dhabi - Abu Dhabi International, UAE(AUH)">Abu Dhabi - Abu Dhabi International, UAE(AUH)</ion-option>
+                      <ion-option value="Abuja, Nnamdi Azikiwe, Nigeria (ABV)">Abuja, Nnamdi Azikiwe, Nigeria (ABV)</ion-option>
+                      <ion-option value="Accra - Accra, Ghana (ACC)">Accra - Accra, Ghana (ACC)</ion-option>
+                      <ion-option value="Atlanta - Hartsfield–Jackson, Georgia	(ATL)">Atlanta - Hartsfield–Jackson, Georgia (ATL)</ion-option>
+                      <ion-option value="Dubai - Dubai International, UAE (DXB)">Dubai - Dubai International, UAE (DXB)</ion-option>
+                      <ion-option value="Guangzhou - Guangzhou Baiyun, China (CAN)">Guangzhou - Guangzhou Baiyun, China (CAN)</ion-option>
+                      <ion-option value="Houston - Houston Intercontl, Texas	(IAH)">Houston - Houston Intercontl, Texas (IAH)</ion-option>
+                      <ion-option value="Istanbul - Ataturk International, Turkey 	(IST)">Istanbul - Ataturk International, Turkey
+                        (IST)</ion-option>
+                      <ion-option value="Johannesburg - O.R Tambo International, South Africa	(JNB)">Johannesburg - O.R Tambo International,
+                        South Africa (JNB)</ion-option>
+                      <ion-option value="Lagos - Murtala Muhammed, Nigeria	(LOS)">Lagos - Murtala Muhammed, Nigeria (LOS)</ion-option>
+                      <ion-option value="London – Heathrow, United Kingdom	(LHR)">London – Heathrow, United Kingdom (LHR)</ion-option>
+                      <ion-option value="London – Gatwick, United Kingdom 	(LGW)">London – Gatwick, United Kingdom (LGW)</ion-option>
+                      <ion-option value="London - London City, United Kingdom  	(LCY)">London - London City, United Kingdom (LCY)</ion-option>
+                      <ion-option value="New York - Kennedy, NY (JFK)">New York - Kennedy, NY (JFK)</ion-option>
+                      <ion-option value="Paris - Charles de Gaulle Airport, France (CDG)">Paris - Charles de Gaulle Airport, France
+                        (CDG)</ion-option>
+        
+                    </ion-select>
+            </ion-item>
+
+            <ion-item>
+                    <ion-label floating>Class</ion-label>
+                    <ion-select [(ngModel)]="arrival_suite" name="arrival_suite">
+                      <ion-option value="Business Class">Business Class</ion-option>
+                      <ion-option value="Economy Class">Economy Class</ion-option>
+                      <ion-option value="First Class">First Class</ion-option>
+                      <ion-option value="Premium Class">Premium Class</ion-option>
+                      <ion-option value="Upper Class">Upper Class</ion-option>
+        
+                    </ion-select>
+            </ion-item>
+
+            <ion-item>
+                    <ion-label floating>No of Passengers</ion-label>
+                    <ion-select [(ngModel)]="arrival_pass" name="arrival_pass" interface="popover">
+                      <ion-option value="1">1</ion-option>
+                      <ion-option value="2">2</ion-option>
+                      <ion-option value="3">3</ion-option>
+                      <ion-option value="4">4</ion-option>
+                      <ion-option value="5">5</ion-option>
+                      <ion-option value="6">6</ion-option>
+                      <ion-option value="7">7</ion-option>
+                      <ion-option value="8">8</ion-option>
+                      <ion-option value="9">9</ion-option>
+                    </ion-select>
+            </ion-item>
+            <ion-row>
+                    <ion-col col-6>
+                      <ion-item>
+                        <ion-label floating>Date</ion-label>
+                        <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="arrival_date"></ion-datetime>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+        
+                      <ion-item>
+                        <ion-label floating>Time</ion-label>
+                        <ion-datetime displayFormat="h:mm:ss A" pickerFormat="h mm:ss A" [(ngModel)]="arrival_time"></ion-datetime>
+                      </ion-item>
+                    </ion-col>
+            </ion-row>
+        </ion-list>
+            <p text-center>Additional Services</p>
+        <ion-list>
+                <ion-item>
+                        <ion-label floating>Baggage Porters</ion-label>
+                        
+                        <ion-select [(ngModel)]="arrival_porters" name="arrival_porters" interface="popover">
+                              <ion-option value="1">1</ion-option>
+                              <ion-option value="2">2</ion-option>
+                              <ion-option value="3">3</ion-option>
+                              <ion-option value="4">4</ion-option>
+                              <ion-option value="5">5</ion-option>
+                              <ion-option value="6">6</ion-option>
+                              <ion-option value="7">7</ion-option>
+                              <ion-option value="8">8</ion-option>
+                              <ion-option value="9">9</ion-option>
+                          </ion-select>
+                      </ion-item>
+            
+                      <ion-item>
+                        <ion-label floating>Airport Lounge</ion-label>
+                        <ion-select [(ngModel)]="arrival_lounge" name="arrival_lounge" interface="popover">
+                              <ion-option value="1">1</ion-option>
+                              <ion-option value="2">2</ion-option>
+                              <ion-option value="3">3</ion-option>
+                              <ion-option value="4">4</ion-option>
+                              <ion-option value="5">5</ion-option>
+                              <ion-option value="6">6</ion-option>
+                              <ion-option value="7">7</ion-option>
+                              <ion-option value="8">8</ion-option>
+                              <ion-option value="9">9</ion-option>
+                          </ion-select>
+                      </ion-item>
+            
+                      <ion-item>
+                        <ion-label floating>Push Chairs (Infants)</ion-label>
+                        <ion-select [(ngModel)]="arrival_push_chairs" name="arrival_push_chairs" interface="popover">
+                              <ion-option value="1">1</ion-option>
+                              <ion-option value="2">2</ion-option>
+                              <ion-option value="3">3</ion-option>
+                              <ion-option value="4">4</ion-option>
+                              <ion-option value="5">5</ion-option>
+                              <ion-option value="6">6</ion-option>
+                              <ion-option value="7">7</ion-option>
+                              <ion-option value="8">8</ion-option>
+                              <ion-option value="9">9</ion-option>
+                          </ion-select>
+                      </ion-item>
+            
+                      <ion-item>
+                        <ion-label floating>Vallet</ion-label>
+                        <ion-select [(ngModel)]="arrival_vallet" name="arrival_vallet" interface="popover">
+                              <ion-option value="1">1</ion-option>
+                              <ion-option value="2">2</ion-option>
+                              <ion-option value="3">3</ion-option>
+                              <ion-option value="4">4</ion-option>
+                              <ion-option value="5">5</ion-option>
+                              <ion-option value="6">6</ion-option>
+                              <ion-option value="7">7</ion-option>
+                              <ion-option value="8">8</ion-option>
+                              <ion-option value="9">9</ion-option>
+                          </ion-select>
+                      </ion-item>
+            
+                      <ion-item>
+                        <ion-label floating>VAT Reclaim</ion-label>
+                        <ion-select [(ngModel)]="arrival_vat_reclaim" name="arrival_vat_reclaim" interface="popover">
+                              <ion-option value="1">1</ion-option>
+                              <ion-option value="2">2</ion-option>
+                              <ion-option value="3">3</ion-option>
+                              <ion-option value="4">4</ion-option>
+                              <ion-option value="5">5</ion-option>
+                              <ion-option value="6">6</ion-option>
+                              <ion-option value="7">7</ion-option>
+                              <ion-option value="8">8</ion-option>
+                              <ion-option value="9">9</ion-option>
+                          </ion-select>
+                        
+                      </ion-item>
+            
+                      <ion-item>
+                        <ion-label floating>Chaffeur</ion-label>
+                        <ion-select [(ngModel)]="arrival_chaffeur" name="arrival_chaffeur" interface="popover">
+                              <ion-option value="1">1</ion-option>
+                              <ion-option value="2">2</ion-option>
+                              <ion-option value="3">3</ion-option>
+                              <ion-option value="4">4</ion-option>
+                              <ion-option value="5">5</ion-option>
+                              <ion-option value="6">6</ion-option>
+                              <ion-option value="7">7</ion-option>
+                              <ion-option value="8">8</ion-option>
+                              <ion-option value="9">9</ion-option>
+                          </ion-select>
+                      </ion-item>
+            
+                      <ion-item>
+                        
+                        <ion-label floating>Prearranged gifts</ion-label>
+                        <ion-select [(ngModel)]="arrival_gifts" name="arrival_gifts" interface="popover">
+                              <ion-option value="1">1</ion-option>
+                              <ion-option value="2">2</ion-option>
+                              <ion-option value="3">3</ion-option>
+                              <ion-option value="4">4</ion-option>
+                              <ion-option value="5">5</ion-option>
+                              <ion-option value="6">6</ion-option>
+                              <ion-option value="7">7</ion-option>
+                              <ion-option value="8">8</ion-option>
+                              <ion-option value="9">9</ion-option>
+                          </ion-select>
+                      </ion-item>
+
+                      <ion-item>
+                              <ion-label floating>Others</ion-label>
+                              <ion-textarea [(ngModel)]="arrival_others" name="arrival_others"></ion-textarea>
+                      </ion-item>
+
+                      <ion-row>
+                            <ion-col text-center>
+                              <button ion-button color="default" (click)="sendArrival()">
+                                SUBMIT
+                              </button>
+                            </ion-col>
+                     </ion-row>
+            
+        </ion-list>
+
+      </div>
+      <!-- Arrival Segment Ends here -->
+
+      <!-- Round Trip Segment Starts here -->
+      <div *ngSwitchCase="'roundtrip'">
+            <p padding-left="" margin-bottom="">Please fill out the form, and tick where appropriate</p>
+            <ion-list>
+                <p padding-left>Flight 1</p>
+               
+                <ion-item>
+                        <ion-label floating>Departure Airport</ion-label>
+                        <ion-select [(ngModel)]="dep_from_1" name="round_from_1">
+                          <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                          <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                          <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                          <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                          <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                          <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                          <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                          <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                          <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                          <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                          <ion-option value="London [LHR]">London [LHR]</ion-option>
+                          <ion-option value="London [LGW]">London [LGW]</ion-option>
+                          <ion-option value="London [LCY]">London [LCY]</ion-option>
+                          <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                          <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+            
+                        </ion-select>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label floating>Arrival Aiport</ion-label>
+                        <ion-select [(ngModel)]="arrival_to_1" name="round_to_1">
+                          <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                          <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                          <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                          <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                          <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                          <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                          <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                          <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                          <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                          <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                          <ion-option value="London [LHR]">London [LHR]</ion-option>
+                          <ion-option value="London [LGW]">London [LGW]</ion-option>
+                          <ion-option value="London [LCY]">London [LCY]</ion-option>
+                          <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                          <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+                        </ion-select>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label floating>Class</ion-label>
+                        <ion-select [(ngModel)]="round_suite_1" name="round_suite_1">
+                          <ion-option value="Business Class">Business Class</ion-option>
+                          <ion-option value="Economy Class">Economy Class</ion-option>
+                          <ion-option value="First Class">First Class</ion-option>
+                          <ion-option value="Premium Class">Premium Class</ion-option>
+                          <ion-option value="Upper Class">Upper Class</ion-option>
+            
+                        </ion-select>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label floating>No of Passengers</ion-label>
+                        <ion-select [(ngModel)]="round_passengers_1" name="round_passengers_1" interface="popover">
+                          <ion-option value="1">1</ion-option>
+                          <ion-option value="2">2</ion-option>
+                          <ion-option value="3">3</ion-option>
+                          <ion-option value="4">4</ion-option>
+                          <ion-option value="5">5</ion-option>
+                          <ion-option value="6">6</ion-option>
+                          <ion-option value="7">7</ion-option>
+                          <ion-option value="8">8</ion-option>
+                          <ion-option value="9">9</ion-option>
+                        </ion-select>
+            
+                </ion-item>
+
+                <ion-row>
+                        <ion-col col-6>
+                          <ion-item>
+                            <ion-label floating>Date</ion-label>
+                            <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="round_expected_date_1"></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col col-6>
+            
+                          <ion-item>
+                            <ion-label floating>Time</ion-label>
+                            <ion-datetime displayFormat="h:mm:ss A" pickerFormat="h mm:ss A" [(ngModel)]="round_expected_time_1"></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                </ion-row>
+                <br>
+                <p padding-left>Flight 2</p>
+                <ion-item>
+                        <ion-label floating>Departure Airport</ion-label>
+                        <ion-select [(ngModel)]="dep_from_2" name="round_from_2" required="">
+                          <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                          <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                          <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                          <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                          <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                          <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                          <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                          <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                          <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                          <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                          <ion-option value="London [LHR]">London [LHR]</ion-option>
+                          <ion-option value="London [LGW]">London [LGW]</ion-option>
+                          <ion-option value="London [LCY]">London [LCY]</ion-option>
+                          <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                          <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+                        </ion-select>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label floating>Arrival Airport</ion-label>
+                        <ion-select [(ngModel)]="arrival_to_2" name="round_to_2" required="">
+                          <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                          <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                          <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                          <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                          <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                          <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                          <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                          <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                          <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                          <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                          <ion-option value="London [LHR]">London [LHR]</ion-option>
+                          <ion-option value="London [LGW]">London [LGW]</ion-option>
+                          <ion-option value="London [LCY]">London [LCY]</ion-option>
+                          <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                          <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+                        </ion-select>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label floating>Class</ion-label>
+                        <ion-select [(ngModel)]="round_suite_2" name="round_suite_2" required="">
+                          <ion-option value="Business Class">Business Class</ion-option>
+                          <ion-option value="Economy Class">Economy Class</ion-option>
+                          <ion-option value="First Class">First Class</ion-option>
+                          <ion-option value="Premium Class">Premium Class</ion-option>
+                          <ion-option value="Upper Class">Upper Class</ion-option>
+            
+                        </ion-select>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label floating>No of Passengers</ion-label>
+                        <ion-select [(ngModel)]="round_passengers_2" name="round_passengers_2" required="" interface="popover">
+                          <ion-option value="1">1</ion-option>
+                          <ion-option value="2">2</ion-option>
+                          <ion-option value="3">3</ion-option>
+                          <ion-option value="4">4</ion-option>
+                          <ion-option value="5">5</ion-option>
+                          <ion-option value="6">6</ion-option>
+                          <ion-option value="7">7</ion-option>
+                          <ion-option value="8">8</ion-option>
+                          <ion-option value="9">9</ion-option>
+                        </ion-select>
+                </ion-item>
+
+                <ion-row>
+                        <ion-col col-6>
+                          <ion-item>
+                            <ion-label floating>Date</ion-label>
+                            <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="round_expected_date_2" required></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col col-6>
+            
+                          <ion-item>
+                            <ion-label floating>Time</ion-label>
+                            <ion-datetime displayFormat="h:mm:ss A" pickerFormat="h mm:ss A" [(ngModel)]="round_expected_time_2" required></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                </ion-row>
+
+
+            </ion-list>
+
+            <p text-center>Additional Services</p>
+
+            <ion-list>
+
+                    <ion-item>
+                      <ion-label floating>Baggage Porters</ion-label>
+                      <ion-select [(ngModel)]="round_porters" name="round_porters" interface="popover">
+                          <ion-option value="1">1</ion-option>
+                          <ion-option value="2">2</ion-option>
+                          <ion-option value="3">3</ion-option>
+                          <ion-option value="4">4</ion-option>
+                          <ion-option value="5">5</ion-option>
+                          <ion-option value="6">6</ion-option>
+                          <ion-option value="7">7</ion-option>
+                          <ion-option value="8">8</ion-option>
+                          <ion-option value="9">9</ion-option>
+                      </ion-select>
+                    </ion-item>
+          
+                    <ion-item>
+                      <ion-label floating>Airport Lounge</ion-label>
+                      <ion-select [(ngModel)]="round_lounge" name="round_lounge" interface="popover">
+                            <ion-option value="1">1</ion-option>
+                            <ion-option value="2">2</ion-option>
+                            <ion-option value="3">3</ion-option>
+                            <ion-option value="4">4</ion-option>
+                            <ion-option value="5">5</ion-option>
+                            <ion-option value="6">6</ion-option>
+                            <ion-option value="7">7</ion-option>
+                            <ion-option value="8">8</ion-option>
+                            <ion-option value="9">9</ion-option>
+                        </ion-select>
+                    </ion-item>
+          
+                    <ion-item>
+                     
+                      <ion-label floating>Push Chairs (Infants)</ion-label>
+                      <ion-select [(ngModel)]="round_push_chairs" name="round_push_chairs" interface="popover">
+                            <ion-option value="1">1</ion-option>
+                            <ion-option value="2">2</ion-option>
+                            <ion-option value="3">3</ion-option>
+                            <ion-option value="4">4</ion-option>
+                            <ion-option value="5">5</ion-option>
+                            <ion-option value="6">6</ion-option>
+                            <ion-option value="7">7</ion-option>
+                            <ion-option value="8">8</ion-option>
+                            <ion-option value="9">9</ion-option>
+                        </ion-select>
+                    </ion-item>
+          
+                    <ion-item>
+                      
+                      <ion-label floating>Vallet</ion-label>
+                      <ion-select [(ngModel)]="round_vallet" name="round_vallet" interface="popover">
+                            <ion-option value="1">1</ion-option>
+                            <ion-option value="2">2</ion-option>
+                            <ion-option value="3">3</ion-option>
+                            <ion-option value="4">4</ion-option>
+                            <ion-option value="5">5</ion-option>
+                            <ion-option value="6">6</ion-option>
+                            <ion-option value="7">7</ion-option>
+                            <ion-option value="8">8</ion-option>
+                            <ion-option value="9">9</ion-option>
+                        </ion-select>
+                    </ion-item>
+          
+                    <ion-item>
+                      
+                      <ion-label floating>VAT Reclaim</ion-label>
+                      <ion-select [(ngModel)]="round_vat_reclaim" name="round_vat_reclaim" interface="popover">
+                            <ion-option value="1">1</ion-option>
+                            <ion-option value="2">2</ion-option>
+                            <ion-option value="3">3</ion-option>
+                            <ion-option value="4">4</ion-option>
+                            <ion-option value="5">5</ion-option>
+                            <ion-option value="6">6</ion-option>
+                            <ion-option value="7">7</ion-option>
+                            <ion-option value="8">8</ion-option>
+                            <ion-option value="9">9</ion-option>
+                        </ion-select>
+                    </ion-item>
+          
+                    <ion-item>
+                     
+                      <ion-label floating>Chaffeur</ion-label>
+                      <ion-select [(ngModel)]="round_chaffeur" name="round_chaffeur" interface="popover">
+                            <ion-option value="1">1</ion-option>
+                            <ion-option value="2">2</ion-option>
+                            <ion-option value="3">3</ion-option>
+                            <ion-option value="4">4</ion-option>
+                            <ion-option value="5">5</ion-option>
+                            <ion-option value="6">6</ion-option>
+                            <ion-option value="7">7</ion-option>
+                            <ion-option value="8">8</ion-option>
+                            <ion-option value="9">9</ion-option>
+                        </ion-select>
+                    </ion-item>
+          
+                    <ion-item>
+
+                      <ion-label floating>Prearranged gifts</ion-label>
+                      <ion-select [(ngModel)]="round_gifts" name="round_gifts" interface="popover">
+                            <ion-option value="1">1</ion-option>
+                            <ion-option value="2">2</ion-option>
+                            <ion-option value="3">3</ion-option>
+                            <ion-option value="4">4</ion-option>
+                            <ion-option value="5">5</ion-option>
+                            <ion-option value="6">6</ion-option>
+                            <ion-option value="7">7</ion-option>
+                            <ion-option value="8">8</ion-option>
+                            <ion-option value="9">9</ion-option>
+                        </ion-select>
+                    </ion-item>
+
+                    <ion-item>
+                            <ion-label floating>Others services, if any</ion-label>
+                            <ion-textarea [(ngModel)]="round_others" name="round_others"></ion-textarea>
+                    </ion-item>
+
+                    <ion-row>
+                            <ion-col text-center>
+                              <button ion-button color="default" (click)="sendRoundTrip()">
+                                SUBMIT
+                              </button>
+                            </ion-col>
+                    </ion-row>
+           
+                  </ion-list>
+      </div>
+      <!-- Round Trip Segment Ends here -->
+
+    </div>
+</ion-content>

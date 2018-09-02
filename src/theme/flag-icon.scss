@@ -1,0 +1,7 @@
+//@import "variables";
+$flag-icon-css-path: '/assets/css' !default;
+$flag-icon-rect-path: '/flags/4x3' !default;
+$flag-icon-square-path: '/flags/1x1' !default;
+@import "flag-icon-base";
+@import "flag-icon-list";
+@import "flag-icon-more";

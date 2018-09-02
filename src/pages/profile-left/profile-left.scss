@@ -1,0 +1,137 @@
+page-profile-left {
+    @include settingAnimationHeader;
+  @-webkit-keyframes color-change {
+    0% {
+      color: #FFFFFF !important;
+    }
+
+    100% {
+      color: #FFFFFF !important;
+    }
+  }
+  .elastic-header2 {
+    filter: blur(50px);
+    -webkit-filter: blur(50px);
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: -1;
+  }
+  #contents-header{
+    filter: blur(0px);
+    -webkit-filter: blur(0px);
+  }
+  .ion-page > ion-content {
+    background-color: #FFFFFF !important;
+  }
+  #elastic-header .button-outline-md {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FFFFFF !important;
+    color: #FFFFFF !important;
+  }
+  #elastic-header .button-outline-ios{
+    border-width: 1px;
+    border-style: solid;
+    border-color: #FFFFFF !important;
+    color: #FFFFFF !important;
+  }
+
+  
+  [icon-medium] {
+    color: #FFFFFF !important;
+    font-size: 32px !important;
+  }
+  ion-label {
+    margin: 5px 8px 5px 0 !important;
+  }
+
+  ion-row {
+    background-color: #FFFFFF !important;
+    width: 100% !important;
+    
+  }
+  .list-ios > .item-block {
+    border-top: 0.55px solid #c8c7cc;
+  }
+  .list-ios .item-block .item-inner {
+    border-bottom: 0.01px solid transparent !important;
+  }
+  .toolbar-ios {
+    min-height: 64px;
+  }
+    .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default {
+    color: #FFFFFF;
+    background-color: transparent;
+    }
+  .toolbar-background-ios {
+    background: transparent !important;
+    }
+  .content-ios .scroll-content {
+    top: -64px !important;
+  }
+
+  .active .back-button,
+  .active .toolbar-title {
+    color: theme-colors('textColors', 'accent') !important;
+    animation-name: color-change;
+    animation-duration: 400ms;
+  }
+
+  .back-button,
+  .toolbar-title {
+    color: #FFFFFF !important;
+  }
+
+  .scroll-content {
+    top: -56px;
+  }
+
+  [background-size] {
+   // @include darkening-blend-mode;
+    height: 300px;
+
+
+    [parallax-title] {
+      color: color($parallaxPage, parallax-title-basic);
+      z-index: 99999;
+      position: relative;
+    }
+
+    [parallax-subtitle] {
+      color: color($parallaxPage, parallax-subtitle-basic);
+      z-index: 99999;
+      position: relative;
+    }
+
+    
+    [item-title] {
+    color: #6A0608 !important;
+    font-size: 14px !important;
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+
+
+
+    ion-thumbnail {
+      opacity: 1 !important;
+      z-index: 99999;
+      position: relative;
+
+      img {
+        border-radius: 50% !important;
+        height: 92px;
+        width: 92px;
+        margin: 50px auto 0;
+
+      }
+    }
+  }
+}
+
+.ion-page > ion-content {
+  background-color: white;
+}

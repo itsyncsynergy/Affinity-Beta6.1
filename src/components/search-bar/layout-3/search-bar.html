@@ -1,0 +1,57 @@
+<!-- Theme Search Field + Header 2 -->
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon>
+          <ion-avatar class="avatar">
+            <img [src]="user_image_link" style="height: 32px; border-radius: 50% !important;">
+          </ion-avatar>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  
+    <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
+  
+  </ion-navbar>
+  <ion-toolbar no-padding>
+    <div header-section>
+      <!-- Header Big Title -->
+      <h1 *ngIf="data != null" no-margin header-title>{{data.title}}</h1>
+      <div class="search-bar-bcg">
+        <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onEvent('onTextChange', $event)"></ion-searchbar>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<!--Content -->
+<ion-content>
+  <ion-grid no-padding>
+    <ion-row>
+      <!-- List Search-->
+      <ion-col col-12 *ngIf="data != null">
+        <!-- Content List -->
+        <ion-list no-margin>
+          <ion-item border no-lines *ngFor="let item of data.items;" (click)="onEvent('onItemClick', item)">
+            <div gradient item-start>
+              <img images-filter [src]="item.avatar">
+            </div>
+            <!--Title -->
+            <h2 ion-text item-title text-wrap>{{item.title}}</h2>
+            <!--Subtitle -->
+            <p ion-text item-subtitle text-wrap>{{item.subtitle}}</p>
+            <ion-note item-end>
+              {{item.detail}}
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,60 @@
+page-membership-option-details {
+    .item-ios {
+        padding-left: 1px !important;
+        border-radius: 0;
+        position: relative;
+        font-size: 1.7rem;
+        color: #000;
+        background-color: white;
+        -webkit-transition: background-color 200ms linear;
+        transition: background-color 200ms linear;
+    }
+
+    .item-ios .radio-ios[item-left], .item-ios .radio-ios[item-start] {
+        margin: 8px 8px 8px 3px !important;
+    }
+
+    [item-title] {
+        font-size: 15px !important;
+    }
+
+    [item-subtitle] {
+        font-size: 12px !important;
+    }
+
+    .title-components {
+        color: #6A0608 !important;
+        font-size: 18px;
+        font-weight: 500;
+        clear: both;
+        display: block;
+        margin: 20px 0;
+        text-align: left;
+    }
+
+    .item-block:first-child {
+        border-top: none !important;
+    }
+
+    .item-block:last-child {
+        border-bottom: none !important;
+    }
+
+    .button-round-ios {
+        border-radius: 64px !important;
+        padding: 0 2.6rem !important;
+    }
+
+    .list-ios .item-block .item-inner {
+        border-bottom: none !important;
+    }
+
+    .button-inner {
+        font-size: 12px !important;
+        font-weight: normal !important;
+    }
+
+    ion-list {
+        margin: -1px 0 5px !important;
+    }
+}

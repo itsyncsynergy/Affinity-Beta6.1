@@ -1,0 +1,35 @@
+<!-- Themes Login + logo 2 -->
+<ion-content no-bounce *ngIf="data != null" background-size [ngStyle]="{'background-color': '#FFFFFF'}">
+  <ion-grid *ngIf="data != null" [ngStyle]="{'background-color': '#FFFFFF', 'margin-top': '20px'}">
+    <ion-row padding-horizontal align-self-center>
+      <ion-col align-self-start col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'margin-bottom': '10px'}">
+      
+        <button ion-button text-capitalize button-clear clear float-right (click)="dismiss()"><i icon-medium class="icon icon-close"
+            [ngStyle]="{'color': '#6A0608 !important'}"></i></button>
+      </ion-col>
+
+      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="">
+        <!-- Header Title -->
+        <div class="title-components">Essence Member</div>
+        <p class="example-p">This is example of paragraph text.<br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+          do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+          laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+      </ion-col>
+      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="">
+        <div class="title-components">Features:</div>
+        <p class="example-p">This is example of paragraph text.<br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+          do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+          laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </ion-col>
+      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+        <div class="title-components">Amount:</div>
+        <h4 class="example-h3">N 300,000</h4>
+
+
+      </ion-col>
+
+      <!---End Share Section-->
+    </ion-row>
+  </ion-grid>
+</ion-content>

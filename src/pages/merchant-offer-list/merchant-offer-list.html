@@ -1,0 +1,61 @@
+<!--- Theme Parallax - Profile -->
+<ion-header header-ios>
+    <ion-navbar no-border-bottom>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon>
+                    <ion-avatar class="avatar">
+                        <img [src]="user_image_link" style="height: 32px; border-radius: 50% !important;">
+                    </ion-avatar>
+                </ion-icon>
+            </button>
+        </ion-buttons>
+    
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+    
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+            </button>
+        </ion-buttons>
+    
+    </ion-navbar>
+</ion-header>
+<!-- Content -->
+<ion-content elastic-header>
+    <div padding background-size *ngIf="headerImage != null" id="elastic-header" [ngStyle]="{'background-image': 'url(' + headerImage + ')'}">
+        <ion-thumbnail *ngIf="data != null">
+            <img [src]="base_url + data.avatar" />
+        </ion-thumbnail>
+    </div>
+    <div *ngIf="headerImage == null">
+        <div *ngIf="data != null" padding background-size class="elastic-header2" id="elastic-header" [ngStyle]="{'background-image': 'url(' + base_url + data.avatar + ')'}"></div>
+        <div padding background-size id="elastic-header" [ngStyle]="{'z-index': '99999', 'position': 'relative'}">
+            <ion-thumbnail *ngIf="data != null">
+                <img [src]="base_url + data.avatar" />
+            </ion-thumbnail>
+        </div>
+    </div>
+    
+    <maps-layout-2 [data]="params.data" [events]="params.events">
+    </maps-layout-2>
+    <ion-fab middle right #fab>
+        <button ion-fab>
+            <ion-icon name="pricetag"></ion-icon>
+        </button>
+        <ion-fab-list side="top">
+            <button ion-fab color="vimeo" (click)="openSocial('Vimeo', fab)">
+                <ion-icon name="logo-vimeo"></ion-icon>
+            </button>
+            <button ion-fab color="google" (click)="openSocial('Google+', fab)">
+                <ion-icon name="logo-googleplus"></ion-icon>
+            </button>
+            <button ion-fab color="twitter" (click)="openSocial('Twitter', fab)">
+                <ion-icon name="logo-twitter"></ion-icon>
+            </button>
+            <button ion-fab color="facebook" (click)="openSocial('Facebook', fab)">
+                <ion-icon name="logo-facebook"></ion-icon>
+            </button>
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

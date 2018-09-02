@@ -1,0 +1,22 @@
+export interface IRoundtrip {
+  from_1: string,
+  to_1:string,
+  suite_1: string,
+  passengers_1: string,
+  expected_date_1: string,
+  expected_time_1: string,
+  from_2: string,
+  to_2:string,
+  suite_2: string,
+  passengers_2: string,
+  expected_date_2: string,
+  expected_time_2: string,
+  Baggage_Porters: any,
+  Airport_Lounge: any,
+  Push_Chairs: any,
+  Vallet:any,
+  VAT_Reclaim: any,
+  Chaffeur:any,
+  Prearranged_gifts: any,
+  others: string
+}

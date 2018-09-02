@@ -1,0 +1,33 @@
+<!-- Themes Login + logo 2 -->
+<ion-content no-bounce has-header *ngIf="data != null" background-size [ngStyle]="{'background-color': '#FFFFFF'}">
+  <ion-grid *ngIf="data != null" [ngStyle]="{'background-color': '#FFFFFF', 'margin-top': '20px'}">
+    <ion-row padding-horizontal align-self-center>
+      <ion-col align-self-start col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'margin-bottom': '50px'}">
+
+        <button ion-button text-capitalize button-clear clear float-right (click)="dismiss()">
+          <i icon-medium class="icon icon-close" [ngStyle]="{'color': '#6A0608 !important'}"></i>
+        </button>
+      </ion-col>
+      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'margin-bottom': '50px', 'text-align': 'center'}">
+        <!-- Header Title -->
+        <i icon-large-lock icon-large class="icon icon-lock" [ngStyle]="{'color': '#6A0608 !important'}"></i>
+        <h4 ion-text full text-uppercase register-title text-wrap>{{data.title}}</h4>
+        <p>Let’s help you reset it, all we need your
+          <br> registered email to send you pasword reset</p>
+      </ion-col>
+      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 form>
+        <!---Input field username-->
+        <ion-item transparent>
+          <ion-input required placeholder="{{data.labelUsername}}" type="text" [(ngModel)]="username"></ion-input>
+          <ion-label error-field no-margin *ngIf="!isUsernameValid">{{data.errorUser}}</ion-label>
+        </ion-item>
+
+        <!---Login button-->
+        <button ion-button default-button block text-uppercase box-shadow (click)="onEvent('onLogin')" [ngStyle]="{'margin-top': '50px', 'text-align': 'center'}">{{data.login}}</button>
+
+      </ion-col>
+
+      <!---End Share Section-->
+    </ion-row>
+  </ion-grid>
+</ion-content>

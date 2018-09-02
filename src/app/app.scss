@@ -1,6 +1,74 @@
-// http://ionicframework.com/docs/theming/
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
 
 
+// Name of the next breakpoint, or null for the last breakpoint.
+//
+//    >> breakpoint-next(sm)
+//    md
+//    >> breakpoint-next(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    md
+//    >> breakpoint-next(sm, $breakpoint-names: (xs sm md lg xl))
+//    md
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+
+// Maximum breakpoint width. Null for the largest (last) breakpoint.
+// The maximum value is calculated as the minimum of the next one less 0.1.
+//
+//    >> breakpoint-max(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    767px
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+  @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+
+
+// Creates text alignment classes based on screen size
+// TODO this would be nice to add to the framework
+@each $breakpoint in map-keys($grid-breakpoints) {
+  $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+    // Provide text `[text-{bp}]` attributes for aligning text based on screen size
+    [text#{$infix}-center] {
+      text-align: center;
+    }
+
+    [text#{$infix}-left] {
+      text-align: left;
+    }
+
+    [text#{$infix}-right] {
+      text-align: right;
+    }
+
+    [hidden#{$infix}-up] {
+      display: none;
+    }
+  }
+
+  @include media-breakpoint-down($breakpoint, $grid-breakpoints) {
+    [hidden#{$infix}-down] {
+      display: none;
+    }
+  }
+}
+
+// http://ionicframework.com/docs/v2/theming/
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +82,114 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+// Settings Style Main Meni
+[header-background-image] {
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    
+
+    @include darkening-blend-mode;
+    [header-title] {
+        padding-right: 10%;
+        z-index: 99999;
+        font-weight: bold;
+        color: theme-colors('textColors', 'secondaryBase') !important;
+        position: relative;
+    }
+    img {
+        position: relative;
+        display: block;
+        padding-top: 24px;
+        max-width: 60px;
+        z-index: 99999;
+        position: relative;
+    }
+    p {
+        font-size: 14px !important;
+        color: theme-colors('textColors', 'secondaryBase');
+        z-index: 99999;
+        position: relative;
+    }
+}
+[header-background-image] {
+  height: 250px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+
+  
+  [header-title] {
+    padding-right: 10%;
+    color: #fff;
+    padding: 0;
+    z-index: 999;
+    font-weight: bold !important;
+    margin-top: 40px;
+    line-height: 23px;
+    align-items: flex-end;
+    display: flex;
+    flex: 1;
+  }
+
+  img {
+    position: relative;
+    padding-top: 24px;
+    max-width: 185px;
+    z-index: 999;
+    display: flex;
+    align-self: end;
+  }
+}
+
+.header-ios {
+  [class^="icon-"]:before, [class*=" icon-"]:before {
+      width: 24px !important;
+      margin-right: 0 !important;
+  }
+}
+
+[main-menu], [sub-menu] {
+  [class^="icon-"]:before,
+  [class*=" icon-"]:before {
+    color: theme-colors('textColors', 'accent');
+  }
+
+  .item-inner {
+    margin-left: 6px !important;
+  }
+
+  ion-label {
+    font-weight: 300;
+  }
+}
+
+
+// Settings Icon Header
+ion-header {
+  [class^="icon-"]:before, [class*=" icon-"]:before {
+    width: auto !important;
+    margin-left: 0 !important;
+  }
+}
+
+// Settings Style distance icon text
+[main-menu] .item-inner {
+    margin-left: 6px !important;
+}
+
+[text-capitalize] {
+    text-transform: uppercase !important;
+}
+
+.item-block-menu {
+  min-height: 6.4rem !important;
+}
+ion-list {
+margin: -1px 0 45px !important;
+}
+

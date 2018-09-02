@@ -1,0 +1,91 @@
+<!--
+  Generated template for the FlightBookingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar no-border-bottom>
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+            </button>
+        </ion-buttons>
+       
+
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon>
+                    <ion-avatar class="avatar">
+                        <img [src]="user_image_link" style="height: 32px; border-radius: 50% !important;">
+                    </ion-avatar>
+                </ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-input type="hidden" value="{{data.customer_id}}" [(ngModel)]="customer_id" name="customer_id"></ion-input>
+    <ion-item>
+      <ion-label floating>Request Type</ion-label>
+      <ion-select [(ngModel)]="request_type" required>
+        <ion-option>NES</ion-option>
+        <ion-option>Nintendo64</ion-option>
+        <ion-option>PlayStation</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Preferred Cabin</ion-label>
+      <ion-select [(ngModel)]="cabin" required>
+        <ion-option>Economy</ion-option>
+        <ion-option>Premium Economy</ion-option>
+        <ion-option>Upper Class</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>No of Passengers</ion-label>
+      <ion-select [(ngModel)]="num_pass" name="num_pass" required interface="popover">
+          <ion-option selected value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+          <ion-option value="6">6</ion-option>
+          <ion-option value="7">7</ion-option>
+          <ion-option value="8">8</ion-option>
+          <ion-option value="9">9</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Start Date</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="ex_date" required></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Start Time</ion-label>
+      <ion-datetime displayFormat="h:mm:ss A" pickerFormat="h mm:ss A" [(ngModel)]="ex_time" required></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Info</ion-label>
+      <ion-textarea [(ngModel)]="info" name="info"></ion-textarea>
+    </ion-item>
+    
+  
+  </ion-list>
+  
+  <div padding>
+    <button ion-button round full block (click)="submit()">SUBMIT</button>
+  </div>
+</ion-content>

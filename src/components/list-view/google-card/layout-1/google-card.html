@@ -1,0 +1,46 @@
+<!--Theme Google Card - Full Image Cards-->
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon>
+          <ion-avatar class="avatar">
+            <img [src]="user_image_link" style="height: 32px; border-radius: 50% !important;">
+          </ion-avatar>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  
+    <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
+  
+  </ion-navbar>
+
+
+</ion-header>
+<ion-content>
+  <ion-grid no-padding *ngIf="data != null">
+    <ion-row card-background-page style=" padding-bottom: 5rem;">
+      <ion-col col-12 col-md-6 col-lg-4 *ngFor="let item of data.items;" (click)="onEvent('onItemClick', {id: item.category_id, cate_title: item.cate_title})">
+        <ion-card>
+          <img-loader *ngIf="item.images != null" [src]="base_url + item.images"></img-loader> 
+          <img-loader *ngIf="item.avatar != null" [src]="base_url + item.avatar"></img-loader>
+          <!--- Big Title -->
+          <img src="{{item.image}}" />
+          <h2 card-title>{{item.title}}</h2>
+          <!--- Big Title -->
+          <h2 card-title>{{item.cate_title}}</h2>
+          <!-- Description -->
+          <h3 card-subtitle>{{item.subtitle}}</h3>
+          <!-- Description -->
+          <h3 card-subtitle>{{item.description}}</h3>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,35 @@
+<!-- #Theme Google Maps - Full Screen Views -->
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon>
+          <ion-avatar class="avatar">
+            <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png" style="height: 32px;">
+          </ion-avatar>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  
+    <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
+  
+  </ion-navbar>
+</ion-header>
+<!--Content -->
+<ion-content>
+  <div header-section *ngIf="data != null">
+    <!-- Content Big Title -->
+    <h1 header-title no-margin padding-left text-wrap>{{data.title}}</h1>
+  </div>
+  <agm-map *ngIf="data != null" [latitude]="data.map.lat" [longitude]="data.map.lng" [zoom]="data.map.zoom" [mapTypeControl]="data.map.mapTypeControl"
+    [streetViewControl]="data.map.streetViewControl">
+    <agm-marker [latitude]="data.map.lat" [longitude]="data.map.lng">
+    </agm-marker>
+  </agm-map>
+</ion-content>

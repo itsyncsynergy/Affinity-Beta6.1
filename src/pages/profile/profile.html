@@ -1,0 +1,166 @@
+<!--- Theme Parallax - Profile -->
+<ion-header header-ios>
+  <ion-navbar no-border-bottom>
+    <ion-buttons right>
+      <button ion-button clear icon-only (click)="appSettings()">
+        <ion-icon name="ios-cog-outline">
+        </ion-icon>
+      </button>
+    </ion-buttons>
+
+
+    <ion-buttons left>
+      <button ion-button clear (click)="dismiss()">
+        <ion-icon name="ios-arrow-back-outline">
+        </ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+<!-- Content -->
+<ion-content elastic-header no-bounce>
+  
+  <div>
+    <div padding background-size class="elastic-header2" id="elastic-header" [ngStyle]="{'background-image': 'url(' + base_url + data.avatar + ')'}"></div>
+    <div padding background-size id="elastic-header" [ngStyle] = "{'z-index': '99999', 'position': 'relative'}">
+      <ion-thumbnail *ngIf="data != null">
+        <img [src]="base_url + data.avatar" />
+      </ion-thumbnail>
+      <!-- Parallx Title -->
+      <h1 text-center [ngStyle]="{'font-size': '20px', 'color': '#FFFFFF'}" *ngIf="data != null">{{data.title}}</h1>
+      <!-- Parallx Subtitle -->
+      <div class="block-insert" text-center>
+        <button button-clear-outline outline ion-button (click)="edit()">Edit Profile</button>
+        <button button-clear-outline outline ion-button style="padding: 1px !important;">
+          <ion-icon icon-medium name="ios-mail-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <ion-row>
+    <ion-segment [(ngModel)]="profile" color="primary" (ionChange)="segmentChanged($event)" [ngStyle] = "{'background-color': '#FFFFF'}">
+      <ion-segment-button value="interest" (click)="showInterest()">
+         <p>Interest</p>
+      </ion-segment-button>
+      <ion-segment-button value="redemption" (click)="showRedemption()">
+         <p>Redemption</p>
+      </ion-segment-button>
+      <ion-segment-button value="activities" (click)="showActivities()">
+         <p>Activities</p>
+      </ion-segment-button>
+      <ion-segment-button value="membership" (click)="showMembership()">
+         <p>Membership</p>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-row>
+  <ion-row>
+    <ion-row ng-switch-when="interest" id="interest">
+      <ion-col *ngIf="data.interests != null" col-12 [ngStyle]= "{'max-height': '250px', 'margin-top': '4rem', 'margin-bottom': '4rem'}">
+        <b *ngFor="let interest of data.interests; let i= index">
+          <button default-button button-clear-outline outline round ion-button interest-button [id]="interest.group_id+ '_0'" val="0"
+            (click)="toggleInterestButton(interest.group_id+'_0', interest.group_id+'_1', interest.group_id, 1)" [ngStyle]="{'display': 'none'}">{{interest.name}}</button>
+          <button default-button ion-button round interest-button [id]="interest.group_id+ '_1'" (click)="toggleInterestButton(interest.group_id+'_1', interest.group_id+'_0', interest.group_id, 0)"
+            >{{interest.name}}</button>
+        </b>
+      </ion-col>
+      <ion-col *ngIf="data.interests == null" col-12>
+        <div description text-center >
+          <p>You have not yet selected any interest
+          </p>
+        </div>
+      </ion-col>
+      
+      <ion-col col-12>
+        <div description text-center>
+          <p>{{subscription.expiry_message}}
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row ng-switch-when="redemption" id="redemption" [ngStyle]="{'display': 'none'}">
+      <ion-col col-12>
+
+        <ion-list *ngIf="data.redemptions != null"  [ngStyle]="{'min-width': '100%'}">
+          <ion-item *ngFor="let item of data.redemptions;">
+            <button ion-item (click)="openPage(p)">
+               {{item.tagline + ' @ ' + item.name}}
+            </button>
+          </ion-item>
+          
+        </ion-list>
+        <div description text-center *ngIf="data.redemptions == null">
+          <p>You have not yet made any redemption
+          </p>
+        </div>
+      </ion-col>
+      <ion-col col-12 bottom>
+        <div description text-center>
+          <p>{{subscription.expiry_message}}
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row ng-switch-when="activities" id="activities" [ngStyle]="{'display': 'none'}">
+      <ion-col col-12>
+      
+        <ion-list *ngIf="data.activities != null" [ngStyle]="{'min-width': '100%'}">
+          <ion-item *ngFor="let item of data.activities;">
+            <button ion-item (click)="openPage(p)">
+              {{item.name + ' | ' + item.Spain}}
+            </button>
+          </ion-item>
+        </ion-list>
+        <div description text-center *ngIf="data.activities == null">
+          <p>You have not yet have any activities
+          </p>
+        </div>
+      </ion-col>
+      <ion-col col-12 bottom>
+        <div description text-center>
+          <p>{{subscription.expiry_message}}
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row ng-switch-when="membership" id="membership" [ngStyle]="{'display': 'none'}">
+      <ion-col col-12>
+        <ion-list [ngStyle]="{'min-width': '100%'}">
+          <ion-item>
+            <button ion-item (click)="openPage(p)">
+              Subscription
+            </button>
+          </ion-item>
+          <ion-item>
+            <button ion-item>
+              Renew
+            </button>
+          </ion-item>
+          <ion-item>
+            <button ion-item>
+              Change Plan
+            </button>
+          </ion-item>
+          <ion-item>
+            <button ion-item>
+              Upgrade
+            </button>
+          </ion-item>
+          <ion-item>
+            <button ion-item>
+              My Card
+            </button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col col-12>
+        <div description text-center>
+          <p>Your subscription expires on July 20, 2018
+          </p>
+        </div>
+      </ion-col>
+    </ion-row>
+    
+  </ion-row>
+  
+</ion-content>

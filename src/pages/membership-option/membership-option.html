@@ -1,0 +1,65 @@
+<!-- Themes Login + logo 2 -->
+<ion-content no-bounce *ngIf="data != null" background-size [ngStyle]="{'background-color': '#FFFFFF'}">
+  <ion-grid *ngIf="data != null" [ngStyle]="{'background-color': '#FFFFFF', 'margin-top': '20px'}">
+    <ion-row padding-horizontal align-self-center>
+
+      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'text-align': 'center'}">
+        <!-- Header Title -->
+        <div class="title-components">Select membership option:</div>
+        <ion-list radio-group [(ngModel)]="data.selectedItem">
+          <div *ngFor="let item of data.items; let i= index" style=" display: flex;">
+            <ion-col col-8>
+              <ion-item>
+                <ion-radio item-start [value]="item.id" (ionSelect)="select(item)"></ion-radio>
+                <!--Content Title-->
+                <ion-label item-title>{{item.title}}</ion-label>
+                <!--Content Subtitle-->
+              </ion-item>
+            </ion-col>
+            <ion-col col-4 style=" margin-top: 15px;">
+              <a item-end text-right item-subtitle (click)="membershipOptionDetails(item)">{{item.subtitle}}</a>
+            </ion-col>
+          </div>
+
+
+        </ion-list>
+
+      </ion-col>
+
+
+
+      <!---End Share Section-->
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="data.interests != null" col-12 [ngStyle]="{'min-height': '250px', 'max-height': '250px', 'overflow': 'hidden'}">
+        <div class="title-components" [ngStyle]="{'margin-bottom': '4px'}">Select interest:</div>
+
+        <b *ngFor="let interest of data.interests; let i= index">
+          <button default-button button-clear-outline outline round ion-button interest-button [id]="interest.group_id+ '_0'" val="0"
+            (click)="toggleInterestButton(interest.group_id+'_0', interest.group_id+'_1', interest.group_id, 1)">{{interest.name}}</button>
+          <button default-button ion-button round interest-button [id]="interest.group_id+ '_1'" (click)="toggleInterestButton(interest.group_id+'_1', interest.group_id+'_0', interest.group_id, 0)"
+            [ngStyle]="{'display': 'none'}">{{interest.name}}</button>
+        </b>
+
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+        <p>Show more...</p>
+      </ion-col>
+    </ion-row>
+    <ion-row padding-horizontal align-self-center position="bottom">
+      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+        <!---Input field username-->
+        <div class="block-insert" text-center>
+          <button default-button full ion-button>PAY NOW</button>
+        </div>
+        <div class="block-insert" text-center>
+          <button clear full ion-button (click)="skip()">SKIP</button>
+        </div>
+
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

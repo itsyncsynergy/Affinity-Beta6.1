@@ -1,0 +1,46 @@
+<!--- Theme Parallax - Profile -->
+<ion-header header-ios>
+  <ion-navbar no-border-bottom>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon>
+          <ion-avatar class="avatar">
+            <img [src]="user_image_link" style="height: 32px; border-radius: 50% !important;">
+          </ion-avatar>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  
+    <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
+  
+  </ion-navbar>
+</ion-header>
+<!-- Content -->
+<ion-content elastic-header>
+  <div padding background-size id="elastic-header" [ngStyle]="{'background-image': 'url(' + headerImage + ')'}">
+    <ion-thumbnail *ngIf="data != null">
+      <img [src]="data.avatar" />
+    </ion-thumbnail>
+    <!-- Parallx Title -->
+    <h2 text-center parallax-title *ngIf="data != null">{{data.title}}</h2>
+    <!-- Parallx Subtitle -->
+    <h3 text-center parallax-subtitle *ngIf="data != null">{{data.subtitle}}</h3>
+  </div>
+  <ion-list *ngIf="data != null">
+    <ion-item border no-lines *ngFor="let item of data.items;let i = index" (click)="onEvent('onItemClick', item)">
+      <ion-thumbnail item-start>
+        <img [src]="item.avatar" />
+      </ion-thumbnail>
+      <h2 item-title>{{item.title}}</h2>
+      <h3 item-subtitle text-wrap>{{item.subtitle}}</h3>
+      <button ion-button icon-only text-capitalize button-clear item-end clear (click)="onEvent('onItemClick', item)"><ion-icon name="ios-arrow-forward-outline"></ion-icon></button>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

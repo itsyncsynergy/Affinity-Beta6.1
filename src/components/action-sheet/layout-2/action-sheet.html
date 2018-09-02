@@ -1,0 +1,54 @@
+<!-- Theme Action Sheet - News -->
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon>
+          <ion-avatar class="avatar">
+            <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png" style="height: 32px;">
+          </ion-avatar>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  
+    <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
+  
+  </ion-navbar>
+</ion-header>
+<!-- Content -->
+<ion-content elastic-header>
+  <ion-item no-lines background-size id="elastic-header" [ngStyle]="{'background-image': 'url(' + headerImage + ')'}">
+    <div title-block *ngIf="data != null">
+      <!-- New-category -->
+      <span new-category>{{data.category}}</span>
+      <!-- Parallax-title -->
+      <h1 parallax-title text-wrap>{{data.title}}</h1>
+    </div>
+  </ion-item>
+  <ion-item-group *ngIf="data != null">
+    <ion-item-divider border no-lines>
+        <!-- Avatar-->
+      <ion-avatar item-start>
+        <img [src]="data.avatar" />
+      </ion-avatar>
+      <!-- Item-subtitle -->
+      <h2 item-subtitle>{{data.subtitle}}</h2>
+      <!-- Action Sheet Button-->
+      <button item-end ion-button button-action-shit (click)="presentActionSheet(data)">
+          <ion-icon name="{{data.shareIcon}}"></ion-icon>
+      </button>
+    </ion-item-divider>
+    <ion-item no-margin no-lines *ngFor="let item of data.items;let i = index">
+      <!-- Parallax-subtitle -->
+      <h2 parallax-subtitle margin-bottom text-wrap>{{item.title}}</h2>
+      <!-- Parallax-description -->
+      <p parallax-description text-wrap>{{item.subtitle}}</p>
+    </ion-item>
+  </ion-item-group>
+</ion-content>
