@@ -1,2 +1,133 @@
-<parallax-layout-3 [data]="params.data" [events]="params.events">
-</parallax-layout-3>
+<!-- <parallax-layout-3 [data]="params.data" [events]="params.events">
+</parallax-layout-3> -->
+
+<!--- Theme Parallax - Profile -->
+<ion-header header-ios>
+        <ion-navbar no-border-bottom>
+            <ion-buttons right>
+                <button ion-button icon-only (click)="presentFilter()">
+                    <ion-icon>
+                        <ion-avatar class="avatar">
+                            <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                        </ion-avatar>
+                    </ion-icon>
+                </button>
+            </ion-buttons>
+    
+            <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+    
+            <ion-buttons left>
+                <button ion-button menuToggle>
+                    <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+                </button>
+            </ion-buttons>
+    
+        </ion-navbar>
+    </ion-header>
+    <!-- Content -->
+    <ion-content elastic-header *ngIf="data != null">
+
+        <ion-row style="margin-top: 5rem; padding-bottom: 5rem;" *ngIf="data.gallery != null">
+            <!-- Theme Google Maps - Gmaps + Location  Details -->
+            <ion-grid no-padding>
+                <ion-list>
+                    <ion-row>
+                        <ion-slides *ngIf="data.gallery != null" #slider pager="true" zoom="true" autoplay="5000" loop="true" speed="1000" class="ion-slides">
+                            <ion-slide *ngFor="let item of data.gallery">
+                                <img [src]="base_url + item.image" class="slide-image" />
+                            </ion-slide>
+                        </ion-slides>
+                        <ion-col col-12 map-header>
+                            <ion-item lines no-padding>
+                                <!--Maps Title-->
+                                <h1 padding-left maps-title margin-top text-wrap>{{data.title}}</h1>
+                                <!--Parallax Rateing-->
+                                <div padding-left>
+                                    <!-- location goes here -->
+                                    <h3>{{data.address}}</h3>
+                                </div>
+                            </ion-item>
+                            <ion-item-divider border no-lines>
+                                <h2>Price:</h2>
+                                <h1 style="font-size: 1.7rem">{{data.price | currency:data.curr}}</h1>
+                                <!--- Button Share-->
+            
+                            </ion-item-divider>
+                            <ion-item-divider border no-lines>
+                                <!--- Avatar -->
+                                <h2>Supplier:</h2>
+                                <!-- Avatar Title -->
+                                <h3>{{data.supplier_name}}</h3>
+                                <!--- Button Share-->
+                            
+                            </ion-item-divider>
+                        </ion-col>
+                        <!---Content-->
+                        <ion-col col-12 map-content transparent>
+                            <ion-item-group>
+                                <ion-item border>
+                                    <div [innerHTML]="data.details" text-wrap></div>
+                                </ion-item>
+                            </ion-item-group>
+                        </ion-col>
+                        <ion-col text-center>
+                                <button ion-button default-button round block (click)="buy()">
+                                    <ion-icon name="ios-card"></ion-icon> Buy
+                                </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-list>
+            
+            </ion-grid>
+
+        </ion-row>
+
+        <ion-row *ngIf="data.gallery == null" style="margin-top: 16rem; padding-bottom: 5rem;" >
+            <ion-grid no-padding>
+                <ion-list>
+                    <ion-row>
+                            <ion-col col-12 map-header>
+                                    <ion-item lines no-padding>
+                                        <!--Maps Title-->
+                                        <h1 padding-left maps-title margin-top text-wrap>{{data.title}}</h1>
+                                        <!--Parallax Rateing-->
+                                        <div padding-left>
+                                            <!-- location goes here -->
+                                            <h3>{{data.address}}</h3>
+                                        </div>
+                                    </ion-item>
+                                    <ion-item-divider border no-lines>
+                                        <h2 item-subtitle>Price:</h2>
+                                        <h1>{{data.price | currency:data.curr}}</h1>
+                                        <!--- Button Share-->
+                    
+                                    </ion-item-divider>
+                                    <ion-item-divider border no-lines>
+                                        <!--- Avatar -->
+                                        <h2 item-subtitle>Supplier:</h2>
+                                        <!-- Avatar Title -->
+                                        <h2>{{data.supplier_name}}</h2>
+                                        <!--- Button Share-->
+                                    
+                                    </ion-item-divider>
+                                </ion-col>
+                                <!---Content-->
+                                <ion-col col-12 map-content transparent>
+                                    <ion-item-group>
+                                        <ion-item border>
+                                            <div [innerHTML]="data.details" text-wrap></div>
+                                        </ion-item>
+                                    </ion-item-group>
+                                </ion-col>
+                                <ion-col text-center>
+                                        <button ion-button default-button round block (click)="buy()">
+                                            <ion-icon name="ios-card"></ion-icon> Buy
+                                        </button>
+                                </ion-col>
+                    </ion-row>
+                </ion-list>
+
+            </ion-grid>
+        </ion-row>
+        
+    </ion-content>

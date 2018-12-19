@@ -6,6 +6,8 @@ import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 
 import { AffinityApp } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -78,6 +80,7 @@ import { InterestService } from '../services/interest.service';
     AffinityApp,
   ],
   providers: [
+    SocialSharing,
     StatusBar,
     SplashScreen,
     AuthService,

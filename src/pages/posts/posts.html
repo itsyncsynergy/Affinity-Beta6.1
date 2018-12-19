@@ -1,0 +1,53 @@
+
+<ion-header>
+    <ion-navbar no-border-bottom>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon>
+                    <ion-avatar class="avatar">
+                        <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                    </ion-avatar>
+                </ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content elastic-header>
+    <ion-item no-lines background-size id="elastic-header" [ngStyle]="{'background-image': 'url(' + base_url + headerImage + ')'}">
+        <div title-block *ngIf="data != null">
+            <h1 parallax-title text-wrap>{{data.group_name}}</h1>  
+        </div>
+    </ion-item> 
+    <div style=" padding-bottom: 5rem;">
+
+        <ion-item-group *ngIf="data != null">
+          <ion-list>
+            <ion-item-divider border>
+                <h2 class="item-subtitle">Date Posted: {{data.date | date: 'MMM d, y  h:mm a'}}</h2>
+            </ion-item-divider>
+            
+            <ion-item no-margin>
+              
+                <h2 parallax-subtitle margin-bottom text-wrap>Post</h2>
+                
+                <div [innerHTML]="data.post" text-wrap></div>
+               
+            </ion-item>
+            <!-- <img src="assets/images/logo/icon.gif"/> -->
+          </ion-list>
+        </ion-item-group>
+      </div>
+   
+
+</ion-content>

@@ -1,0 +1,31 @@
+<ion-header header-ios>
+    <ion-navbar no-border-bottom>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon>
+                    <ion-avatar class="avatar">
+                        <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                    </ion-avatar>
+                </ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-list *ngIf="data != null">
+        <button ion-item text-wrap *ngFor="let item of data.notification" (click)="itemSelected(item)">
+          {{ item.message }}
+        </button>  
+    </ion-list>
+</ion-content>

@@ -2,63 +2,50 @@
 <ion-content no-bounce *ngIf="data != null" background-size [ngStyle]="{'background-color': '#FFFFFF'}">
   <ion-grid *ngIf="data != null" [ngStyle]="{'background-color': '#FFFFFF', 'margin-top': '20px'}">
     <ion-row padding-horizontal align-self-center>
-
-      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'text-align': 'center'}">
-        <!-- Header Title -->
-        <div class="title-components">Select membership option:</div>
-        <ion-list radio-group [(ngModel)]="data.selectedItem">
-          <div *ngFor="let item of data.items; let i= index" style=" display: flex;">
-            <ion-col col-8>
-              <ion-item>
-                <ion-radio item-start [value]="item.id" (ionSelect)="select(item)"></ion-radio>
-                <!--Content Title-->
-                <ion-label item-title>{{item.title}}</ion-label>
-                <!--Content Subtitle-->
-              </ion-item>
-            </ion-col>
-            <ion-col col-4 style=" margin-top: 15px;">
-              <a item-end text-right item-subtitle (click)="membershipOptionDetails(item)">{{item.subtitle}}</a>
-            </ion-col>
-          </div>
+        <ion-card>
+            <ion-card-header text-capitalize>
+                MEMBERSHIP
+            </ion-card-header>
+            <ion-card-content>
+                Our memberships cater to the individuals who always love a good bargain to the luxury lifestyle connoisseurs and everyone in-between who appreciates simplicity, efficiency, confidentiality and a global coverage.<br>
+                Becoming a member of The Affinity Club paves the way to a lot of exclusive benefits. These benefits include Discounts and Deals, a Virtual Assistant and Errand Running Service, Travel Packages, Rentals, Luxe Shop and a host of other Bespoke Services. We are relentless in ensuring that we provide all membership levels with unmatched value.<br><br>
+                <strong>Our Membership is divided into 3:</strong>
 
 
-        </ion-list>
+            </ion-card-content>
+            <ion-card-header text-capitalize>
+               ESSENCE 
+            </ion-card-header>
+            <ion-card-content>
+                This membership tier embodies the very essence of The Affinity Club which is to help you save money. With this membership, you can access mouth-watering discounts at a wide variety of retailers & service providers; unique experiences, group activities & events.
+            </ion-card-content>
+            <ion-card-header text-capitalize>
+               PREMIUM 
+             </ion-card-header>
+             <ion-card-content>
+                This membership takes you a step higher by accessing you exclusive discounts & perks at high-end retailers and service providers including our partner airlines. Members can also take advantage of premium concierge services which we offer e.g. Affinity Virtual Assistant, tending to your every need and assisting in daily errands and lots more.
+             </ion-card-content>
+             <ion-card-header text-capitalize>
+                LUXE
+              </ion-card-header>
+              <ion-card-content text-wrap>
+                  As a Luxe member, you are privy to the most exclusive deals and happenings at home and abroad and this is made possible through a collaborative effort of the most seasoned travel, entertainment and lifestyle concierge experts worldwide.<br>
+                  There is a special chat box feature included in the app for our discerning Luxe members for 24/7/365 direct access to a lifestyle manager whose primary assignment is to ensure that you maximize the benefits available to you. There is no limit to the extent we’ll go to satisfy you. You will receive a highly tailored service that is proactive and pre-empts your needs.                  
+              </ion-card-content>
+          </ion-card>
 
-      </ion-col>
-
-
-
-      <!---End Share Section-->
     </ion-row>
-    <ion-row>
-      <ion-col *ngIf="data.interests != null" col-12 [ngStyle]="{'min-height': '250px', 'max-height': '250px', 'overflow': 'hidden'}">
-        <div class="title-components" [ngStyle]="{'margin-bottom': '4px'}">Select interest:</div>
 
-        <b *ngFor="let interest of data.interests; let i= index">
-          <button default-button button-clear-outline outline round ion-button interest-button [id]="interest.group_id+ '_0'" val="0"
-            (click)="toggleInterestButton(interest.group_id+'_0', interest.group_id+'_1', interest.group_id, 1)">{{interest.name}}</button>
-          <button default-button ion-button round interest-button [id]="interest.group_id+ '_1'" (click)="toggleInterestButton(interest.group_id+'_1', interest.group_id+'_0', interest.group_id, 0)"
-            [ngStyle]="{'display': 'none'}">{{interest.name}}</button>
-        </b>
-
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
-        <p>Show more...</p>
-      </ion-col>
-    </ion-row>
+    
     <ion-row padding-horizontal align-self-center position="bottom">
       <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
         <!---Input field username-->
         <div class="block-insert" text-center>
-          <button default-button full ion-button>PAY NOW</button>
+          <button default-button full ion-button (click)="pay()">PAY NOW</button>
         </div>
         <div class="block-insert" text-center>
-          <button clear full ion-button (click)="skip()">SKIP</button>
+          <button outline full ion-button (click)="skip()">SKIP</button>
         </div>
-
-
       </ion-col>
     </ion-row>
   </ion-grid>

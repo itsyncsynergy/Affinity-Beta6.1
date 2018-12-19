@@ -11,8 +11,6 @@ import { TravelsPage } from './travels';
     TravelsPage,
   ],
   imports: [ 
-     
-    
     IonicPageModule.forChild(TravelsPage),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController, LoadingController, ViewController, MenuController, Loading, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AuthService } from '../../services/authservice';
+import { CustomerService } from '../../services/customer.service';
 
 /**
  * Generated class for the VerifyEmailPage page.
@@ -56,7 +57,8 @@ export class VerifyEmailPage {
     public menu: MenuController,
     public storage: Storage,
     public authservice: AuthService,
-    private event: Events) {
+    private event: Events,
+    private customerService: CustomerService) {
     this.email = this.navParams.data.email;
     console.log(this.email);
     console.log('Hello ForgotLayoutComponent Component');
@@ -100,10 +102,37 @@ export class VerifyEmailPage {
     };
   }
 
+  resendCode(){
+    const loader = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />'
+    });
+    loader.present();
+    this.customerService.getList('resend_code/' + this.email).subscribe(response => {
+      if (response['error'] == false) {
+        loader.dismiss();
+        let alert = this.alertCtrl.create({
+          title: 'Verification!!!',
+          message: '<p class="emoji-text">Your Verification Code has been Sent to your Email</p>',
+          buttons: [{
+            text: 'OK',
+            handler: () => {
+              console.log('button pressed');
+            }
+          }] 
+        });
+        alert.present();
+        console.log(response);
+      }
+
+    })
+  }
+
   onSubmit() {
     this.menu.enable(false);
     let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
     });
     loading.present();
 
@@ -161,7 +190,7 @@ export class VerifyEmailPage {
                 this.enableMenu(true);
                 this.storage.set(this.HAS_LOGGED_IN, true);
                 loading.dismiss();
-                this.navCtrl.setRoot('MembershipOptionPage');
+                this.navCtrl.setRoot('MembershipInterestPage');
                 //give notification for successful verification
                 return;
                 //this.rootPage = Dashboard;
@@ -231,7 +260,7 @@ export class VerifyEmailPage {
 
     let alert = this.alertCtrl.create({
       //title: 'Login Failed',
-      subTitle: text,
+      message: text,
       buttons: ['OK']
     });
     alert.present();

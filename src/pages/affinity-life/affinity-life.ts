@@ -17,58 +17,28 @@ export class AffinityLifePage {
   params: any = {};
   loading: Loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
+  // set the root pages for each tab
+  tab1Root: string = 'VipAccessPage';
+  tab2Root: string = 'EventTicketsPage';
+  tab3Root: string = 'StylingPage';
+  tab4Root: string = 'BeyondPage';
+  mySelectedIndex: number;
 
-    this.params.data = {
-      "headerTitle": "Affinity Life",
-      "items": [
-        {
-          "id": '1',
-          "category_id": '1',
-          "title": "VIP Access",
-          "subtitle": "",
-          "avatar2": "assets/images/background/1.jpg"
-        },
-        {
-          "id": '2',
-          "category_id": '2',
-          "title": "Event Tickets",
-          "subtitle": "",
-          "avatar2": "assets/images/background/2.jpg"
-        },
-        {
-          "id": '3',
-          "category_id": '3',
-          "title": "Styling",
-          "subtitle": "",
-          "avatar2": "assets/images/background/3.jpg"
-        }
-      ]
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.mySelectedIndex = navParams.data.tabIndex || 0;
+
+    
+  }
+  swipeEvent(e) {
+    if(e.direction == '2'){
+       this.navCtrl.parent.select(2);
     }
-
-    this.params.events = {
-      'onTextChange': function (text: any) {
-        console.log("onTextChange");
-      },
-      'onItemClick': function (category_id) {
-        console.log(category_id);
-        navCtrl.push('AffinityLifeCategoriesPage', {
-          id: category_id.id,
-          title: category_id.cate_title + category_id.title
-        })
-      }
+    else if(e.direction == '4'){
+       this.navCtrl.parent.select(0);
     }
   }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad AffinityLifePage');
   }
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: '',
-      dismissOnPageChange: true
-    });
-    //this.loading.present();
-  }
-
+  
 }

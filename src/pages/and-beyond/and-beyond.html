@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <p padding-left="" margin-bottom="" text-center>Do you require any other services outside the services provided on this platform? Kindly fill out the details below and we will endeavour to fulfil your requests.</p>
+    <ion-list no-lines>
+        <form [formGroup]="beyond" (ngSubmit)="sendBeyond()">
+        
+            <ion-item>
+                <ion-label stacked>Details</ion-label>
+                <ion-textarea formControlName="details" rows="10"></ion-textarea>
+            </ion-item>
+
+            <ion-row>
+                <ion-col text-center>
+                  <button ion-button default-button round block type="submit" [disabled]="!beyond.valid">
+                    SUBMIT
+                  </button>
+                </ion-col>
+            </ion-row>
+        </form>
+    </ion-list>
+
+</ion-content>
+

@@ -1,0 +1,95 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <p text-center>Please fill out the form</p>
+  <ion-list>
+    <form [formGroup]="bridal" (ngSubmit)="sendBridal()">
+      <ion-list>
+          <ion-input type="hidden" value="{{data.customer_id}}" formControlName="customer_id"></ion-input>
+        <ion-item no-lines>
+              <ion-label stacked>Bride's Full Name</ion-label>
+              <ion-input type="text" formControlName="fullname"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Service Required</ion-label>
+            <ion-select formControlName="service">
+              <ion-option value="Engagement Photoshoot">Engagement Photoshoot</ion-option>
+              <ion-option value="Engagement Party">Engagement Party</ion-option>
+              <ion-option value="Bridal Shower">Bridal Shower</ion-option>
+              <ion-option value="Rehearsal Dinner">Rehearsal Dinner</ion-option>
+              <ion-option value="Dress Consultation">Dress Consultation</ion-option>
+              <ion-option value="Day of Wedding Styling">Day of Wedding Styling</ion-option>
+              <ion-option value="Day of Shopping">Day of Shopping</ion-option>
+              <ion-option value="Fittings">Fittings</ion-option>
+              <ion-option value="Honeymoon">Honeymoon</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item no-lines>
+            <ion-label stacked>Location</ion-label>
+            <ion-input type="text" formControlName="location"></ion-input>
+        </ion-item>
+        <ion-row>
+            <ion-col col-6>
+              <ion-item>
+                <ion-label stacked>Date</ion-label>
+                <ion-datetime displayFormat="YYYY MMM DD" formControlName="date"></ion-datetime>
+              </ion-item>
+            </ion-col>
+    
+            <ion-col col-6>
+              <ion-item>
+                <ion-label stacked>Time</ion-label>
+                <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="time" ></ion-datetime>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+        
+        <ion-item no-lines>
+          <ion-label stacked>Venue</ion-label>
+          <ion-input type="text" formControlName="venue"></ion-input>
+        </ion-item>
+
+        <ion-item no-lines>
+            <ion-label stacked>Where will you be getting ready ?</ion-label>
+            <ion-input type="text" formControlName="address"></ion-input>
+        </ion-item>
+      
+        <ion-item no-lines>
+            <ion-label stacked>Budget</ion-label>
+            <ion-input type="text" formControlName="budget"></ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <ion-row>
+        <ion-col text-center>
+          <button ion-button default-button round block [disabled]="!bridal.valid">
+            SUBMIT
+          </button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
+
+</ion-content>

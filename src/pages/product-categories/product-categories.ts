@@ -46,7 +46,7 @@ export class ProductCategoriesPage {
       'onItemClick': function (category_id) {
         console.log('got here 211')
         console.log(category_id.id);
-        navCtrl.push('MerchantOfferListPage', {
+        navCtrl.push('ProductPage', {
           id: category_id.id,
         })
       }
@@ -58,8 +58,8 @@ export class ProductCategoriesPage {
   }
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: '',
-      dismissOnPageChange: true
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
     });
     this.loading.present();
   }

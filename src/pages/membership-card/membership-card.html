@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+   
+</ion-header>
+
+
+<ion-content padding class="card-background-page">
+  <div *ngIf="data != null">
+      <ion-card *ngIf="data.membership == 'Essence'">
+          <img src="{{data.avatar1}}"/>
+          <div class="main-cont">
+              <div class="card-name"><strong>{{data.username}}</strong></div>
+              <div class="card-subname">{{data.customer_id}}</div>
+          </div>
+          <div class="left-cont">
+            <div>EXP</div>
+            <div>{{data.Exp_Date | date: 'M/yy'}}</div>
+
+          </div>
+          
+
+      </ion-card>
+
+      <ion-card *ngIf="data.membership == 'Luxe'">
+          <img src="{{data.avatar2}}"/>
+          <div class="main-cont">
+              <div class="card-name"><strong>{{data.username}}</strong></div>
+              <div class="card-subname">{{data.customer_id}}</div>
+          </div>
+          <div class="left-cont">
+            <div>EXP</div>
+            <div>{{data.Exp_Date | date: 'M/yy'}}</div>
+
+          </div>
+      </ion-card>
+
+      <ion-card *ngIf="data.membership == 'Premium'">
+          <img src="{{data.avatar3}}"/>
+          <div class="main-cont">
+              <div class="card-name"><strong>{{data.username}}</strong></div>
+              <div class="card-subname">{{data.customer_id}}</div>
+          </div>
+          <div class="left-cont">
+            <div>EXP</div>
+            <div>{{data.Exp_Date | date: 'M/yy'}}</div>
+
+          </div>
+      </ion-card>
+
+      <ion-card *ngIf="data.membership == null" style="background-color:#fff;">
+         <ion-card-content>
+           You don't have a membership plan yet
+         </ion-card-content>
+      </ion-card>
+
+  </div>
+</ion-content>

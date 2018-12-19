@@ -1,0 +1,87 @@
+<!--- Theme Parallax - Profile -->
+<ion-header header-ios>
+  <ion-navbar no-border-bottom>
+      <ion-buttons right>
+          <button ion-button icon-only (click)="presentFilter()">
+              <ion-icon>
+                  <ion-avatar class="avatar">
+                      <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                  </ion-avatar>
+              </ion-icon>
+          </button>
+      </ion-buttons>
+
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+      <ion-buttons left>
+          <button ion-button menuToggle>
+              <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+          </button>
+      </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+<!-- Content -->
+<ion-content elastic-header>
+  
+  <ion-item no-lines background-size id="elastic-header" [ngStyle]="{'background-image': 'url(' + base_url + headerImage + ')'}">
+      <div title-block *ngIf="data != null">
+         
+          <span new-category>{{data.category}}</span>
+          
+          <h1 parallax-title text-wrap>{{data.title}}</h1>
+      </div>
+  </ion-item>
+ 
+  <ion-row style=" padding-bottom: 5rem;">
+      <ion-item-group *ngIf="data != null" no-lines>
+          <ion-item-divider border no-lines>
+              <h2 class="item-subtitle">Price:</h2>
+              <h1>{{data.price | currency:data.curr}}</h1>
+          
+          </ion-item-divider>
+          <ion-item-divider border no-lines>
+              <!--- Avatar -->
+              <h2 class="item-subtitle">Location:</h2>
+              <!-- Avatar Title -->
+              <h2>{{data.address}}</h2>
+              <!--- Button Share-->
+          
+          </ion-item-divider>
+          <!-- Content -->
+          <ion-item no-margin no-lines>
+              <!-- Content Title-->
+              <h2 parallax-subtitle margin-bottom text-wrap>Details</h2>
+              <!-- Content Description-->
+              <p parallax-description text-wrap [innerHTML]="data.details"></p>
+          </ion-item>
+      </ion-item-group>
+      <!-- <ion-grid card-background-page no-padding *ngIf="data != null">
+          <ion-row>
+              <ion-col col-12 col-sm-4 col-md-6 col-lg-4 col-xl-3 *ngFor="let group of data.gallery.items;let i = index;">
+                  <ion-card background-size (click)="openSubGallery(data.gallery, i)" [ngStyle]="{'background-image': 'url(' + base_url + group.image + ')'}">
+                      <ion-card-content>
+                          <h2 gallery-title text-wrap>{{group.title}}</h2>
+                          <p gallery-subtitle text-wrap>{{group.subtitle}}</p>
+                      </ion-card-content>
+                  </ion-card>
+              </ion-col>
+          </ion-row>
+      </ion-grid> -->
+      <ion-col text-center *ngIf="data != null">
+            <button ion-button default-button round block (click)="request()">
+                <ion-icon name="md-checkmark-circle-outline"></ion-icon> Request Quote
+            </button>
+     </ion-col>
+  </ion-row>
+           <!-- <div *ngIf="data != null">
+            <ion-fab middle right #fab (tap)="request()">
+                <button ion-fab>
+                    <ion-icon name="md-checkmark-circle-outline"></ion-icon>
+                </button>
+            </ion-fab> 
+          </div> -->
+
+  
+ 
+</ion-content>

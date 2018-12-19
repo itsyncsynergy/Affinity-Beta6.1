@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, ModalController } from 'ionic-angular';
+import { AppSettings } from '../../app/appSettings';
 
 /**
  * Generated class for the DonateVolunteerPage page.
@@ -14,27 +15,32 @@ import { IonicPage, NavController, NavParams, Loading, LoadingController } from 
   templateUrl: 'donate-volunteer.html',
 })
 export class DonateVolunteerPage {
+  data: any = {};
   params: any = {};
   loading: Loading;
+  base_url: any = ""
+  user_image_link: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
+    this.base_url = AppSettings.BASE_URL;
+    this.user_image_link = this.base_url + localStorage.getItem('avatar');
 
-    this.params.data = {
-      "headerTitle": "Affinity Life",
+    this.data = {
+      "headerTitle": "Get Involved",
       "items": [
         {
           "id": '1',
           "category_id": '1',
           "title": "Volunteer",
           "subtitle": "",
-          "avatar2": "assets/images/background/volunteer.jpg"
+          "avatar2": "assets/images/background/volunteer/volunteer.jpg"
         },
         {
           "id": '2',
           "category_id": '2',
           "title": "Donate",
           "subtitle": "",
-          "avatar2": "assets/images/background/donate.jpg"
+          "avatar2": "assets/images/background/donate/donate_page.jpg"
         }
       ]
     }
@@ -54,15 +60,39 @@ export class DonateVolunteerPage {
     }
   }
 
+  ionViewDidEnter(){
+    this.base_url = AppSettings.BASE_URL;
+    this.user_image_link = this.base_url + localStorage.getItem('avatar');
+  }
+
+  pageClick(id) {
+    console.log(id);
+    if (id.id == 1) {
+      this.navCtrl.push('VolunteerPage')
+    } else if (id.id == 2) {
+      this.navCtrl.push('DonatePage')
+    } 
+  }
+
+  swipe(event){
+    if (event.direction == 4) {
+      this.navCtrl.parent.select(2);
+    }
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad DonateVolunteerPage');
   }
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: '',
-      dismissOnPageChange: true
     });
     //this.loading.present();
+  }
+  presentFilter() {
+    let modal = this.modalCtrl.create('ProfilePage');
+    modal.present();
+
   }
 
 }

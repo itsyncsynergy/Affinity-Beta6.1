@@ -1,8 +1,9 @@
-<livechat-widget licenseId="10053583"></livechat-widget>
+<livechat-widget licenseId="10236947" *ngIf="data.membership == 'Luxe'"></livechat-widget>
 <ion-tabs [selectedIndex]="mySelectedIndex" name="conference">
   <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="md-home"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="Social" tabIcon="md-contacts"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="Privileges" tabIcon="md-bowtie"></ion-tab>
   <ion-tab [root]="tab4Root" tabTitle="Redeem" tabIcon="md-pricetags"></ion-tab>
-  <ion-tab [root]="tab5Root" tabTitle="Affinity Life" tabIcon="md-ribbon"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="Luxe Life" tabIcon="md-ribbon"></ion-tab>
 </ion-tabs>
+

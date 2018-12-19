@@ -1,3 +1,64 @@
 page-verify-email {
-    
+    [has-header] .scroll-content {
+        top: 0px !important;
+    }
+
+
+    .label-md {
+        color: #030000 !important;
+    }
+
+    .label-ios {
+        color: #030000 !important;
+    }
+
+    p {
+        color: #030000 !important;
+    }
+
+    .item-label-stacked .text-input-md, .item-label-floating .text-input-md {
+        border-bottom: 1px #030000 solid !important;
+        border-radius: 4px;
+        background-color: #ffffff !important;
+        color: #030000;
+    }
+
+    .item-label-stacked .text-input-ios, .item-label-floating .text-input-ios {
+        border-bottom: 1px #030000 solid !important;
+        border-radius: 4px;
+        background-color: #ffffff !important;
+        color: #030000;
+    }
+
+    .item-label-stacked .text-input-md, .item-label-floating .text-input-md {
+        border-bottom: 1px solid #231010 !important;
+        border-top: 0px solid #231010 !important;
+        border-left: 0px solid #231010 !important;
+        border-right: 0px solid #231010 !important;
+        border-radius: 0px !important;
+       
+    }
+
+    .item-label-stacked .text-input-ios, .item-label-floating .text-input-ios {
+        border-bottom: 1px solid #231010 !important;
+        border-top: 0px solid #231010 !important;
+        border-left: 0px solid #231010 !important;
+        border-right: 0px solid #231010 !important;
+        border-radius: 0px !important;
+       
+    }
+
+    .resend {
+        text-transform: capitalize !important;
+    }
+
+    .button-ios {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.10), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.10);
+    }
+
+    .button-small-ios {
+        height: 2.1em;
+        font-size: 1.3rem;
+        padding: 0 0.9em;
+    }
 }

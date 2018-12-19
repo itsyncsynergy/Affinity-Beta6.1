@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { AppSettings } from '../../app/appSettings';
 
 @IonicPage()
 @Component({
@@ -13,7 +14,9 @@ export class FullScreenGallery {
     public isLocked: boolean = false;
     sliderOptions: any;
     pagar:any;
+    base_url: any = "";
     constructor(public navCtrl: NavController, navParams: NavParams) {
+      this.base_url = AppSettings.BASE_URL;
       this.sliderOptions = {
         pager: true
       };

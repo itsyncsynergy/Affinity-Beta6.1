@@ -1,0 +1,30 @@
+<!--Full gallery component-->
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
+
+
+    <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">Images</ion-title>
+
+    <ion-buttons right>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon>
+          <ion-avatar class="avatar">
+            <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+          </ion-avatar>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+
+</ion-header>
+
+<ion-content>
+  <full-screen-gallery [data]="params.data"></full-screen-gallery>
+</ion-content>

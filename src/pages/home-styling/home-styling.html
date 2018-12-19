@@ -1,0 +1,118 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p text-center>Please fill out the form</p>
+    <ion-list>
+      <form [formGroup]="homes" (ngSubmit)="sendHome()">
+          <ion-list>
+              <ion-input type="hidden" value="{{data.customer_id}}" formControlName="customer_id"></ion-input>
+            <ion-item>
+              <ion-label stacked>Project Type</ion-label>
+              <ion-select formControlName="project_type">
+                  <ion-option value="Home/Residential">Home/Residential</ion-option>
+                  <ion-option value="Office">Office</ion-option>
+                  <ion-option value="Others">Others</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item no-lines>
+              <ion-label stacked>Others Please Specify</ion-label>
+              <ion-input type="text" formControlName="other"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+              <ion-label stacked>Location</ion-label>
+              <ion-input type="text" formControlName="location"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Service Interested</ion-label>
+                <ion-select formControlName="service">
+                  <ion-option value="E-design">E-design</ion-option>
+                  <ion-option value="Full service Interior design">Full service Interior design</ion-option>
+                  <ion-option value="Full Service Design + Project management">Full Service Design + Project management</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item no-lines>
+              <ion-label stacked>List of Rooms</ion-label>
+              <ion-input type="text" formControlName="list_of_rooms"></ion-input>
+            </ion-item>
+
+            <ion-item no-lines>
+                <ion-label stacked>General Scope</ion-label>
+                <ion-input type="text" formControlName="general_scope"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label stacked>Involvement Level</ion-label>
+                <ion-select formControlName="inv_level">
+                  <ion-option value="High Level & Biggest Ticket Decisions">High Level & Biggest Ticket Decisions</ion-option>
+                  <ion-option value="Review & Approve Every Item">Review & Approve Every Item</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item no-lines>
+              <ion-label stacked text-wrap>Expectations with regards working with an interior design team?</ion-label>
+              <ion-input type="text" formControlName="expectations"></ion-input>
+            </ion-item>
+
+            <ion-item no-lines>
+              <ion-label stacked><ion-icon name="calendar" item-start></ion-icon>Timeline</ion-label>
+              <ion-input id="demo-non-form" formControlName="date" mbsc-range [mbsc-options]="rangeCenterSettings"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label stacked>Preferred Style</ion-label>
+              <ion-select formControlName="preffered_style">
+                  <ion-option value="Modern">Modern</ion-option>
+                  <ion-option value="Contemporary">Contemporary</ion-option>
+                  <ion-option value="Minimalist">Minimalist</ion-option>
+                  <ion-option value="Industrial">Industrial</ion-option>
+                  <ion-option value="mid-century modern">Mid-century modern</ion-option>
+                  <ion-option value="scandinavian">Scandinavian</ion-option>
+                  <ion-option value="traditional">Traditional</ion-option>
+                  <ion-option value="transitional">Transitional</ion-option>
+                  <ion-option value="french county">French county</ion-option>
+                  <ion-option value="Bohemian">Bohemian</ion-option>
+                  <ion-option value="rustic">Rustic</ion-option>
+                  <ion-option value="shabby chic">Shabby chic</ion-option>
+                  <ion-option value="hollywood glam">Hollywood glam</ion-option>
+                  <ion-option value="coastal/hamptons">Coastal/Hamptons</ion-option>
+              </ion-select>
+            </ion-item>
+          
+            <ion-item no-lines>
+                <ion-label stacked>Budget</ion-label>
+                <ion-input type="text" formControlName="budget"></ion-input>
+            </ion-item>
+      
+          </ion-list>
+      
+          <ion-row>
+            <ion-col text-center>
+              <button ion-button default-button round block [disabled]="!homes.valid">
+                SUBMIT
+              </button>
+            </ion-col>
+          </ion-row>
+      </form>
+    </ion-list>
+
+</ion-content>

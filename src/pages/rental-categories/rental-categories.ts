@@ -46,8 +46,9 @@ export class RentalCategoriesPage {
       'onItemClick': function (category_id) {
         console.log('got here 211')
         console.log(category_id.id);
-        navCtrl.push('MerchantOfferListPage', {
+        navCtrl.push('RentalListPage', {
           id: category_id.id,
+          cate_name: category_id.cate_title
         })
       }
     }
@@ -58,8 +59,8 @@ export class RentalCategoriesPage {
   }
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: '',
-      dismissOnPageChange: true
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
     });
     this.loading.present();
   }

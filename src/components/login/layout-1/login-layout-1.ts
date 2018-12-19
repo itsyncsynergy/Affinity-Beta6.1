@@ -131,7 +131,8 @@ export class LoginLayout1 {
         this.menu.enable(false)
         
         let loading = this.loadingCtrl.create({
-            content: 'Please wait...'
+            spinner: 'hide',
+            content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
         });
         loading.present();
         if (!this.validate()) {
@@ -227,13 +228,15 @@ export class LoginLayout1 {
                     this.showError("Wrong Credentials");
                 }
                 console.log("Wrong Credentials");
-                this.showError("Something went wrong. Try again");
+                loading.dismiss();
+                this.showError("Your Account is inactive. Contact the Administrator");
+                return;
 
             });
 
         }
         
-
+    
     }
 
     getDetails(id) {
@@ -271,7 +274,8 @@ export class LoginLayout1 {
 
     showLoading() {
         this.loading = this.loadingCtrl.create({
-            content: '',
+            spinner: 'hide',
+            content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
             dismissOnPageChange: true
         });
         this.loading.present();
@@ -282,7 +286,7 @@ export class LoginLayout1 {
 
         let alert = this.alertCtrl.create({
             //title: 'Login Failed',
-            subTitle: text,
+            message: text,
             buttons: ['OK']
         });
         alert.present();
@@ -292,7 +296,7 @@ export class LoginLayout1 {
 
         let alert = this.alertCtrl.create({
             title: 'Password Recovery',
-            subTitle: text,
+            message: text,
             buttons: ['OK']
         });
         alert.present();
@@ -300,7 +304,7 @@ export class LoginLayout1 {
 
 
     signUp() {
-        this.navCtrl.setRoot('SignupPage');
+        this.navCtrl.push('SignupPage');
     }
 
     verifyEmail(email) {

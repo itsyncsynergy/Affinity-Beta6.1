@@ -93,6 +93,7 @@ export class LoginPage {
                   window.localStorage.setItem('user', this.user);
                   window.localStorage.setItem('customer_id', this.user.details_id);
                   window.localStorage.setItem('username', this.user.username);
+                  window.localStorage.setItem('phone', this.user.phone);
 
                   this.events.publish('user:signedIn', this.customer);
 
@@ -189,18 +190,20 @@ export class LoginPage {
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Logging in...',
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
       dismissOnPageChange: true
     });
     this.loading.present();
   }
+ 
 
   showError(text) {
     this.loading.dismiss();
 
     let alert = this.alertCtrl.create({
       title: 'Login Failed',
-      subTitle: text,
+      message: text,
       buttons: ['OK']
     });
     alert.present();
@@ -210,7 +213,7 @@ export class LoginPage {
 
     let alert = this.alertCtrl.create({
       title: 'Password Recovery',
-      subTitle: text,
+      message: text,
       buttons: ['OK']
     });
     alert.present();

@@ -25,6 +25,16 @@
           
           {{p.title}}
         </button>
+
+        <button ion-item item-block-menu menuClose (click)="openPrivacy()">
+          
+            Privacy Policy
+        </button>
+
+        <button ion-item item-block-menu menuClose (click)="openTerms()">
+          
+            Terms of Service
+        </button>
       </ion-list>
 
       <ion-list>
@@ -39,5 +49,8 @@
 
   <!-- main navigation -->
   <ion-nav [root]="rootPage" #content swipeBackEnabled="false" main name="app"></ion-nav>
+  
+ 
+
 
 

@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+   
+</ion-header>
+
+
+<ion-content padding *ngIf="data != null">
+    <ion-card class="first-card">
+        <ion-card-header>
+            Membership
+        </ion-card-header>
+        <ion-card-content>
+            {{data.membership}}
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+          <ion-card-header>
+            Period:
+          </ion-card-header>
+          <ion-card-content>
+            {{data.period}}
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+              Amount
+            </ion-card-header>
+            <ion-card-content>
+               <h2>NGN {{data.amount | number:'1.0-0'}}</h2>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+              Expiry Date:
+            </ion-card-header>
+            <ion-card-content>
+               {{data.expiry_date}}
+            </ion-card-content>
+        </ion-card>
+
+        <button ion-button default-button round block small text-capitalize (click)="Renew()">Renew Plan</button>
+
+</ion-content>

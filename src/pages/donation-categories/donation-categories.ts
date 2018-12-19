@@ -57,8 +57,9 @@ export class DonationCategoriesPage {
   }
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: '',
-      dismissOnPageChange: true
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
+
     });
     this.loading.present();
   }

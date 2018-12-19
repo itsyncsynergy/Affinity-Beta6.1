@@ -1,0 +1,73 @@
+
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+  
+  
+  </ion-header>
+
+
+<ion-content padding>
+    <ion-list *ngIf="data != null">
+      <form [formGroup]="request" (ngSubmit)="SendRequest()">
+          <ion-input formControlName="customer_id" type="hidden" value="{{data.customer_id}}"></ion-input>
+          <ion-input formControlName="category_id" type="hidden" value="{{data.category_id}}"></ion-input>
+          <ion-input formControlName="party_id" type="hidden" value="{{data.private_party_id}}"></ion-input>
+          <ion-item no-lines>
+            <ion-label stacked>Full Name</ion-label>
+            <ion-input type="text" formControlName="fullname" value="{{data.fullname}}"></ion-input>
+          </ion-item>
+          <ion-item no-lines>
+              <ion-label stacked>Email</ion-label>
+              <ion-input type="text" formControlName="email" value="{{data.email}}"></ion-input>
+          </ion-item>
+          <ion-item no-lines>
+              <ion-label stacked>Phone</ion-label>
+              <ion-input type="text" formControlName="phone" value="{{data.phone}}"></ion-input>
+          </ion-item>
+          <ion-item no-lines>
+              <ion-label stacked>Party Size</ion-label>
+              <ion-input type="number" formControlName="party_size"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label stacked>Date</ion-label>
+              <ion-datetime displayFormat="YYYY MMM DD" formControlName="date"></ion-datetime>
+          </ion-item>
+          <ion-item>
+              <ion-label stacked>Time</ion-label>
+              <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="time"></ion-datetime>
+          </ion-item>
+          <ion-item no-lines>
+              <ion-label stacked>Any special requests?</ion-label>
+              <ion-textarea formControlName="others" rows="5"></ion-textarea>
+          </ion-item>
+          <ion-row>
+              <ion-col text-center>
+                <button ion-button default-button round block [disabled]="!request.valid">
+                  SUBMIT
+                </button>
+              </ion-col>
+          </ion-row>
+
+      </form>
+    </ion-list>
+</ion-content>

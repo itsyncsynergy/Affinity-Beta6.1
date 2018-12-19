@@ -1,18 +1,40 @@
-<!--
-  Generated template for the FeedsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>feeds</ion-title>
-  </ion-navbar>
-
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+   
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content >
+  <div (swipe)="swipe($event)" style="position: absolute;top:0;left:0;height:100%;width:100%;">
+    <ion-list *ngIf="data != null" >
+      <ion-card *ngFor="let item of data.items" (click)="single(item.id)">
+          <img class="image-container" [src]="base_url + item.avatar"/>
+          <ion-card-content>
+            <ion-card-title>
+                {{item.title}}
+              </ion-card-title>
+            <p [innerHTML]="item.post.length >= 10 ? (item.post | slice:0:100) : item.post" text-wrap></p>
+          </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
 </ion-content>

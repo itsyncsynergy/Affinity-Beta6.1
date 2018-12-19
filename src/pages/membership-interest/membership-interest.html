@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+        <ion-buttons right>
+            <button ion-button clear outline (click)="skip()">
+                Next
+                
+            </button>
+        </ion-buttons>
+
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+        <!-- <ion-buttons left>
+            <button ion-button (click)="GoBack()">
+                <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
+            </button>
+        </ion-buttons> -->
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-grid *ngIf="data.interests != null">
+        <h2>Please select your interests <br><small>(Pick at least 3)</small></h2>
+        <ion-row>
+          <ion-col col-4 col-md-4 col-xl-3 *ngFor="let interest of data.interests; let i= index">
+              <ion-card text-wrap [id]="interest.group_id+ '_0'" val="0"
+              (click)="toggleInterestButton(interest.group_id+'_0', interest.group_id+'_1', interest.group_id, 1)">
+                  <img src="{{interest.image}}"/>
+                  <div class="card-title">{{interest.name}}</div> 
+              </ion-card>
+
+              <ion-card text-wrap [id]="interest.group_id+ '_1'" (click)="toggleInterestButton(interest.group_id+'_1', interest.group_id+'_0', interest.group_id, 0)"
+              [ngStyle]="{'display': 'none'}">
+              
+                  <img src="{{interest.image}}"/>
+                  <div class="card-title" >{{interest.name}}<br><span class="checkmark"></span></div> 
+              </ion-card>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+  </ion-list>
+
+
+</ion-content>

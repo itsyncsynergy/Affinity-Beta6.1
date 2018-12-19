@@ -18,6 +18,7 @@ export class SearchBarLayout1 {
   @Input() events: any;
   @ViewChild('scheduleList', { read: List }) scheduleList: List;
 
+  
   dayIndex = 0;
   queryText = '';
   segment = 'all';
@@ -39,8 +40,9 @@ export class SearchBarLayout1 {
     public toastCtrl: ToastController,
     public confData: ConferenceData,
     public user: UserData,) { 
-    this.base_url = AppSettings.BASE_URL;
-    this.user_image_link = localStorage.getItem('base_url') + localStorage.getItem('avatar');
+      this.base_url = AppSettings.BASE_URL;
+      this.user_image_link = this.base_url + localStorage.getItem('avatar');
+      
   }
 
   getItems(event: any): void {
@@ -48,9 +50,11 @@ export class SearchBarLayout1 {
       this.allItems = this.data.items;
     }
     this.data.items = this.allItems.filter((item) => {
-      return item.cate_title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return item.cate_title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1 ||  item.state.toLowerCase().indexOf(this.searchTerm.toLowerCase())> -1 ||  item.venue.toLowerCase().indexOf(this.searchTerm.toLowerCase())> -1;
     });
   }
+  
+
 
   onEvent(event: string, item: any) {//ITEM [EVENT OR SELECTED ITEM]
     if (this.events[event]) {
@@ -72,6 +76,7 @@ export class SearchBarLayout1 {
       this.groups = data.groups;
     });
   }
+  
 
   presentFilter() {
     let modal = this.modalCtrl.create('ProfilePage', this.excludeTracks);
@@ -184,4 +189,5 @@ export class SearchBarLayout1 {
     localStorage.clear();
     this.navCtrl.setRoot('WelcomeWizardPage');
   }
+
 }

@@ -15,6 +15,9 @@ google-card-layout-3 {
   ion-card {
     position: relative;
     height: 200px;
+    background-image: url('../assets/images/icon.gif');
+      background-position: center;
+      background-repeat: no-repeat;
     @include darkening-blend-mode-img(true);
     border-radius: $border-radius !important;
     margin-bottom: 20px !important;

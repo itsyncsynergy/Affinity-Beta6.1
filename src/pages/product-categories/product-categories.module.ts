@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ProductCategoriesPage } from './product-categories';
-import { SearchBarLayout1Module } from '../../components/search-bar/layout-1/search-bar-layout-1.module';
+import { SearchBarLayout2Module } from '../../components/search-bar/layout-2/search-bar-layout-2.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +9,7 @@ import { SearchBarLayout1Module } from '../../components/search-bar/layout-1/sea
   ],
   imports: [
     IonicPageModule.forChild(ProductCategoriesPage),
-    SearchBarLayout1Module
+    SearchBarLayout2Module
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

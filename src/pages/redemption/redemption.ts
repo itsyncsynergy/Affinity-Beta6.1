@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, Injectable} from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingController, Platform, Events, FabContainer, ItemSliding, Refresher, ToastController, List, ModalController } from 'ionic-angular';
 import { IOffer } from '../../interfaces/ioffer';
 import { IMerchant } from '../../interfaces/imerchant';
@@ -10,6 +10,9 @@ import { SelectSearchableComponent } from 'ionic-select-searchable';
 
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
+import { AppSettings } from '../../app/appSettings';
+import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { InAppBrowser, InAppBrowserOptions } from "@ionic-native/in-app-browser";
 
 /**
  * Generated class for the RedemptionPage page.
@@ -17,9 +20,10 @@ import { UserData } from '../../providers/user-data';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+@Injectable()
 @IonicPage()
 @Component({
+  
   selector: 'page-redemption',
   templateUrl: 'redemption.html',
 })
@@ -64,6 +68,8 @@ export class RedemptionPage {
 
   amount_payable: any;
 
+  amount: any;
+
   valid: boolean;
 
   searchMerchantString = '';
@@ -94,9 +100,11 @@ export class RedemptionPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
     private loadingCtrl: LoadingController, private barcodeScanner: BarcodeScanner, private platform: Platform,
     private merchantService: MerchantService, private transactionService: TransactionService, private customerService: CustomerService, private events: Events, public toastCtrl: ToastController, public confData: ConferenceData,
-    public user: UserData, public modalCtrl: ModalController) {
+    public user: UserData, public modalCtrl: ModalController, private inAppBrowser: InAppBrowser, public http: HttpClient) {
     
-    this.user_image_link = localStorage.getItem('base_url') + localStorage.getItem('avatar');
+      this.base_url = AppSettings.BASE_URL;
+      this.user_image_link = this.base_url + localStorage.getItem('avatar');
+      
     this.data = {
       "confirmPassword": "Confirm Password",
       "country": "Select Country",
@@ -139,6 +147,11 @@ export class RedemptionPage {
     
   }
 
+  ionViewDidEnter(){
+    this.base_url = AppSettings.BASE_URL;
+    this.user_image_link = this.base_url + localStorage.getItem('avatar');
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad RedemptionPage');
   }
@@ -162,6 +175,7 @@ export class RedemptionPage {
     this.getAllMerchants();
     this.transaction = {
       customer_id: window.localStorage.getItem('customer_id'),
+      email: window.localStorage.getItem('username'),
       merchant_id: '',
       amount: '',
       remarks: '',
@@ -241,6 +255,7 @@ export class RedemptionPage {
         }
         else if(response.code == 100) {
           //redirect to renew subscription
+          this.message = 'Dear ' + localStorage.getItem('firstname') + ', your subscription has expired. Kindly renew to redeem your offer';
           this.showMessage(this.message);
         }else if(response.code == 404){
           //redirect to new subscription
@@ -297,8 +312,18 @@ export class RedemptionPage {
         console.log(this.offer_details);
         if (!isNaN(+('' + this.offer_details.offer_name))) {
           console.log(this.offer_details.offer_name);
-          this.amount_payable = amount - ((amount / 100) * this.offer_details.offer_name);
+          this.amount = this.offer_details.amount;
+          console.log(this.amount);
+          if (this.offer_details.offer_type == 'Percentage discount') {
+            this.amount_payable = (this.offer_details.offer_name * this.offer_details.amount) / 100;
+          }else if (this.offer_details.offer_type == 'Amount discount') {
+            this.amount_payable = this.offer_details.amount - this.offer_details.offer_name;
+          }else {
+            this.amount_payable = this.offer_details.amount;
+          }
+          
           this.transaction.amount_payable = this.amount_payable;
+          this.transaction.amount = this.amount;
           this.transaction.transaction_type = this.offer_details.tagline;
           this.transaction.offer = this.offer_details.offer_name;
           //this.showMessage("Amount Payable is " + this.amount_payable);
@@ -334,32 +359,71 @@ export class RedemptionPage {
       // Equal.. persist database...
       console.log(this.transaction);
 
-      this.transactionService.postTransaction(this.transaction).subscribe(response => {
-        if (!response.error) {
-          // Record Added Successfully...
-          this.showMessage(response.message);
-          this.pin = "";
-          this.loading.dismiss();
+                this.transactionService.postTransaction(this.transaction).subscribe(response => {
+                  if (response['error'] == false) {
+                    // Record Added Successfully...
+                    // this.showMessage(response.message);
+                    window.localStorage.setItem('redemption', JSON.stringify(response['redemption']));
+                    let alert = this.alertCtrl.create({
+                      message: '<img src="assets/images/smileys/happy.png" class="emoji-align" /><p class="emoji-text">You have successfully redeemed an offer at the' + this.merchant_name + 'Enjoy!</p>',
+                      buttons: [{
+                        text: 'OK',
+                        handler: () => {
+                          console.log('button pressed');
+                         
+          
+                          if (response['error'] == false) {
+                            document.getElementById('claim3').style.display = "block";
+                          }
+                          else {
+                            document.getElementById('claim1').style.display = "block";
+                            // this.showMessage(response.message);
+                          } 
+                        }
+                      }] 
+                    });
+                    alert.present();
+                    this.pin = "";
+                    this.loading.dismiss();
+          
+                    document.getElementById('claim2').style.display = "none";
+          
+                  }
+                  else {
+                    // Error persisting transaction...
+                    this.pin = "";
+                    console.log("Error Persisting");
+                    this.showMessage("Error Persisting");
+                  }
+          
+                });
 
-          document.getElementById('claim2').style.display = "none";
+      // this.transactionService.postTransaction(this.transaction).subscribe(response => {
+      //   if (!response.error) {
+      //     // Record Added Successfully...
+      //     this.showMessage(response.message);
+      //     this.pin = "";
+      //     this.loading.dismiss();
 
-          if (response.message == "Transaction is successful") {
-            document.getElementById('claim3').style.display = "block";
-          }
-          else {
-            document.getElementById('claim1').style.display = "block";
-            this.showMessage(response.message);
-          }
+      //     document.getElementById('claim2').style.display = "none";
 
-        }
-        else {
-          // Error persisting transaction...
-          this.pin = "";
-          console.log("Error Persisting");
-          this.showMessage("Error Persisting");
-        }
+      //     if (response.message == "Transaction is successful") {
+      //       document.getElementById('claim3').style.display = "block";
+      //     }
+      //     else {
+      //       document.getElementById('claim1').style.display = "block";
+      //       this.showMessage(response.message);
+      //     }
 
-      });
+      //   }
+      //   else {
+      //     // Error persisting transaction...
+      //     this.pin = "";
+      //     console.log("Error Persisting");
+      //     this.showMessage("Error Persisting");
+      //   }
+
+      // });
 
     } else {
       console.log("Not Equal");
@@ -369,15 +433,37 @@ export class RedemptionPage {
   }
 
   submitClaim() {
+   
     this.transactionService.postTransaction(this.transaction).subscribe(response => {
-      if (!response.error) {
+      if (response['error'] == false) {
         // Record Added Successfully...
-        this.showMessage(response.message);
+        // this.showMessage(response.message);
+        window.localStorage.setItem('redemption', JSON.stringify(response['redemption']));
+        let alert = this.alertCtrl.create({
+          message: '<img src="assets/images/smileys/happy.png" class="emoji-align" /><p class="emoji-text">You have successfully redeemed an offer at the' + this.merchant_name + 'Enjoy!</p>',
+          buttons: [{
+            text: 'OK',
+            handler: () => {
+              console.log('button pressed');
+
+              if (response['error'] == false) {
+                document.getElementById('claim3').style.display = "block";
+              }
+              else {
+                document.getElementById('claim1').style.display = "block";
+                // this.showMessage(response.message);
+              } 
+            }
+          }] 
+        });
+        alert.present();
         this.pin = "";
         this.loading.dismiss();
 
         document.getElementById('claim2').style.display = "none";
-        document.getElementById('claim3').style.display = "block";
+
+        
+
       }
       else {
         // Error persisting transaction...
@@ -421,7 +507,8 @@ export class RedemptionPage {
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
     });
     this.loading.present();
   }
@@ -498,6 +585,7 @@ export class RedemptionPage {
     });
   }
   submitRating(rate, remarks, merchant_id) {
+    this.showLoading();
     console.log(rate);
     console.log(merchant_id);
     console.log(this.transaction.customer_id);

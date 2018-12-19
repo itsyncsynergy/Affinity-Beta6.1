@@ -1,0 +1,73 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+   
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list *ngIf="data != null">
+        <form [formGroup]="boat" (ngSubmit)="SendRequest()">
+            <ion-input formControlName="customer_id" type="hidden" value="{{data.customer_id}}"></ion-input>
+            <ion-input formControlName="category_id" type="hidden" value="{{data.category_id}}"></ion-input>
+            <ion-input formControlName="rental_id" type="hidden" value="{{data.rental_id}}"></ion-input>
+            <ion-item>
+              <ion-label stacked>Duration:</ion-label>
+              <ion-select formControlName="duration">
+                  <ion-option>2 Weeks</ion-option>
+                  <ion-option>A Month</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item no-lines>
+                <ion-label stacked><ion-icon name="calendar" item-start></ion-icon>Dates</ion-label>
+                <ion-input formControlName="date" mbsc-range [mbsc-options]="rangeCenterSettings"></ion-input>
+                
+            </ion-item>
+            <ion-item no-lines>
+                <ion-label stacked>No of Guests</ion-label>
+                <ion-input type="number" formControlName="no_of_guests"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+              <ion-label stacked>If unavailable, would you like to see similar yachts? </ion-label>
+              <ion-select formControlName="see_more">
+                <ion-option>Yes</ion-option>
+                <ion-option>No</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item no-lines>
+                <ion-label stacked>Additional Information</ion-label>
+                <ion-textarea formControlName="additional" rows="5"></ion-textarea>
+            </ion-item>
+
+            
+            <ion-row>
+                <ion-col text-center>
+                  <button ion-button default-button round block [disabled]="!boat.valid">
+                    SUBMIT
+                  </button>
+                </ion-col>
+            </ion-row>
+  
+        </form>
+    </ion-list>
+
+</ion-content>

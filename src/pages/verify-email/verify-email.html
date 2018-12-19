@@ -1,22 +1,23 @@
 <!-- Themes Login + logo 2 -->
 <ion-content no-bounce has-header *ngIf="data != null" background-size [ngStyle]="{'background-color': '#FFFFFF'}">
-  <ion-grid *ngIf="data != null" [ngStyle]="{'background-color': '#FFFFFF', 'margin-top': '20px'}">
+  <ion-grid *ngIf="data != null" [ngStyle]="{'background-color': '#FFFFFF', 'margin-top': '100px'}">
     <ion-row padding-horizontal align-self-center>
-      <ion-col align-self-start col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'margin-bottom': '50px'}">
-
-        <button ion-button text-capitalize button-clear clear float-right (click)="dismiss()"><i icon-medium class="icon icon-close"
-            [ngStyle]="{'color': '#6A0608 !important'}"></i></button>
-      </ion-col>
-      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'margin-bottom': '50px', 'text-align': 'center'}">
+      
+      <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'margin-bottom': '20px', 'text-align': 'center'}">
         <!-- Header Title -->
         <i icon-large-lock icon-large class="icon icon-mail" [ngStyle]="{'color': '#6A0608 !important'}"></i>
         <h4 ion-text full text-uppercase register-title text-wrap>{{data.title}}</h4>
-        <p>We sent you a mail, <br> provide the pin in the box below.</p>
+        
+        <p>Glad to have you on board! <br>To complete the verification process, please enter the code we sent to {{data.email}} </p>
+        <br>
+        <p>(Click the button below if you haven't received the code after 5 mins)<br>
+        <button ion-button small (click)="resendCode()" class="resend">Resend Code</button></p>
       </ion-col>
       <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 form>
         <!---Input field username-->
-        <ion-item transparent>
-          <ion-input required placeholder="{{data.labelVerificationCode}}" type="number" name="code" [(ngModel)]="usercreds.code"></ion-input>
+        <ion-item transparent no-lines>
+          <ion-label stacked>Verification Code</ion-label>
+          <ion-input required type="text" name="code" [(ngModel)]="usercreds.code"></ion-input>
           <ion-label error-field no-margin *ngIf="!isUsernameValid">{{data.errorUser}}</ion-label>
         </ion-item>
         <ion-input type="hidden" value="{{data.email}}" [(ngModel)]="usercreds.email" name="email"></ion-input>

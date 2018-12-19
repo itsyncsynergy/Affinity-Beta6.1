@@ -12,6 +12,33 @@ login-layout-1 {
     margin-bottom: 24px;
     display: block;
   }
+  .item-md.item-input.item-input-has-focus .item-inner,
+.item-md.item-input.input-has-focus .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
+}
+
+.item-ios.item-input.item-input-has-focus .item-inner,
+.item-ios.item-input.input-has-focus .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
+}
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
+}
+
+.item-ios.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-ios.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
+}
 
   ion-item {
     padding-left: 0 !important;
@@ -24,14 +51,20 @@ login-layout-1 {
       right: 0 !important;
       font-size: 12px;
     }
-    .item-inner {
-      background-color: #FAFAFA !important;
-      //border-bottom-color: theme-colors('textColors', 'secondary') !important;
-      box-shadow: none !important;
-  }
+  
   ion-label {
     margin: 0 !important;
   }
+}
+
+.item-md.item-block .item-inner {
+  padding-right: 8px;
+  border-bottom: 0px !important;
+}
+
+.item-ios.item-block .item-inner {
+  padding-right: 8px;
+  border-bottom: 0px !important;
 }
 
   [stacked] {
@@ -39,7 +72,7 @@ login-layout-1 {
   }
 
   [login-title] {
-    color: #6A0608;
+    color: #FFFFFF;
   }
 
   [login-subtitle] {
@@ -64,4 +97,6 @@ login-layout-1 {
       font-weight: 400 !important;
     }
   }
+
+
 }

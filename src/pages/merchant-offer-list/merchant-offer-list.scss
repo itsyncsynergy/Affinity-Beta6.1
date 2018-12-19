@@ -1,5 +1,5 @@
 page-merchant-offer-list {
-   @include settingAnimationHeader;
+  @include settingAnimationHeader;
   @-webkit-keyframes color-change {
     0% {
       color: #FFFFFF !important;
@@ -36,7 +36,16 @@ page-merchant-offer-list {
 
   .back-button,
   .toolbar-title {
-    color: #6a0608 !important;
+    color: #FFFFFF !important;
+  }
+
+  // .item-md p {
+  //   color: #FFFFFF !important;
+  // }
+
+  .item-md.item-block .item-inner {
+    padding-right: 8px;
+    border-bottom: 0 !important;
   }
 
   .scroll-content {
@@ -84,5 +93,29 @@ page-merchant-offer-list {
       }
     }
   } 
+
+  [card-background-page] {
+        ion-card {
+            height: 160px;
+            position: relative;
+            text-align: center;
+            box-shadow: none;
+            border-radius: $border-radius;
+        }
+        ion-card-content {
+            position: absolute !important;
+            top: 20% !important;
+            width: 96%;
+            left: 2%;
+        }
+        [gallery-title] {
+            font-size: $h2-font-size !important;
+            font-weight: 700;
+            color: #FFFFFF !important;
+        }
+        [gallery-subtitle] {
+            color: color($imageGallery, full-gallery-2-title ) !important;
+        }
+    }
 
 }

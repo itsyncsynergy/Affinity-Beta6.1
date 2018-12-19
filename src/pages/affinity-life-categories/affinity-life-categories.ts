@@ -57,11 +57,13 @@ export class AffinityLifeCategoriesPage {
   }
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: '',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
       dismissOnPageChange: true
     });
     this.loading.present();
   }
 
 }
+
+
 

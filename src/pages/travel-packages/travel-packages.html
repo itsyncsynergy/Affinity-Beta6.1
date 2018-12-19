@@ -1,18 +1,113 @@
-<!--
-  Generated template for the TravelPackagesPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
 
-  <ion-navbar>
-    <ion-title>travel-packages</ion-title>
+
+    <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+    <ion-buttons right>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon>
+          <ion-avatar class="avatar">
+            <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+          </ion-avatar>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
+
 </ion-header>
-
-
 <ion-content padding>
+
+  <p text-center>Please fill out the form</p>
+<ion-list>
+  <form [formGroup]="bespoke" (ngSubmit)="sendBespoke()">
+    <ion-list>
+        <ion-input type="hidden" value="{{data.customer_id}}" formControlName="customer_id"></ion-input>
+      <ion-item>
+        <ion-label stacked>Occassion</ion-label>
+        <ion-select formControlName="occassion" name="occassion" required>
+          <ion-option value="Luxury">Luxury</ion-option>
+          <ion-option value="Family">Family</ion-option>
+          <ion-option value="Adult Only">Adult Only</ion-option>
+          <ion-option value="Solo Travelers">Solo Travelers</ion-option>
+          <ion-option value="Weddings">Weddings</ion-option>
+          <ion-option value="Spa & Wellness">Spa & Wellness</ion-option>
+          <ion-option value="Active & Touring Holidays">Active & Touring Holidays</ion-option>
+          <ion-option value="All inclusive">All inclusive</ion-option>
+          <ion-option value="Multi-Centres">Multi-Centres</ion-option>
+          <ion-option value="Beach">Beach</ion-option>
+          <ion-option value="City Breaks">City Breaks</ion-option>
+          <ion-option value="Stay & Cruise">Stay & Cruise</ion-option>
+          <ion-option value="Safaris">Safaris</ion-option>
+          
+
+        </ion-select>
+      </ion-item>
+
+      <ion-item no-lines> 
+        <ion-label stacked>Duration (in days)</ion-label>
+        <ion-input type="number" required formControlName="duration" name="duration"></ion-input>
+      </ion-item>
+
+      <ion-item no-lines>
+        <ion-label stacked>Group Size</ion-label>
+        <ion-input type="number" required formControlName="group_size" name="group_size" required></ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label stacked><ion-icon name="calendar" item-start></ion-icon>Date</ion-label>
+            <ion-datetime displayFormat="DD MMM YYYY" formControlName="travel_date" name="travel_date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+
+          <ion-item>
+            <ion-label stacked><ion-icon name="time" item-start></ion-icon>Time</ion-label>
+            <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="travel_time" name="travel_time"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <p text-center>Do you have a destination in mind</p>
+
+      <ion-item>
+        <ion-label stacked>Select</ion-label>
+        <ion-select [(ngModel)]="membership" [ngModelOptions]="{standalone: true}" (ionChange)="onChange(membership)" required>
+            <ion-option selected value="2">No</ion-option>
+            <ion-option value="1">Yes</ion-option>
+            
+        </ion-select>
+      </ion-item>
+
+
+    </ion-list>
+
+    <ion-item [hidden]="!value" no-lines>
+      <ion-label stacked>If yes, Where?</ion-label>
+      <ion-input type="text" formControlName="destination" name="destination"></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col text-center>
+        <button ion-button default-button full round [disabled]="!bespoke.valid">
+          SUBMIT
+        </button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-list>
+
+
 
 </ion-content>

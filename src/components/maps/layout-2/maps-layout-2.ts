@@ -83,6 +83,10 @@ export class MapsLayout2 {
             );
     }
 
+    openWebsite(website) {
+        window.open(website, '_system');
+    }
+
     redeemOfferMerchant(id) {
         this.navCtrl.push('RedeemMerchantOffersPage', {
             id: id,

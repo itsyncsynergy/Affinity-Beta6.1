@@ -1,12 +1,11 @@
 <!-- Theme Search - Simple -->
 <ion-header>
-  
-  <ion-navbar no-border-bottom>
+  <ion-navbar no-border-bottom class="toolbar">
     <ion-buttons right>
       <button ion-button icon-only (click)="presentFilter()">
         <ion-icon>
           <ion-avatar class="avatar">
-            <img [src]="user_image_link" style="height: 32px; border-radius: 50% !important;">
+            <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
           </ion-avatar>
         </ion-icon>
       </button>
@@ -16,38 +15,48 @@
   
     <ion-buttons left>
       <button ion-button menuToggle>
-        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+        <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
       </button>
     </ion-buttons>
   
   </ion-navbar>
-  
-  
+ 
 </ion-header>
 <!-- Content -->
 <ion-content>
   <ion-toolbar no-padding>
-    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onEvent('onTextChange', $event)"></ion-searchbar>
+    <!-- <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onEvent('onTextChange', $event)"></ion-searchbar> -->
+    <ion-searchbar
+  [(ngModel)]="searchTerm"
+  [showCancelButton]="shouldShowCancel"
+  (ionInput)="onEvent('onTextChange', $event)"
+  (ionCancel)="onCancel($event)"
+  (animated)="true"
+  placeholder="Search by name, location">
+</ion-searchbar>
   </ion-toolbar>
   <ion-grid no-padding *ngIf="data != null">
     <!-- List Search-->
     <ion-row card-background-page style=" padding-bottom: 5rem;">
       <ion-col col-12 col-md-6 col-lg-4 *ngFor="let item of data.items;" (click)="onEvent('onItemClick', {id: item.category_id, cate_title: item.cate_title})">
         <ion-card>
-          <img-loader *ngIf="item.images != null" [src]="base_url + item.images"></img-loader> 
+          <!-- <img-loader *ngIf="item.images != null" [src]="base_url + item.images"></img-loader> 
           <img-loader *ngIf="item.avatar != null" [src]="base_url + item.avatar"></img-loader>
-          <img-loader *ngIf="item.avatar2 != null" [src]="base_url + item.avatar2"></img-loader>
+          <img-loader *ngIf="item.avatar2 != null" [src]="base_url + item.avatar2"></img-loader> -->
           <!--- Big Title -->
-          <img src="{{item.image}}" />
-          <h2 card-title>{{item.title}}</h2>
+          
+          <img *ngIf="item.image != null" src="{{item.image}}" />
+          <img *ngIf="item.images != null" src="{{base_url + item.images}}" />
+          <img *ngIf="item.avatar != null" src="{{base_url + item.avatar}}" />
+          <!-- <img *ngIf="item.image != null" src="{{item.image}}" /> -->
+          <h2 card-title text-capitalize><strong>{{item.title}}</strong></h2>
           <!--- Big Title -->
-          <h2 card-title>{{item.name}}</h2>
+          <h2 card-title text-capitalize><strong>{{item.name}}</strong></h2>
           <!--- Big Title -->
-          <h2 card-title>{{item.cate_title}}</h2>
-          <!-- Description -->
-          <h3 card-subtitle>{{item.subtitle}}</h3>
-          <!-- Description -->
-          <h3 card-subtitle>{{item.description}}</h3>
+          <h2 card-title text-capitalize><strong>{{item.cate_title}}</strong></h2>
+
+          <!-- <p card-subtitle><strong>{{item.venue}}</strong></p> -->
+         
         </ion-card>
       </ion-col>
     </ion-row>

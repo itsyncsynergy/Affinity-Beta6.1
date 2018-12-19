@@ -5,7 +5,7 @@
             <button ion-button icon-only (click)="presentFilter()">
                 <ion-icon>
                     <ion-avatar class="avatar">
-                        <img [src]="user_image_link" style="height: 32px; border-radius: 50% !important;">
+                        <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
                     </ion-avatar>
                 </ion-icon>
             </button>
@@ -23,39 +23,90 @@
 </ion-header>
 <!-- Content -->
 <ion-content elastic-header>
-    <div padding background-size *ngIf="headerImage != null" id="elastic-header" [ngStyle]="{'background-image': 'url(' + headerImage + ')'}">
-        <ion-thumbnail *ngIf="data != null">
-            <img [src]="base_url + data.avatar" />
-        </ion-thumbnail>
-    </div>
-    <div *ngIf="headerImage == null">
-        <div *ngIf="data != null" padding background-size class="elastic-header2" id="elastic-header" [ngStyle]="{'background-image': 'url(' + base_url + data.avatar + ')'}"></div>
-        <div padding background-size id="elastic-header" [ngStyle]="{'z-index': '99999', 'position': 'relative'}">
-            <ion-thumbnail *ngIf="data != null">
-                <img [src]="base_url + data.avatar" />
-            </ion-thumbnail>
-        </div>
-    </div>
+    <ion-row style="margin-top: 5rem; padding-bottom: 5rem;">
+        <!-- Theme Google Maps - Gmaps + Location  Details -->
+        <ion-grid no-padding *ngIf="data != null">
+            <ion-row>
+                <ion-col col-12 map-header>
+                    <ion-item lines no-padding>
+                        <!--Maps Title-->
+                        <h1 padding-left maps-title margin-top text-wrap>{{data.title}}</h1>
+                        <!--Parallax Rateing-->
+                        <div padding-left>
+                            <!-- location goes here -->
+                            <h3>{{data.city}}, {{data.state}}</h3>
+                            <ion-icon float-left *ngFor="let item of data.iconsStars;let i = index" (click)="onStarClass(data.iconsStars, i, $event)">
+                                <i icon-small *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>
+                                <i icon-small *ngIf="!item.isActive" class="icon {{item.iconInactive}}"></i>
+                            </ion-icon>
+                        </div>
+                    </ion-item>
+                </ion-col>
+                <!---Content-->
+                <ion-col col-12 map-content transparent>
+                    <ion-item-group>
+        
+                        <!--Info Time-->
+                        <ion-item border >
+                            <!-- Content Title-->
+                            <!-- <h2 parallax-subtitle margin-bottom text-wrap>Details</h2> -->
+                            <!-- Content Description-->
+                            <div [innerHTML]="data.details" text-wrap></div>
+                        </ion-item>
+                    </ion-item-group>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-4>
+                    <button ion-item (click)="openMap(data.map.lat, data.map.lng)">
+                        <ion-icon icon-small item-left item-start name="md-pin"></ion-icon>
+                        <!-- Directions -->
+                    </button>
+                </ion-col>
+                <ion-col col-4>
+                    <button ion-item>
+                        <ion-icon icon-small item-left item-start name="md-call" (click)="callWithNumber(data.phone)"></ion-icon>
+                        <!-- Call -->
+                    </button>
+                </ion-col>
+                <ion-col col-4>
+                    <button ion-item>
+                        <ion-icon icon-small item-left item-start name="md-globe" (click)="openWebsite(data.webSite)"></ion-icon>
+                        <!-- Website -->
+                    </button>
+                </ion-col>
+                <!-- <ion-col col-3>
+                    <button ion-item>
+                        <ion-icon icon-small item-left item-start name="md-pin" (click)="callWithNumber(data.phone)"></ion-icon>
+                        Map
+                    </button>
+                </ion-col> -->
+        
+            </ion-row>
+        </ion-grid>
+        <ion-grid card-background-page no-padding *ngIf="gallery != null">
+            <ion-row>
+                <ion-col col-12 col-sm-4 col-md-6 col-lg-4 col-xl-3 *ngFor="let group of data.gallery.items;let i = index;">
+                    <ion-card background-size (click)="openSubGallery(data.gallery, i)" [ngStyle]="{'background-image': 'url(' + base_url + group.image + ')'}">
+                        <ion-card-content>
+                            <h2 gallery-title text-wrap>{{group.subtitle}}</h2>
+                            <!-- <p gallery-subtitle text-wrap>{{group.subtitle}}</p> -->
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-col text-center *ngIf="data != null">
+                <button ion-button default-button round block (click)="redeemOffer()">
+                    <ion-icon name="pricetag"></ion-icon> Redeem Offer
+                </button>
+        </ion-col>
+        
+    </ion-row>  
     
-    <maps-layout-2 [data]="params.data" [events]="params.events">
-    </maps-layout-2>
-    <ion-fab middle right #fab>
+    <!-- <ion-fab middle right #fab (tap)="redeemOffer()">
         <button ion-fab>
-            <ion-icon name="pricetag"></ion-icon>
+            <ion-icon name="pricetag" ></ion-icon>
         </button>
-        <ion-fab-list side="top">
-            <button ion-fab color="vimeo" (click)="openSocial('Vimeo', fab)">
-                <ion-icon name="logo-vimeo"></ion-icon>
-            </button>
-            <button ion-fab color="google" (click)="openSocial('Google+', fab)">
-                <ion-icon name="logo-googleplus"></ion-icon>
-            </button>
-            <button ion-fab color="twitter" (click)="openSocial('Twitter', fab)">
-                <ion-icon name="logo-twitter"></ion-icon>
-            </button>
-            <button ion-fab color="facebook" (click)="openSocial('Facebook', fab)">
-                <ion-icon name="logo-facebook"></ion-icon>
-            </button>
-        </ion-fab-list>
-    </ion-fab>
+    </ion-fab> -->  
 </ion-content>

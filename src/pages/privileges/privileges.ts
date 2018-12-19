@@ -27,6 +27,7 @@ export class PrivilegesPage {
   tab2Root: string = 'TravelsPage';
   tab3Root: string = 'RentalsPage';
   tab4Root: string = 'ProductsPage';
+  tab5Root: string = 'AvaPage';
   mySelectedIndex: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {

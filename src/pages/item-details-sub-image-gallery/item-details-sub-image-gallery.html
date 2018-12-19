@@ -1,0 +1,33 @@
+<!--Sub-gallery components-->
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
+
+
+    <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{params.data.title}} Gallery</ion-title>
+
+    <ion-buttons right>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon>
+          <ion-avatar class="avatar">
+            <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+          </ion-avatar>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+
+</ion-header>
+
+<ion-content>
+  <div header-section>
+    
+  </div>
+  <sub-image-gallery [data]="params.data" [events]="params.events"></sub-image-gallery>
+</ion-content>

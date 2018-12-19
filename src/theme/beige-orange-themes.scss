@@ -39,23 +39,23 @@
 //  Default Overview Ionic
 //////////////////////////////////////////////////
 
-
+// #311414 color code for the popup box
 /* # Global Font Family Section
 ================================================
 ================================================*/
-$font-family-md-base: "Open_Sans", sans-serif;
-$font-family-ios-base: "Open_Sans", sans-serif;
+$font-family-md-base: 'Comorant';
+$font-family-ios-base: 'Comorant';
 
 /* # Global Font Size Section
 ================================================
 ================================================*/
-$h1-font-size: 34px;
-$h2-font-size: 24px;
-$h3-font-size: 22px;
-$h4-font-size: 17px;
-$h5-font-size: 15px;
-$h6-font-size: 14px;
-$text-font-size: 14px;
+$h1-font-size: 22px;
+$h2-font-size: 20px;
+$h3-font-size: 13px;
+$h4-font-size: 13px;
+$h5-font-size: 11px;
+$h6-font-size: 10px;
+$text-font-size: 10px;
 
 /* # Settings Size Avatar Section
 ================================================
@@ -75,21 +75,21 @@ $item-ios-thumbnail-size: 120px;
 $palettes: (
     // Also used for backgrounds.
     mainColors: (
-      primary : #FFFFFF, // Used for header animation, list item, background ionic app, header-section, google card-background-color, swipe, tabs-background, toggle, item-divider-background, toolbar-background, alert
-      secondary : #F5F5F5, // Used for search-bar
+      primary : #030000, // Used for header animation, list item, background ionic app, header-section, google card-background-color, swipe, tabs-background, toggle, item-divider-background, toolbar-background, alert
+      secondary : rgb(10, 10, 10), // Used for search-bar
       secondaryDark: #656161, //Used for item-divider, header-section,
       accent : #6A0608, // Used for button, badges, checkbox, wizard, radio, toggle, alert, wizard
-      accentLight : #E8E9EA, //
+      accentLight : #6A0608, //
       accentDark: #ECDFC5 // Used for badge
     ),
     // Used for text colors in all screens
     textColors: (
-      primary: #292F36, // Used for alert
+      primary: rgb(255, 255, 255), // Used for alert
       secondary: #7F8490,// Used for span, header-subtitle, item-subtitle, subitem-subtitle, ion-note, card-subtitle, card-body-text, parallax-description, wizard-description, wizard, search-bar, maps-description
       secondaryBase: #FFFFFF,// Used for button, badge, parallax-title, parallax-subtitle, gallery-title, gallery-subtitle, checkbox, search-bar-title
       secondaryDark: #656161,
       accentLight: #C7C7CC, //Used for icon, span-large
-      accent : #6A0608,// Used for icon, span-medium, button, login-title, badge, wizard-title, wizard-subtitle, toolbar, alert
+      accent : #FFFFFF,// Used for icon, span-medium, button, login-title, badge, wizard-title, wizard-subtitle, toolbar, alert
       accentDark: #000 // Used for header-title, item-title, subitem-title, login-subtitle, card-title, tabs, maps-title, maps-description-title
     ),
     // Used for blend modes
@@ -420,7 +420,7 @@ $item-divider-large: 4px solid theme-colors('mainColors', 'secondaryDark');
     content: "";
     position: absolute;
     width: 100%;
-    border-bottom: 1px solid theme-colors('mainColors', 'secondaryDark');
+    border-bottom: 0px;
     left: 16px;
     bottom: 0;
     right: 0;
@@ -500,6 +500,10 @@ $icon-size:( 'icon-small': 22px, 'icon-medium': 32px, 'icon-large': 60px);
     background-image: none !important;
 }
 
+.header-ios::after {
+    background-image: none !important;
+}
+
 [header-section] {
     background-color: theme-colors('mainColors', 'secondary') !important;
     border-top: none !important;
@@ -525,6 +529,35 @@ $icon-size:( 'icon-small': 22px, 'icon-medium': 32px, 'icon-large': 60px);
     font-weight: 300;
 }
 
+.emoji-align {
+    display: block;
+    margin: 0 auto;
+}
+
+.emoji-text {
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.picker-md .picker-wrapper {
+    height: 260px;
+    border-top: 0.55px solid #dedede;
+    background: #030000 !important;
+}
+
+.picker-ios .picker-wrapper {
+    height: 260px;
+    border-top: 0.55px solid #dedede;
+    background: #030000 !important;
+}
+
+.picker-md .picker-opt {
+    color: #FFFFFF !important;
+}
+
+.picker-ios .picker-opt {
+    color: #FFFFFF !important;
+}
 /* # LIST VIEWS - Item Parameters Section
 ================================================
 ================================================*/
@@ -567,6 +600,31 @@ $icon-size:( 'icon-small': 22px, 'icon-medium': 32px, 'icon-large': 60px);
     text-overflow: ellipsis;
 }
 
+.list-ios > .item-block:first-child {
+    border-top: 0px solid #c8c7cc !important;
+}
+
+.item-ios[detail-push] .item-inner, button.item-ios:not([detail-none]) .item-inner, a.item-ios:not([detail-none]) .item-inner {
+    background: none !important;
+    padding-right: 32px;
+    background-position: right 14px center;
+    background-position: right calc(14px + constant(safe-area-inset-right)) center;
+    background-position: right calc(14px + env(safe-area-inset-right)) center;
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+}
+
+// .item-ios.item-block .item-inner {
+//     padding-right: 8px;
+//     padding-right: 8px;
+//     // border-bottom: 0.55px solid #2b2a2a !important;
+// }
+
+
+.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+    border-bottom: 0px !important;
+}
+
 ion-note {
   color: theme-colors('textColors', 'secondary') !important;
   font-size: $h5-font-size !important;
@@ -574,11 +632,43 @@ ion-note {
   letter-spacing: 1px;
 }
 
+.alert-md .alert-radio-group, .alert-md .alert-checkbox-group {
+    position: relative;
+    overflow: auto;
+    max-height: 240px;
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+}
+
+.alert-ios .alert-radio-group, .alert-ios .alert-checkbox-group {
+    position: relative;
+    overflow: auto;
+    max-height: 240px;
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+}
+
+.segment-md-primary .segment-button.segment-activated {
+    border-color: #6A0608 !important;
+    color: white;
+    opacity: 1;
+}
+
+.segment-ios-primary .segment-button.segment-activated {
+    border-color: #6A0608 !important;
+    border-top:0px !important;
+    border-right:0px !important;
+    border-left:0px !important;
+    border-bottom: 2px solid #6A0608 !important;
+    color: white;
+    opacity: 1;
+}
+
 /* # Settings Button Section
 ================================================
 ================================================*/
 [default-button] {
-    background: theme-colors('mainColors', 'accent');
+    background: #611313 !important;
     color: theme-colors('textColors', 'secondaryBase') !important;
     font-size: $h4-font-size !important;
     font-weight: 300 !important;
@@ -753,14 +843,38 @@ $checkbox-ios-icon-border-color-on: theme-colors('mainColors', 'accent');
     .checkbox-icon {
         height: 20px !important;
         width: 20px !important;
+        background-color: #231010 !important;
+        border-color: #231010 !important;
+        color: #fff !important;
+        
     }
     .checkbox-inner {
         top: 1px !important;
         left: 6px !important;
         width: 6px !important;
         height: 11px !important;
+        border-color: #fff !important;
     }
 }
+
+.checkbox-ios {
+    .checkbox-icon {
+        height: 20px !important;
+        width: 20px !important;
+        background-color: #231010 !important;
+        border-color: #231010 !important;
+        color: #fff !important;
+        
+    }
+    .checkbox-inner {
+        top: 1px !important;
+        left: 6px !important;
+        width: 6px !important;
+        height: 11px !important;
+        border-color: #fff !important;
+    }
+}
+
 
 /* # Settings Wizard Section
 ================================================
@@ -823,8 +937,8 @@ $tabs-ios-tab-text-color: theme-colors('textColors', 'secondaryDark');
 ================================================
 ================================================*/
 // For Android
-$searchbar-md-input-background-color: theme-colors('mainColors', 'secondary');
-$searchbar-md-input-placeholder-color: theme-colors('textColors', 'secondary');
+// $searchbar-md-input-background-color: theme-colors('mainColors', 'secondary');
+// $searchbar-md-input-placeholder-color: theme-colors('textColors', 'secondary');
 $searchbar-md-input-search-icon-color: theme-colors('textColors', 'secondary');
 $searchbar-md-input-clear-icon-color: theme-colors('textColors', 'secondary');
 $searchbar-md-input-border-radius: $border-radius;
@@ -874,7 +988,7 @@ $action-sheet-ios-button-destructive-text-color: theme-colors('mainColors', 'acc
 ================================================*/
 [maps-title] {
     font-size: $h1-font-size !important;
-    color: theme-colors('textColors', 'accentDark');
+    color: theme-colors('textColors', 'primary');
 }
 
 [map-content] {
@@ -924,19 +1038,118 @@ $toolbar-md-title-text-color: theme-colors('textColors', 'accent');
  ================================================
  ================================================*/
  //For Android
+.alert-radio-label{
+     color: #FFFFFF !important;
+     white-space: normal !important;
+}
+.text-input {   
+    background: #faf7f7 !important; 
+}
+
+.alert-sub-title {
+    margin: 5px 0 0;
+    padding: 0;
+    font-weight: normal;
+    color: white !important;
+}
+
+.item-label-stacked .text-input-md, .item-label-floating .text-input-md {
+    border: 5px solid #231010 !important;
+    border-radius: 4px;
+    background-color: #231010 !important;
+ 
+}
+
+.item-label-stacked .text-input-ios, .item-label-floating .text-input-ios {
+    border: 5px solid #231010 !important;
+    border-radius: 4px;
+    background-color: #231010 !important;
+ 
+}
+.select-text {
+    color: #ffffff !important;
+}
+.datetime-text{
+    color: #fff;
+}
+.item-label-stacked .select-searchable-value, .item-label-floating .select-searchable-value {
+    color: #ffffff !important;
+}
+
+.searchbar-md .searchbar-input {
+    background-color: #231010 !important;
+    color: #FFFFFF !important;	  
+}
+
+.searchbar-ios .searchbar-input {
+    background-color: #231010 !important;
+    color: #FFFFFF !important;	  
+}
+
+.item-md {
+
+    background-color: transparent !important;
+    color: #fff !important;
+}
+
+.item-ios {
+
+    background-color: transparent !important;
+    color: #fff !important;
+}
+
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom-color: transparent !important;
+    border-bottom: 0px !important;
+    box-shadow: inset 0 -1px 0 0 transparent !important; 
+}
+
+.item-md.item-input.item-input-has-focus .item-inner,
+.item-md.item-input.input-has-focus .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
+}
+
+.item-ios.item-input.item-input-has-focus .item-inner,
+.item-ios.item-input.input-has-focus .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
+}
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
+}
+
+.item-ios.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-ios.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
+}
+
+
 $alert-md-title-font-size: 15px !important;
-$alert-md-message-text-color: theme-colors('textColors', 'primary') !important;
-$alert-md-input-border-color: theme-colors('mainColors', 'accent') !important;
-$alert-md-background-color: #fff;
+// $alert-md-message-text-color: theme-colors('textColors', 'primary') !important;
+// $alert-md-input-border-color: theme-colors('mainColors', 'accent') !important;
+$alert-md-background-color: #311414;
 
 // For Ios
 $alert-ios-title-font-size: 15px !important;
 $alert-ios-message-text-color: theme-colors('textColors', 'primary') !important;
 $alert-ios-input-border-color: theme-colors('mainColors', 'accent') !important;
-$alert-ios-background: #fff;
+$alert-ios-background: #311414;
 .alert-title {
   color: theme-colors('textColors', 'primary') !important;
   font-weight: 300;
+}
+
+.alert-message {
+    color: #FFFFFF !important;
 }
 
 ::-webkit-input-placeholder {
@@ -968,7 +1181,7 @@ $alert-ios-background: #fff;
 //Settings header for IOS
 .platform-ios {
     [has-header] .scroll-content {
-        top: 64px !important;
+        top: 0px !important;
     }
     .header-ios .toolbar-background-ios {
         border-color: transparent;
@@ -1012,8 +1225,9 @@ $alert-ios-background: #fff;
     background-color: #FFFFFF !important;
 }
 
+
 #chatio-container, #chat-widget-container {
-    bottom: 5rem !important;
+    bottom: 1.5rem !important;  
 }
 #livechat-compact-container {
     bottom: 5rem !important;
@@ -1022,16 +1236,17 @@ $alert-ios-background: #fff;
 #chatio-container{
     max-width: 100% !important;
     max-height: 94% !important;
+    
 }
 
 .segment-ios-primary .segment-button {
-border-color: #FAFAFA !important;
+border-color: transparent !important;
 color: #181826 !important;
 }
 
 .segment-ios-primary .segment-button.segment-activated {
 color: #6A0608 !important;
-background-color: #FAFAFA !important;
+background-color: transparent !important;
 }
 
 .segment-ios .segment-button { 
@@ -1042,3 +1257,131 @@ img-loader{
     background-size: cover !important;
 }
 
+.item-md p {
+    color: #868484 !important;
+   }
+
+   .item-ios p {
+    color: #868484 !important;
+   }
+ 
+   .item-md h3 {
+     color: #b1a4a4 !important;
+   }
+
+   .item-ios h3 {
+    color: #b1a4a4 !important;
+  }
+ 
+   .item-md h2 {
+     color: #b1a4a4 !important;
+     font-size: 1.6rem !important;
+   }
+ 
+   .item-ios h2 {
+    color: #b1a4a4 !important;
+    font-size: 1.6rem !important;
+  }
+
+   .item-md li {
+     font-size: 1.4rem;
+     color: #868484 !important;
+}
+
+.item-ios li {
+    font-size: 1.4rem;
+    color: #868484 !important;
+}
+
+p {
+    color: #FFFFFF;
+}
+
+$loading-ios-background: transparent;
+$loading-ios-text-color: #ffffff !important;
+$loading-md-background: $loading-ios-background;
+$loading-wp-background: $loading-ios-background;
+$loading-md-box-shadow: none;
+// $loading-md-box-position: center;
+$loading-md-text-color: $loading-ios-text-color;
+
+.item-md ion-icon[item-left], .item-md ion-icon[item-right], .item-md ion-icon[item-start], .item-md ion-icon[item-end] {
+    color: #FFFFFF;
+    margin-left: 0;
+    margin-top: 11px;
+    margin-bottom: 10px;
+}
+
+.item-ios ion-icon[item-left], .item-ios ion-icon[item-right], .item-ios ion-icon[item-start], .item-ios ion-icon[item-end] {
+    color: #FFFFFF;
+    margin-left: 0;
+    margin-top: 11px;
+    margin-bottom: 10px;
+}
+
+.label-md {
+    margin: 13px 8px 13px 0;
+    color: #FFFFFF !important;
+}
+
+.label-ios {
+    margin: 13px 8px 13px 0;
+    color: #FFFFFF !important;
+}
+
+.tabs-md .tab-button[aria-selected=true] {
+    color: #6A0608 !important ;
+    padding: 0;
+}
+
+.tabs-ios .tab-button[aria-selected=true] {
+    color: #6A0608 !important ;
+    padding: 0;
+}
+
+.tabs-md .tab-button[aria-selected=true] > .tab-button-text {
+    color: #FFFFFF;
+    padding: 0;
+}
+
+.tabs-ios .tab-button[aria-selected=true] > .tab-button-text {
+    color: #FFFFFF;
+    padding: 0;
+}
+
+//bottom tab color selected
+
+.tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+    color: #FFFFFF !important;
+    -webkit-transform: translate3d(0, -2px, 0);
+    transform: translate3d(0, -2px, 0);
+}
+
+.tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
+    color: #FFFFFF !important;
+    -webkit-transform: translate3d(0, -2px, 0);
+    transform: translate3d(0, -2px, 0);
+}
+
+//bottom tab bar
+
+.tabs-ios .tabbar {
+    background: linear-gradient(-45deg, #030000,rgb(32, 1, 2)) !important;
+    opacity: 1;
+// background: #1A1C1E !important;
+}
+
+.tabs-md .tabbar {
+    background: linear-gradient(-45deg,#030000,rgb(32, 1, 2)) !important;
+    opacity: 1;
+    // background: #1A1C1E !important;
+}
+//background color for content area
+.content-ios {
+    background: linear-gradient(#030000,rgb(32, 1, 2)) !important;
+}
+
+.content-md  {
+    // background-color: #1A1C1E !important;
+    background: linear-gradient(#030000,rgb(32, 1, 2)) !important;
+}

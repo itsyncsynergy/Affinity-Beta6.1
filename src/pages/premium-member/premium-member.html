@@ -1,0 +1,56 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+   
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            Premium Members
+        </ion-card-header>
+        <ion-card-content>
+            This membership takes you a step higher by accessing you exclusive discounts & perks at high-end retailers and service providers including our partner airlines. Members can also take advantage of premium concierge services which we offer e.g. Affinity Virtual Assistant, tending to your every need and assisting in daily errands and lots more.
+        </ion-card-content>
+      </ion-card>
+
+      <!-- <ion-card>
+          <ion-card-header>
+            Features:
+          </ion-card-header>
+          <ion-card-content>
+            The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+          </ion-card-content>
+        </ion-card> -->
+
+        <ion-card>
+            <ion-card-header>
+              Amount
+            </ion-card-header>
+            <ion-card-content *ngIf="data != null">
+               <h2>NGN {{data.price | number:'1.0-0'}}</h2>
+            </ion-card-content>
+        </ion-card>
+
+        <button ion-button default-button round block small text-capitalize (click)="pay()">Pay</button>
+
+</ion-content>

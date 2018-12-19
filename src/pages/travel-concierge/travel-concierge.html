@@ -1,0 +1,96 @@
+
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+  
+  
+  </ion-header>
+
+
+<ion-content padding>
+    <p text-center>Please fill out the form</p>
+    <ion-list>
+        <form [formGroup]="travel" (ngSubmit)="sendTravel()">
+          <ion-list>
+              <ion-input type="hidden" value="{{data.customer_id}}" formControlName="customer_id"></ion-input>
+            <ion-item no-lines>
+                <ion-label stacked>Location</ion-label>
+                <ion-input type="text" formControlName="location"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Service</ion-label>
+              <ion-select formControlName="service">
+                <ion-option value="Translator">Translator</ion-option>
+                <ion-option value="Transportation/Transit">Transportation/Transit</ion-option>
+                <ion-option value="City/Tour Guide">City/Tour Guide</ion-option>
+                <ion-option value="Shopping Assistance">Shopping Assistance</ion-option>
+                <ion-option value="Local concierge services">Local concierge services</ion-option>
+                <ion-option value="Bookings & Ticketing">Bookings & Ticketing</ion-option>
+                <ion-option value="Meetings & Events">Meetings & Events</ion-option>
+                <ion-option value="Money Services">Money Services</ion-option>
+                <ion-option value="Others">Others</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item no-lines>
+              <ion-label stacked>If Others please Specify</ion-label>
+              <ion-input type="text" formControlName="other_service"></ion-input>
+            </ion-item>
+
+            <ion-row>
+              <ion-col col-6>
+                <ion-item>
+                  <ion-label stacked><ion-icon name="calendar" item-start></ion-icon>Date</ion-label>
+                  <ion-datetime displayFormat="DD MMM YYYY" formControlName="date" name="date"></ion-datetime>
+                </ion-item>
+              </ion-col>
+
+              <ion-col col-6>
+                <ion-item>
+                  <ion-label stacked><ion-icon name="time" item-start></ion-icon>Time</ion-label>
+                  <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="time" name="time"></ion-datetime>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-item no-lines>
+                <ion-label stacked>Meeting Point</ion-label>
+                <ion-input type="text" formControlName="meeting_point"></ion-input>
+            </ion-item>
+          
+            <ion-item no-lines>
+                <ion-label stacked>Any other thing you’ll like us to know?:</ion-label>
+                <ion-input type="text" formControlName="others" name="others"></ion-input>
+            </ion-item>
+
+            <ion-row>
+                <ion-col text-center>
+                  <button ion-button default-button round full [disabled]="!travel.valid">
+                    SUBMIT
+                  </button>
+                </ion-col>
+              </ion-row>
+          </ion-list>
+  
+        </form>
+    </ion-list>
+
+</ion-content>

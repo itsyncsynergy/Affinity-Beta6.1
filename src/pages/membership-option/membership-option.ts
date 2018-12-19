@@ -97,7 +97,7 @@ export class MembershipOptionPage {
   }
 
   pay() {
-    this.navCtrl.push('MembershipPaymentPage', this.selectedMembership)
+    this.navCtrl.push('SubscriptionPage')
   }
 
   skip() {

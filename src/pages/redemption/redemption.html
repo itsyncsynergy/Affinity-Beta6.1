@@ -4,7 +4,7 @@
       <button ion-button icon-only (click)="presentFilter()">
         <ion-icon>
           <ion-avatar class="avatar">
-            <img [src]="user_image_link" style="height: 32px; border-radius: 50% !important;">
+            <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
           </ion-avatar>
         </ion-icon>
       </button>
@@ -14,7 +14,7 @@
   
     <ion-buttons left>
       <button ion-button menuToggle>
-        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+        <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
       </button>
     </ion-buttons>
   
@@ -22,7 +22,7 @@
 </ion-header>
 <ion-content no-bounce>
 
-  <ion-grid no-padding *ngIf="data != null" [ngStyle]="{'background-color': '#FFFFFF'}">
+  <ion-grid no-padding *ngIf="data != null">
     <ion-row padding-horizontal align-self-center>
 
 
@@ -32,12 +32,12 @@
       </ion-col>
       <ion-col no-padding col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
       <div id="claim1" >
-      
+      <ion-list>
         <form action="">
       
       
           <ion-item>
-            <ion-label floating="">{{data.merchant}}</ion-label>
+            <ion-label stacked>{{data.merchant}}</ion-label>
             
             <select-searchable item-content [(ngModel)]="transaction.merchant_id" name="merchant_name" [items]="ports" itemValueField="id" itemTextField="name" [canSearch]="true"
               (onChange)="portChange($event)">
@@ -46,7 +46,7 @@
           </ion-item>
       
           <ion-item>
-            <ion-label floating="">{{data.select_offer}}</ion-label>
+            <ion-label stacked>{{data.select_offer}}</ion-label>
             <ion-select [(ngModel)]="transaction.offer_id" name="offer" (ngModelChange)="calculateAmountPayable(transaction.offer_id, transaction.amount)"
               required>
               <ion-option value="{{offer.offer_id}}" *ngFor="let offer of offers">{{offer.tagline}}</ion-option>
@@ -54,28 +54,29 @@
           </ion-item>
       
       
-          <ion-item>
-            <ion-label floating="">{{data.purchase_amount}}</ion-label>
+          <ion-item no-lines>
+            <ion-label stacked>{{data.purchase_amount}}</ion-label>
             <ion-input type="number" [(ngModel)]="transaction.amount" (ngModelChange)="calculateAmountPayable(transaction.offer_id, transaction.amount)"
-              name="amount" required></ion-input>
+              name="amount" readonly></ion-input>
           </ion-item>
       
       
       
-          <ion-item class="input_item_plain">
-            <ion-label floating="">{{data.to_be_paid}}</ion-label>
-            <ion-input readonly="true" type="number" [(ngModel)]="transaction.amount_payable" name="amount_payable" readonly="readonly"></ion-input>
+          <ion-item class="input_item_plain" no-lines>
+            <ion-label stacked>{{data.to_be_paid}}</ion-label>
+            <ion-input readonly="true" type="number" [(ngModel)]="transaction.amount_payable" name="amount_payable" readonly></ion-input>
           </ion-item>
       
       
           
           <ion-row [ngStyle]="{'margin-top': '3rem', 'margin-bottom': '1rem'}">
             <ion-col text-center>
-              <button ion-button full text-capitalize default-button (click)="verifyUserValidity()">{{data.register}}</button>
+              <button ion-button full default-button text-capitalize round (click)="verifyUserValidity()">{{data.register}}</button>
             </ion-col>
           </ion-row>
           <ion-input type="hidden" value="{{data.customer_id}}" name="customer_id" [(ngModel)]="transaction.customer_id"></ion-input>
         </form>
+      </ion-list>
       
       
       </div>
@@ -94,10 +95,10 @@
             <ion-icon name='ios-arrow-forward' item-end=""></ion-icon>
           </button>
       
-          <button ion-item (click)="scanQR()">
+          <!-- <button ion-item (click)="scanQR()">
             Scan QR Code
             <ion-icon name='ios-arrow-forward' item-end=""></ion-icon>
-          </button>
+          </button> -->
       
         </ion-list>
       
@@ -124,18 +125,18 @@
           <ion-grid>
             <ion-row>
               <ion-col col-6>
-                <button class="action_button" ion-button color="default" (click)="verifyTransaction(transaction)">Verify</button>
+                <button class="action_button" small ion-button color="default" outline (click)="verifyTransaction(transaction)">Verify</button>
               </ion-col>
               <ion-col col-6>
-                <button class="action_button" ion-button color="default" outline (click)="cancelVerification()">Cancel</button>
+                <button class="action_button" small ion-button color="default" outline (click)="cancelVerification()">Cancel</button>
               </ion-col>
             </ion-row>
           </ion-grid>
         </div>
         <ion-row style="margin-top: 100px; padding-right: 20px;">
           <ion-col col-6>
-            <button class="action_button" ion-button outline color="default" (click)="cancelVerification()">
-              <ion-icon class="customIcon" name="arrow-back"> Go back</ion-icon>
+            <button class="action_button" ion-button small outline (click)="cancelVerification()">
+              <ion-icon class="customIcon" name="arrow-back"></ion-icon>
             </button>
           </ion-col>
         </ion-row>
@@ -146,7 +147,7 @@
           <p>Hello {{firstname}},</p>
         </div>
         <div>
-          <p>Kindly rate this merchant and leave a review.</p>
+          <p>Kindly leave a review about this merchant.</p>
         </div>
         <ion-list>
           <ion-item float-center>
@@ -160,10 +161,10 @@
         <ion-grid>
           <ion-row>
             <ion-col col-6>
-              <button class="action_button" ion-button outline color="default" (click)="submitRating(transaction.rate, transaction.remarks, transaction.merchant_id)">Submit</button>
+              <button class="action_button" ion-button outline small color="default" (click)="submitRating(transaction.rate, transaction.remarks, transaction.merchant_id)">Submit</button>
             </ion-col>
             <ion-col col-6>
-              <button class="action_button" ion-button outline color="default" (click)="cancelVerification1()">Cancel</button>
+              <button class="action_button" ion-button small outline color="default" (click)="cancelVerification1()">Cancel</button>
             </ion-col>
           </ion-row>
         </ion-grid>

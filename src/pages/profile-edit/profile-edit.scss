@@ -21,9 +21,7 @@ page-profile-edit {
     filter: blur(0px);
     -webkit-filter: blur(0px);
   }
-  .ion-page > ion-content {
-    background-color: #FFFFFF !important;
-  }
+  
   #elastic-header .button-outline-md {
     border-width: 1px;
     border-style: solid;
@@ -131,6 +129,20 @@ page-profile-edit {
     }
   }
 
+}
+
+.item-md.item-input.item-input-has-focus .item-inner,
+.item-md.item-input.input-has-focus .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
+}
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: transparent !important;
+  -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+  box-shadow: inset 0 0 0 0 transparent !important;
 }
 
 .ion-page > ion-content {

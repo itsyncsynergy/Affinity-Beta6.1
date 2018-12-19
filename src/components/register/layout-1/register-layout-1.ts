@@ -247,8 +247,9 @@ export class RegisterLayout1 {
             this.isNameValid = false;
         }
 
-        if (!this.usercreds.password || this.usercreds.password.length == 0) {
+        if (!this.usercreds.password || this.usercreds.password.length < 6) {
             this.isPasswordValid = false;
+            this.showError("Password cannot be less than 6 characters");
         }
 
         if (!this.usercreds.confirmPassword || this.usercreds.confirmPassword.length == 0) {
@@ -256,12 +257,14 @@ export class RegisterLayout1 {
         }
 
         if (!this.usercreds.code || this.usercreds.code.length == 0) {
-            this.isCodeValid = false;
-            this.showError("Select a country code");
+            this.isCodeValid = true;
+            this.usercreds.code = '234';
+            // this.showError("Select a country code");
         }
 
-        if (!this.usercreds.phone || this.usercreds.phone.length == 0) {
+        if (!this.usercreds.phone || this.usercreds.phone.length < 8) {
             this.isPhoneValid = false;
+            this.showError("Phone number not complete");
         }
         if (!(this.usercreds.password == this.usercreds.confirmPassword)) {
             this.isConfirmPasswordValid = false;
@@ -282,7 +285,8 @@ export class RegisterLayout1 {
     register(): boolean {
 
         let loading = this.loadingCtrl.create({
-            content: 'Please wait...'
+            spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
         });
         loading.present();
         if (!this.validate()) {
@@ -296,10 +300,14 @@ export class RegisterLayout1 {
             this.authservice.register(this.usercreds).subscribe(response => {
                 console.log('got here 990')
                 console.log("response is" + response);
+                loading.dismiss();
                 if (!response['error']) {
                     if (response['response'] == 'error') {
                         if (response['code'] == 3) {
                             this.verifyEmail(this.usercreds);
+                        }
+                        else if (response['code'] == 400) {
+                            this.showError(response['message']);
                         } else {
                             console.log(response);
                             console.log("Invalid Signup Detials");
@@ -310,7 +318,7 @@ export class RegisterLayout1 {
 
                     } else {
                         //User login successfully...
-                        console.log("Successfully registered waiting verification");
+                        console.log("Successfully registered. Awaiting verification");
                         this.verifyEmail(this.usercreds);
                     }
 
@@ -332,12 +340,13 @@ export class RegisterLayout1 {
     }
 
     loginPage() {
-        this.navCtrl.setRoot('LoginPage');
+        this.navCtrl.push('LoginPage');
     }
 
     showLoading() {
         this.loading = this.loadingCtrl.create({
-            content: '',
+            spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
             dismissOnPageChange: true
         });
         this.loading.present();
@@ -348,7 +357,7 @@ export class RegisterLayout1 {
 
         let alert = this.alertCtrl.create({
             //title: 'Login Failed',
-            subTitle: text,
+            message: text,
             buttons: ['OK']
         });
         alert.present();
@@ -358,7 +367,7 @@ export class RegisterLayout1 {
 
         let alert = this.alertCtrl.create({
             title: 'Password Recovery',
-            subTitle: text,
+            message: text,
             buttons: ['OK']
         });
         alert.present();

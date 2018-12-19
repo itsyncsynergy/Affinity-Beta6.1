@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+   
+</ion-header>
+
+<ion-content padding>
+    <ion-list *ngIf="data != null" no-lines>
+        <form [formGroup]="apartment" (ngSubmit)="SendRequest()">
+            <ion-input formControlName="customer_id" type="hidden" value="{{data.customer_id}}"></ion-input>
+            <ion-input formControlName="category_id" type="hidden" value="{{data.category_id}}"></ion-input>
+            <ion-input formControlName="rental_id" type="hidden" value="{{data.rental_id}}"></ion-input>
+            <ion-item>
+              <ion-label stacked>Check In:</ion-label>
+             
+                  <ion-input formControlName="check_in" mbsc-datetime [mbsc-options]="compSettings"></ion-input>
+             
+             
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Check Out:</ion-label>
+               
+                <ion-input formControlName="check_out" mbsc-datetime [mbsc-options]="compSettings"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>No of Guests</ion-label>
+                <ion-input type="number" formControlName="no_of_guests"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>If unavailable, would you like to see similar properties? </ion-label>
+              <ion-select formControlName="see_more">
+                <ion-option>Yes</ion-option>
+                <ion-option>No</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked>Additional Information</ion-label>
+                <ion-textarea formControlName="additional" rows="5"></ion-textarea>
+            </ion-item>
+
+            
+            <ion-row>
+                <ion-col text-center>
+                  <button ion-button default-button round block [disabled]="!apartment.valid">
+                    SUBMIT
+                  </button>
+                </ion-col>
+            </ion-row>
+  
+        </form>
+      </ion-list>
+</ion-content>

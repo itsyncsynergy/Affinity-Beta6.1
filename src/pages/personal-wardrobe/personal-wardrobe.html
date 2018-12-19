@@ -1,0 +1,99 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <p padding-left="" margin-bottom="" text-center>Please fill out the form, and tick where appropriate</p>
+    <ion-list>
+    <form [formGroup]="personal" (ngSubmit)="sendPersonal()">
+        <ion-row>
+            <ion-item>
+                <ion-label stacked>Services</ion-label>
+                <ion-select formControlName="service">
+                        <ion-option value="Personal Styling">Personal Styling</ion-option>
+                        <ion-option  value="Personal Shopping">Personal Shopping</ion-option>
+                        <ion-option value="Wardrobe Styling">Wardrobe Styling</ion-option>    
+                </ion-select>
+            </ion-item>
+           
+        </ion-row>
+        <ion-list>
+            <ion-input type="hidden" value="{{data.customer_id}}" formControlName="customer_id"></ion-input>
+            <ion-row>
+                  <ion-col col-12 col-6>
+                      <ion-item>
+                         <ion-label stacked>Sex</ion-label>
+                         <ion-select formControlName="sex" required>
+                            <ion-option value="Male">Male</ion-option>
+                            <ion-option value="Female">Female</ion-option>
+                            
+                         </ion-select>
+                      </ion-item>
+                  </ion-col>
+                 
+            </ion-row>
+            <p text-center>Occassion</p>
+            <ion-row>
+                <ion-col>
+                    <div *ngIf="testList.length > 0">
+                        <ion-item *ngFor="let member of testList" no-lines>
+                          <ion-label>{{member?.name || 'N/A'}}</ion-label>
+                          <ion-checkbox color="primary" (click)="selectMember(member)" [(ngModel)]="member.checked" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+                        </ion-item>
+                    </div>
+      
+                </ion-col>
+            </ion-row>
+
+            <ion-item no-lines>
+              <ion-label stacked text-wrap>Kindly indicate your preference if you'd like some accessories</ion-label>
+              <ion-input type="text" formControlName="accessories"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <ion-label stacked>Favourite Colours</ion-label>
+                <ion-input type="text" formControlName="fav_colors"></ion-input>
+            </ion-item>
+            <ion-item no-lines>
+                <ion-label stacked>Favourite Brands</ion-label>
+                <ion-input type="text" formControlName="fav_brands"></ion-input>
+            </ion-item>
+            
+            <ion-row>
+              <ion-item no-lines>
+                  <ion-label stacked>Budget</ion-label>
+                  <ion-input type="text" formControlName="budget"></ion-input>
+              </ion-item>
+            </ion-row>
+
+            <ion-row>
+                <ion-col text-center>
+                  <button ion-button default-button round block type="submit" [disabled]="!personal.valid">
+                    SUBMIT
+                  </button>
+                </ion-col>
+            </ion-row> 
+            
+        </ion-list> 
+    </form>
+</ion-list>
+
+</ion-content>

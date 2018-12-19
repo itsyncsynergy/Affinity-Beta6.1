@@ -2,6 +2,10 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ProductPage } from './product';
 import { ParallaxLayout4Module } from '../../components/parallax/layout-4/parallax-layout-4.module';
+import { ParallaxLayout2Module } from '../../components/parallax/layout-2/parallax-layout-2.module';
+import { FullScreenGalleryModule } from '../../components/full-screen-gallery/full-screen-gallery.module';
+import { SubImageGalleryModule } from '../../components/sub-image-gallery/sub-image-gallery.module';
+import { ImageGalleryLayout1Module } from '../../components/image-gallery/layout-1/image-gallery-layout-1.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +13,11 @@ import { ParallaxLayout4Module } from '../../components/parallax/layout-4/parall
   ],
   imports: [
     IonicPageModule.forChild(ProductPage),
-    ParallaxLayout4Module
+    ParallaxLayout4Module,
+    ParallaxLayout2Module,
+    ImageGalleryLayout1Module, 
+    SubImageGalleryModule, 
+    FullScreenGalleryModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

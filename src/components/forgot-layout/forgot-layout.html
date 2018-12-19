@@ -1,6 +1,6 @@
 <!-- Themes Login + logo 2 -->
-<ion-content no-bounce has-header *ngIf="data != null" background-size [ngStyle]="{'background-color': '#FFFFFF'}">
-  <ion-grid *ngIf="data != null" [ngStyle]="{'background-color': '#FFFFFF', 'margin-top': '20px'}">
+<ion-content no-bounce has-header *ngIf="data != null" background-size [ngStyle]="{'background-color': '#000'}">
+  <ion-grid *ngIf="data != null" [ngStyle]="{'background-color': '#000', 'margin-top': '20px'}">
     <ion-row padding-horizontal align-self-center>
       <ion-col align-self-start col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'margin-bottom': '50px'}">
         
@@ -9,19 +9,28 @@
       <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]="{'margin-bottom': '50px', 'text-align': 'center'}">
         <!-- Header Title -->
         <i icon-large-lock  icon-large class="icon icon-lock" [ngStyle]="{'color': '#6A0608 !important'}"></i>
-        <h4 ion-text full text-uppercase register-title text-wrap>{{data.title}}</h4>
-        <p>Let’s help you reset it, all we need your <br>  registered email to send you pasword reset</p>
+        <h4 ion-text full text-uppercase register-title text-wrap [ngStyle]="{'color': 'white'}">FORGOT PASSWORD !!!</h4>
+        <p>Let’s help you reset it</p>
       </ion-col>
       <ion-col align-self-center col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 form>
         <!---Input field username-->
-        <ion-item transparent >
-          <ion-input required placeholder="{{data.labelUsername}}" type="text" [(ngModel)]="username"></ion-input>
-          <ion-label error-field no-margin *ngIf="!isUsernameValid">{{data.errorUser}}</ion-label>
-        </ion-item>
-        
-        <!---Login button-->
-        <button ion-button default-button block text-uppercase box-shadow (click)="onEvent('onLogin')" [ngStyle]="{'margin-top': '50px', 'text-align': 'center'}">{{data.login}}</button>
-        
+        <form [formGroup]="profile" (ngSubmit)="reset()">
+            <!-- <ion-input type="text" value="{{data.username}}" formControlName="username"></ion-input> -->
+            <ion-item transparent no-lines>
+                  <ion-label stacked>Email</ion-label>
+                  <ion-input type="text" value="" formControlName="email"></ion-input>
+            </ion-item>
+  
+            <ion-row>
+                <ion-col text-center>
+                  <button ion-button default-button block round type="submit" [disabled]="!profile.valid">
+                    SUBMIT
+                  </button>
+                </ion-col>
+            </ion-row>
+  
+        </form>
+      
       </ion-col>
       
       <!---End Share Section-->

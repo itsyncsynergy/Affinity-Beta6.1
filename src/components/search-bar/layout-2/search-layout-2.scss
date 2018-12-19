@@ -1,72 +1,79 @@
 /*  #Style Search - Field + Header
 ===========================================*/
 search-bar-layout-2 {
-  @include avatar(true);
-  ion-navbar {
-    z-index: 9999;
-    position: relative;
-  }
-  .back-button,
-  .toolbar-title {
-    color: theme-colors('textColors', 'secondaryBase') !important;
-  }
-  .toolbar-ios {
-    min-height: 64px;
-  }
-  .bar-button-default-ios,
-  .toolbar-title-ios {
-    padding-top: 20px;
-  }
+  [card-background-page] {
+    ion-card {
+      margin: 10px 1px 1px 1px;
+      width: calc(100% - 2px);
+      position: relative;
+      height: 215px;
+      border-radius: $border-radius;
+      background-image: url('../assets/images/icon.gif');
+      background-position: center;
+      background-repeat: no-repeat;
+      @include darkening-blend-mode-img(true);
 
-  ion-toolbar {
-    position: absolute;
-    top: 0;
-
-    .searchbar-ios .searchbar-input {
-      background-color: #f7f7f7 !important;
+      img {
+        min-height: 215px;
+        max-height: 100%;
+      }
     }
-  }
-
-  ion-content {
-    top: 104px;
-    &.content-ios {
-      top: 91px;
-    }
-  }
-  // Settings Big Image
-  [background-size] {
-    min-height: 160px!important;
-    @include darkening-blend-mode;
-    position: relative;
-
-    [search-bar-bcg] {
+    [card-title] {
       position: absolute;
-      z-index: 2;
-      right: 8px;
-      left: 8px;
-      bottom: 8px;
+      bottom: 50px;
+      left: 22px;
+      z-index: 99999;
+      color: theme-colors('textColors', 'secondaryBase') !important;
+    }
 
-      [search-bar-title] {
-        color: color($searchPage, search-title-field-header-1);
-        margin-bottom: 10px !important;
-      }
-
-      .searchbar-input {
-        border-radius: 8px;
-      }
+    [card-subtitle] {
+      position: absolute;
+      bottom: 16px;
+      left: 22px;
+      right: 15%;
+      z-index: 99999;
+      color: theme-colors('textColors', 'secondaryBase') !important;
     }
   }
-  // Settings Images Border Radius
-  ion-thumbnail img {
-    border-radius: $border-radius;
-  }
+  .searchbar-md .searchbar-input {
+    padding: 6px 55px;
+    border-radius: 3px;
+    background-position: left 8px center;
+    height: auto;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 3rem;
+    // color: #ffffff;
+    // background-color: #3d3d3d;
+    -webkit-box-shadow: none;
+    // background: transparent !important;
+    box-shadow: none;
+    border-color: rgb(241, 239, 239);
+	  background-color: #231010 !important;
+	  color: rgb(255, 255, 255);
+    // opacity: 0.2;
+}
 
-  .input-wrapper {
-    display: block;
-  }
+.searchbar-ios .searchbar-input {
+  padding: 6px 55px;
+  border-radius: 3px;
+  background-position: left 8px center;
+  height: auto;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 3rem;
+  // color: #ffffff;
+  // background-color: #3d3d3d;
+  -webkit-box-shadow: none;
+  // background: transparent !important;
+  box-shadow: none;
+  border-color: rgb(241, 239, 239);
+  background-color: #231010 !important;
+  color: rgb(255, 255, 255);
+  // opacity: 0.2;
+}
 
-  ion-badge {
-    right: 0;
-    bottom: 0;
+  .toolbar .toolbar-md{
+    background: linear-gradient(-45deg,#030000,rgb(32, 1, 2)) !important;
   }
 }

@@ -1,18 +1,93 @@
-<!--
-  Generated template for the EventPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+<ion-header header-ios>
+    <ion-navbar no-border-bottom>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon>
+                    <ion-avatar class="avatar">
+                        <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                    </ion-avatar>
+                </ion-icon>
+            </button>
+        </ion-buttons>
 
-  <ion-navbar>
-    <ion-title>event</ion-title>
-  </ion-navbar>
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
 
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
 </ion-header>
+<!-- Content -->
+<ion-content elastic-header>
+    
+    <ion-row style="margin-top: 5rem; padding-bottom: 5rem;">
+        <!-- Theme Google Maps - Gmaps + Location  Details -->
+        <ion-grid no-padding *ngIf="data != null">
+            <ion-row>
+                <ion-col col-12 map-header>
+                    <ion-item lines no-padding>
+                        <!--Maps Title-->
+                        <h1 padding-left maps-title margin-top text-wrap>{{data.title}}</h1>
+                        <!--Parallax Rateing-->
+                        <div padding-left>
+                            <!-- location goes here -->
+                            <h3>{{data.address}}</h3>
+                            <ion-icon float-left *ngFor="let item of data.iconsStars;let i = index" (click)="onStarClass(data.iconsStars, i, $event)">
+                                <i icon-small *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>
+                                <i icon-small *ngIf="!item.isActive" class="icon {{item.iconInactive}}"></i>
+                            </ion-icon>
+                        </div>
+                    </ion-item>
+                    <ion-item-divider border no-lines *ngIf="data.price != null">
+                        <h2 item-subtitle>Price:</h2>
+                        <h1>{{data.price | currency:data.curr}}</h1>
+                        <!--- Button Share-->
+                    
+                    </ion-item-divider>
+                </ion-col>
+                <!---Content-->
+                <ion-col col-12 map-content transparent>
+                    <ion-item-group>
+    
+                        <!--Info Time-->
+                        <ion-item border>
+                            <!-- Content Title-->
+                            <!-- <h2 parallax-subtitle margin-bottom text-wrap>Details</h2> -->
+                            <!-- Content Description-->
+                            <div [innerHTML]="data.details" text-wrap></div>
+                        </ion-item>
+                    </ion-item-group>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-grid card-background-page no-padding *ngIf="gallery != null">
+            <ion-row>
+                <ion-col col-12 col-sm-4 col-md-6 col-lg-4 col-xl-3 *ngFor="let group of data.gallery.items;let i = index;">
+                    <ion-card background-size (click)="openSubGallery(data.gallery, i)" [ngStyle]="{'background-image': 'url(' + base_url + group.image + ')'}">
+                        <ion-card-content>
+                            <!-- <h2 gallery-title text-wrap>{{group.title}}</h2> -->
+                            <p gallery-subtitle text-wrap>{{group.subtitle}}</p>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 
+        <ion-col text-center *ngIf="data != null">
+                <button ion-button default-button block small round (click)="buy()">
+                    <ion-icon name="ios-card"></ion-icon> Buy
+                </button>
+        </ion-col>
+        <!-- <div class="whatspaystack">
+            <button ion-button outline  small round class="app-font-25"> WHAT IS PAYSTACK?</button>
+        </div> -->
 
-<ion-content padding>
+    </ion-row>
 
 </ion-content>
+
+

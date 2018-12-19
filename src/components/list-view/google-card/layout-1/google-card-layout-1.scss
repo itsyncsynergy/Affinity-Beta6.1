@@ -9,6 +9,9 @@ google-card-layout-1 {
       position: relative;
       height: 215px;
       border-radius: $border-radius;
+      background-image: url('../assets/images/icon.gif');
+      background-position: center;
+      background-repeat: no-repeat;
       @include darkening-blend-mode-img(true);
 
       img {

@@ -1,0 +1,32 @@
+page-membership-card {
+    .card-background-page {
+
+        ion-card {
+          position: relative;
+        //   text-align: center;
+        }
+
+        .main-cont {
+            position: absolute;
+            top: 75%;
+            left: 5%;
+            width: 100%;
+            color: #fff;
+            text-align: left;
+        }
+
+        .left-cont{
+            position: absolute;
+            top: 75%;
+            left: 40%;
+            width: 100%;
+            color: #fff;
+            text-align: center;
+        }
+
+        .no-mem {
+            background-color: #fff !important;
+        }
+      
+      }
+}

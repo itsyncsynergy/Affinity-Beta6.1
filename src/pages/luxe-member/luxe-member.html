@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+   
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-header>
+            Luxe Members
+        </ion-card-header>
+        <ion-card-content>
+            As a Luxe member, you are privy to the most exclusive deals and happenings at home and abroad and this is made possible through a collaborative effort of the most seasoned travel, entertainment and lifestyle concierge experts worldwide. <br>
+            There is a special chat box feature included in the app for our discerning Luxe members for 24/7/365 direct access to a lifestyle manager whose primary assignment is to ensure that you maximize the benefits available to you. There is no limit to the extent we’ll go to satisfy you. You will receive a highly tailored service that is proactive and pre-empts your needs.
+
+        </ion-card-content>
+      </ion-card>
+
+      <!-- <ion-card>
+          <ion-card-header>
+            Features:
+          </ion-card-header>
+          <ion-card-content>
+            The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+          </ion-card-content>
+        </ion-card> -->
+
+        <ion-card>
+            <ion-card-header>
+              Amount
+            </ion-card-header>
+            <ion-card-content *ngIf="data != null">
+               <h2>NGN {{data.price | number:'1.0-0'}}</h2>
+            </ion-card-content>
+        </ion-card>
+
+        <button ion-button default-button round block small text-capitalize (click)="pay()">Pay</button>
+
+</ion-content>

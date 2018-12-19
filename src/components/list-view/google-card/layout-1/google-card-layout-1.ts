@@ -37,8 +37,9 @@ export class GoogleCardLayout1 {
         public toastCtrl: ToastController,
         public confData: ConferenceData,
         public user: UserData, ) {
-        this.base_url = AppSettings.BASE_URL;
-        this.user_image_link = localStorage.getItem('base_url') + localStorage.getItem('avatar');
+            this.base_url = AppSettings.BASE_URL;
+            this.user_image_link = this.base_url + localStorage.getItem('avatar');
+            
     }
 
     getItems(event: any): void {

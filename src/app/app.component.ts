@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Events, MenuController, Nav, Platform, ModalController } from 'ionic-angular';
+import { Events, MenuController, Nav, Platform, ModalController, AlertController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Storage } from '@ionic/storage';
@@ -9,6 +9,8 @@ import { Storage } from '@ionic/storage';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { AppSettings } from './appSettings';
+import { App } from 'ionic-angular';
+import { InAppBrowser, InAppBrowserOptions } from "@ionic-native/in-app-browser";
 
 export interface PageInterface {
   title: string;
@@ -32,12 +34,13 @@ export class AffinityApp {
   appPages: PageInterface[] = [
     { title: 'Profile', name: 'ProfileLeftPage', component: 'ProfileLeftPage', icon: 'calendar' },
     { title: 'App Info', name: 'AppInfoPage', component: 'AppInfoPage', icon: 'contacts' },
-    { title: 'Terms of Service', name: 'TosPage', component: 'TosPage', icon: 'map' }
+    { title: 'Contact Us', name: 'ContactPage', component: 'ContactPage', icon: 'log-out' }
+    // { title: 'Terms of Service', name: 'TosPage', component: 'TosPage', icon: 'map' }
   ];
   loggedInPages: PageInterface[] = [
-    { title: 'FAQ', name: 'FaqPage', component: 'FaqPage', icon: 'person' },
-    { title: 'Privacy Policy', name: 'PrivacyPolicyPage', component: 'PrivacyPolicyPage', icon: 'help' },
-    { title: 'Contact Us', name: 'ContactPage', component: 'ContactPage', icon: 'log-out', logsOut: true }
+    // { title: 'FAQ', name: 'FaqPage', component: 'FaqPage', icon: 'person' }
+    // { title: 'Privacy Policy', name: 'PrivacyPolicyPage', component: 'PrivacyPolicyPage', icon: 'help' },
+    
   ];
   
   HAS_LOGGED_IN = 'hasLoggedIn';
@@ -67,7 +70,10 @@ export class AffinityApp {
     public confData: ConferenceData,
     public storage: Storage,
     public splashScreen: SplashScreen,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
+    public app: App, 
+    private inAppBrowser: InAppBrowser) {
     this.base_url = AppSettings.BASE_URL;
     window.localStorage.setItem('base_url', this.base_url);
     
@@ -181,6 +187,36 @@ export class AffinityApp {
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
       this.splashScreen.hide();
+
+      this.platform.registerBackButtonAction(() => {
+        let nav = this.app.getActiveNavs()[0];
+        let activeView = nav.getActive(); 
+       // Checks if can go back before show up the alert
+          if (nav.canGoBack()){
+              nav.pop();
+          } else if(activeView.name === 'ExperiencePage' || activeView.name === 'FeedsPage' || activeView.name === 'WelcomeWizardPage' || activeView.name === 'ExclusiveOffersPage' || activeView.name === 'RedemptionPage' || activeView.name === 'VipAccessPage') {
+            const alert = this.alertCtrl.create({
+              title: 'Confirm Exit',
+              message: 'Are you sure you want to exit the application?',
+                buttons: [{
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('Cancel Button Pressed');
+                    }
+                },{
+                    text: 'Yes',
+                    handler: () => {
+                      // Exit the App
+                      this.platform.exitApp();
+                    }
+                }]
+            });
+            alert.present();
+          }
+    
+      
+      })
     });
   }
 
@@ -199,6 +235,22 @@ export class AffinityApp {
       return 'primary';
     }
     return;
+  }
+
+  openPrivacy(){
+    const browser = this.inAppBrowser.create('https://www.theaffinityclub.com/privacy-policy', '_blank', 'location=yes,allowInlineMediaPlayback=yes,hardwareback=yes,presentationstyle=pagesheet,shouldPauseOnSuspend=yes,hideurlbar=yes,closebuttoncaption=Close');
+    
+    browser.on('exit').subscribe(() => {
+      console.log('Exit button pressed')
+    })
+  }
+
+  openTerms(){
+    const browser = this.inAppBrowser.create('https://www.theaffinityclub.com/terms-and-conditions', '_blank', 'location=yes,allowInlineMediaPlayback=yes,hardwareback=yes,presentationstyle=pagesheet,shouldPauseOnSuspend=yes,hideurlbar=yes,closebuttoncaption=Close');
+    
+    browser.on('exit').subscribe(() => {
+      console.log('Exit button pressed')
+    })
   }
 
   logout() {

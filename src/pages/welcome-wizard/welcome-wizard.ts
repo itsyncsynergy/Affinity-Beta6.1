@@ -23,15 +23,15 @@ export class WelcomeWizardPage {
       "btnFinish": "Finish",
       "btnNext": "Next",
       "items": [{
-        "backgroundImage": "assets/images/background/21.jpg",
+        "backgroundImage": "assets/images/background/WEL1.jpg",
         "subtitle": "A lifestyle club that offers unbeatable discounts from trustworthy merchants",
         "title": "ENJOY A TOP CLASS LIFESTYLE THAT SUITS YOU"
       }, {
-        "backgroundImage": "assets/images/background/22.jpg",
+        "backgroundImage": "assets/images/background/WEL2.jpg",
         "subtitle": "Page 2",
         "title": "Lorem ipsum dolor sit amet, consectetur"
       }, {
-        "backgroundImage": "assets/images/background/23.jpg",
+        "backgroundImage": "assets/images/background/WEL3.jpg",
         "subtitle": "Page 3",
         "title": "Lorem ipsum dolor sit amet, consectetur"
       }]

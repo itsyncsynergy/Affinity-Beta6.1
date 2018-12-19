@@ -1,0 +1,507 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+      <ion-buttons left>
+          <button ion-button menuToggle>
+              <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+          </button>
+      </ion-buttons>
+     
+
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+      <ion-buttons right>
+          <button ion-button icon-only (click)="presentFilter()">
+              <ion-icon>
+                  <ion-avatar class="avatar">
+                      <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                  </ion-avatar>
+              </ion-icon>
+          </button>
+      </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-row>
+        <ion-segment [(ngModel)]="virgin" color="primary"  (ionChange)="segmentChanged($event)" [ngStyle] = "{'background-color': '#FFFFF'}">
+          <ion-segment-button value="return" (click)="showReturn()">
+             <p>Return</p>
+          </ion-segment-button>
+          <ion-segment-button value="one-way" (click)="showOneWay()">
+             <p>One-Way</p>
+          </ion-segment-button>
+          <ion-segment-button value="multi" (click)="showMulti()">
+             <p>Multi City</p>
+          </ion-segment-button>
+          
+        </ion-segment>
+    </ion-row>
+
+    <div ng-switch-when="return" id="return">
+        <p padding-left="" margin-bottom="" text-center>Please fill out the form, and tick where appropriate</p>
+
+         <ion-list *ngIf="data != null">
+                <form [formGroup]="return" (ngSubmit)="sendReturn()">
+                
+                    <ion-input type="hidden" value="{{data.customer_id}}" formControlName="customer_id"></ion-input>
+                    <ion-row>
+                          <ion-col col-6>
+                              <ion-item>
+                                 <ion-label stacked><ion-icon name="pin" item-start></ion-icon>From</ion-label>
+                                 <ion-select formControlName="origin" name="origin" required>
+                                    <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                                    <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                                    <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                                    <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                                    <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                                    <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                                    <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                                    <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                                    <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                                    <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                                    <ion-option value="London [LHR]">London [LHR]</ion-option>
+                                    <ion-option value="London [LGW]">London [LGW]</ion-option>
+                                    <ion-option value="London [LCY]">London [LCY]</ion-option>
+                                    <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                                    <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+                                 </ion-select>
+                              </ion-item>
+                          </ion-col>
+                          <ion-col col-6>
+                              <ion-item>
+                                  <ion-label stacked><ion-icon name="pin" item-start></ion-icon>To</ion-label>
+                                  <ion-select formControlName="destination">
+                                    <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                                    <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                                    <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                                    <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                                    <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                                    <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                                    <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                                    <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                                    <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                                    <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                                    <ion-option value="London [LHR]">London [LHR]</ion-option>
+                                    <ion-option value="London [LGW]">London [LGW]</ion-option>
+                                    <ion-option value="London [LCY]">London [LCY]</ion-option>
+                                    <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                                    <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+                                  </ion-select>
+                              </ion-item>
+                          </ion-col>
+                    </ion-row>
+                    <ion-row>
+                            <ion-col col-6>
+                                    <ion-item>
+                                            <ion-label stacked><ion-icon name="calendar" item-start></ion-icon>Depart</ion-label>
+                                            <ion-datetime displayFormat="DD MMM YYYY" formControlName="depart_date"></ion-datetime>
+                                            
+                                    </ion-item>
+                            </ion-col>
+                            <ion-col col-6>
+                                    <ion-item>
+                                            <ion-label stacked><ion-icon name="calendar" item-start></ion-icon>Return</ion-label>
+                                            <ion-datetime displayFormat="DD MMM YYYY" formControlName="return_date"></ion-datetime>
+                                            
+                                    </ion-item>
+                            </ion-col>
+                    </ion-row>
+                     
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-item>
+                                <ion-label stacked>No. of Passengers</ion-label>
+                                    <ion-select formControlName="num_pass">
+                                      <ion-option selected value="1">1</ion-option>
+                                      <ion-option value="2">2</ion-option>
+                                      <ion-option value="3">3</ion-option>
+                                      <ion-option value="4">4</ion-option>
+                                      <ion-option value="5">5</ion-option>
+                                      <ion-option value="6">6</ion-option>
+                                      <ion-option value="7">7</ion-option>
+                                      <ion-option value="8">8</ion-option>
+                                      <ion-option value="9">9</ion-option>
+                                    </ion-select>
+                            </ion-item> 
+                        </ion-col>
+  
+                        <ion-col col-6>
+                            <ion-item>
+                                <ion-label stacked>Preferred Cabin</ion-label>
+                                    <ion-select formControlName="cabin">
+                                        <ion-option selected value="Economy Light">Economy Light</ion-option>
+                                        <ion-option value="Classic and Delight">Classic and Delight</ion-option>
+                                        <ion-option value="Premium">Premium</ion-option>
+                                        <ion-option value="Upper Class">Upper Class</ion-option>
+                                    </ion-select>
+                            </ion-item> 
+                        </ion-col>
+                    </ion-row>
+  
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-item>
+                                <ion-label stacked>Currency</ion-label>
+                                    <ion-select formControlName="curr">                               
+                                      <ion-option selected value="NGN">NGN</ion-option>
+                                      <ion-option value="USD">USD</ion-option>
+                                      
+                                    </ion-select>
+                            </ion-item> 
+                        </ion-col>
+  
+                        <ion-col col-6>
+                            <ion-item>
+                                <ion-label stacked>Flexible Dates ?</ion-label>
+                                    <ion-select formControlName="date_flex">
+                                        <ion-option selected value="Yes">Yes</ion-option>
+                                        <ion-option value="No">No</ion-option>
+                                       
+                                    </ion-select>
+                            </ion-item> 
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-item>
+                            <ion-label stacked><ion-icon ios="ios-plane" md="md-plane" item-start></ion-icon>Preferred Airlines</ion-label>
+                            <ion-select formControlName="pref_airline">
+                                <ion-option *ngFor="let airline of data.airlines">{{airline.name}}</ion-option>
+                            
+                            </ion-select>
+                        </ion-item>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-item no-lines>
+                            <ion-label stacked>Frequent Flyer No. (Optional)</ion-label>
+                            <ion-input formControlName="flier_no"></ion-input>
+                            
+                        </ion-item>
+                    </ion-row>
+  
+                    <ion-row>
+                        <ion-col text-center>
+                          <button ion-button default-button round full type="submit" [disabled]="!return.valid">
+                            SUBMIT
+                          </button>
+                        </ion-col>
+                    </ion-row> 
+                </form>
+        </ion-list>
+  
+    </div>
+
+    <div ng-switch-when="one-way" id="one-way" [ngStyle]="{'display': 'none'}">
+        <p padding-left="" margin-bottom="" text-center>Please fill out the form, and tick where appropriate</p>
+
+        <ion-list>
+                <form [formGroup]="oneway" (ngSubmit)="sendOneWay()">
+                    <ion-list>
+                        <ion-input type="hidden" value="{{data.customer_id}}" formControlName="customer_id"></ion-input>
+                        <ion-row>
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked><ion-icon name="pin" item-start></ion-icon>From</ion-label>
+                                    <ion-select formControlName="origin">
+                                        <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                                        <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                                        <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                                        <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                                        <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                                        <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                                        <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                                        <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                                        <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                                        <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                                        <ion-option value="London [LHR]">London [LHR]</ion-option>
+                                        <ion-option value="London [LGW]">London [LGW]</ion-option>
+                                        <ion-option value="London [LCY]">London [LCY]</ion-option>
+                                        <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                                        <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked><ion-icon name="pin" item-start></ion-icon>To</ion-label>
+                                    <ion-select formControlName="destination">
+                                        <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                                        <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                                        <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                                        <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                                        <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                                        <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                                        <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                                        <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                                        <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                                        <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                                        <ion-option value="London [LHR]">London [LHR]</ion-option>
+                                        <ion-option value="London [LGW]">London [LGW]</ion-option>
+                                        <ion-option value="London [LCY]">London [LCY]</ion-option>
+                                        <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                                        <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-item>
+                                <ion-label stacked for="demo-non-form"><ion-icon name="calendar" item-start></ion-icon>Depart</ion-label>
+                                <ion-datetime displayFormat="DD MMM YYYY" formControlName="date"></ion-datetime>
+                            
+                            </ion-item>
+                        </ion-row>
+                        
+            
+                        <ion-row>
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked>No. of Passengers</ion-label>
+                                        <ion-select formControlName="num_pass">
+                                        <ion-option selected value="1">1</ion-option>
+                                        <ion-option value="2">2</ion-option>
+                                        <ion-option value="3">3</ion-option>
+                                        <ion-option value="4">4</ion-option>
+                                        <ion-option value="5">5</ion-option>
+                                        <ion-option value="6">6</ion-option>
+                                        <ion-option value="7">7</ion-option>
+                                        <ion-option value="8">8</ion-option>
+                                        <ion-option value="9">9</ion-option>
+                                        </ion-select>
+                                </ion-item> 
+                            </ion-col>
+    
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked>Preferred Cabin</ion-label>
+                                        <ion-select formControlName="cabin">
+                                            <ion-option selected value="Economy Light">Economy Light</ion-option>
+                                            <ion-option value="Classic and Delight">Classic and Delight</ion-option>
+                                            <ion-option value="Premium">Premium</ion-option>
+                                            <ion-option value="Upper Class">Upper Class</ion-option>
+                                        </ion-select>
+                                </ion-item> 
+                            </ion-col>
+                        </ion-row>
+    
+                        <ion-row>
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked>Currency</ion-label>
+                                        <ion-select formControlName="curr">                               
+                                        <ion-option selected value="NGN">NGN</ion-option>
+                                        <ion-option value="USD">USD</ion-option>
+                                        
+                                        </ion-select>
+                                </ion-item> 
+                            </ion-col>
+    
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked>Flexible Dates</ion-label>
+                                        <ion-select formControlName="date_flex">
+                                            <ion-option selected value="Yes">Yes</ion-option>
+                                            <ion-option value="No">No</ion-option>
+                                        </ion-select>
+                                </ion-item> 
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-item>
+                                <ion-label stacked><ion-icon ios="ios-plane" md="md-plane" item-start></ion-icon>Preferred Airlines</ion-label>
+                                <ion-select formControlName="pref_airline">
+                                    <ion-option *ngFor="let airline of data.airlines">{{airline.name}}</ion-option>
+                                
+                                </ion-select>
+                            </ion-item>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-item no-lines>
+                                <ion-label stacked>Frequent Flyer No. (Optional)</ion-label>
+                                <ion-input formControlName="flier_no"></ion-input>
+                                
+                            </ion-item>
+                        </ion-row>
+    
+                        <ion-row>
+                            <ion-col text-center>
+                            <button ion-button default-button round full type="submit" [disabled]="!oneway.valid">
+                                SUBMIT
+                            </button>
+                            </ion-col>
+                        </ion-row> 
+                        
+                    </ion-list>
+                </form>
+        </ion-list>
+
+    </div>
+
+    <div ng-switch-when="multi" id="multi" [ngStyle]="{'display': 'none'}">
+         <ion-list>       
+                <form [formGroup]="multi" (ngSubmit)="sendMulti(multi.value)">
+                    <ion-list>
+                            <div formArrayName="flight">
+                                    <section [formGroupName]="i" *ngFor="let flight of multi.controls.flight.controls; let i = index">
+                                    <ion-item-group>
+                                            <ion-item-divider color="light">Flight {{ i + 1 }}</ion-item-divider>
+                                            <ion-row>
+                                                    <ion-col col-6>
+                                                        <ion-item>
+                                                        <ion-label stacked><ion-icon name="pin" item-start></ion-icon>From</ion-label>
+                                                        <ion-select formControlName="origin">
+                                                            <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                                                            <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                                                            <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                                                            <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                                                            <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                                                            <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                                                            <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                                                            <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                                                            <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                                                            <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                                                            <ion-option value="London [LHR]">London [LHR]</ion-option>
+                                                            <ion-option value="London [LGW]">London [LGW]</ion-option>
+                                                            <ion-option value="London [LCY]">London [LCY]</ion-option>
+                                                            <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                                                            <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+                                                        </ion-select>
+                                                        </ion-item>
+                                                    </ion-col>
+                                                    <ion-col col-6>
+                                                        <ion-item>
+                                                            <ion-label stacked><ion-icon name="pin" item-start></ion-icon>To</ion-label>
+                                                            <ion-select formControlName="destination">
+                                                            <ion-option value="Abu Dhabi [AUH]">Abu Dhabi [AUH]</ion-option>
+                                                            <ion-option value="Abuja [ABV]">Abuja [ABV]</ion-option>
+                                                            <ion-option value="Accra [ACC]">Accra [ACC]</ion-option>
+                                                            <ion-option value="Atlanta [ATL]">Atlanta [ATL]</ion-option>
+                                                            <ion-option value="Dubai [DXB]">Dubai [DXB]</ion-option>
+                                                            <ion-option value="Guangzhou [CAN]">Guangzhou [CAN]</ion-option>
+                                                            <ion-option value="Houston [IAH]">Houston [IAH]</ion-option>
+                                                            <ion-option value="Istanbul [IST]">Istanbul [IST]</ion-option>
+                                                            <ion-option value="Johannesburg [JNB]">Johannesburg [JNB]</ion-option>
+                                                            <ion-option value="Lagos [LOS]">Lagos [LOS]</ion-option>
+                                                            <ion-option value="London [LHR]">London [LHR]</ion-option>
+                                                            <ion-option value="London [LGW]">London [LGW]</ion-option>
+                                                            <ion-option value="London [LCY]">London [LCY]</ion-option>
+                                                            <ion-option value="New York [JFK]">New York [JFK]</ion-option>
+                                                            <ion-option value="Paris [CDG]">Paris [CDG]</ion-option>
+                                                            </ion-select>
+                                                        </ion-item>
+                                                    </ion-col>
+                                            </ion-row>
+                                            <ion-row>
+                                                    <ion-item>
+                                                        <ion-label stacked><ion-icon name="calendar" item-start></ion-icon>Depart</ion-label>
+                                                        <ion-datetime displayFormat="YYYY MMM DD " formControlName="date"></ion-datetime>
+                                                    
+                                                    </ion-item>
+                                            </ion-row>
+                                        
+                                        <span float-right ion-button icon-left clear *ngIf="multi.controls.flight.length > 1" (click)="removeInputField(i)">
+                                            <ion-icon name="close"></ion-icon>
+                                            Remove
+                                        </span>
+                                    </ion-item-group>
+                                    </section>
+                            </div>
+
+
+                            <span ion-button float-left icon-left clear (click)="addNewInputField()">
+                                    <ion-icon name="add"></ion-icon>
+                                    More Flights
+                            </span>
+                            <br>
+
+                    </ion-list>
+
+                    <ion-row>
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked>No. of Passengers</ion-label>
+                                        <ion-select formControlName="num_pass">
+                                        <ion-option selected value="1">1</ion-option>
+                                        <ion-option value="2">2</ion-option>
+                                        <ion-option value="3">3</ion-option>
+                                        <ion-option value="4">4</ion-option>
+                                        <ion-option value="5">5</ion-option>
+                                        <ion-option value="6">6</ion-option>
+                                        <ion-option value="7">7</ion-option>
+                                        <ion-option value="8">8</ion-option>
+                                        <ion-option value="9">9</ion-option>
+                                        </ion-select>
+                                </ion-item> 
+                            </ion-col>
+    
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked>Preferred Cabin</ion-label>
+                                        <ion-select formControlName="cabin">
+                                            <ion-option selected value="Economy Light">Economy Light</ion-option>
+                                            <ion-option value="Classic and Delight">Classic and Delight</ion-option>
+                                            <ion-option value="Premium">Premium</ion-option>
+                                            <ion-option value="Upper Class">Upper Class</ion-option>
+                                        </ion-select>
+                                </ion-item> 
+                            </ion-col>
+                    </ion-row>
+    
+                    <ion-row>
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked>Currency</ion-label>
+                                        <ion-select formControlName="curr">                               
+                                        <ion-option selected value="NGN">NGN</ion-option>
+                                        <ion-option value="USD">USD</ion-option>
+                                        
+                                        </ion-select>
+                                </ion-item> 
+                            </ion-col>
+    
+                            <ion-col col-6>
+                                <ion-item>
+                                    <ion-label stacked>Flexible Dates</ion-label>
+                                        <ion-select formControlName="date_flex">
+                                            <ion-option selected value="Yes">Yes</ion-option>
+                                            <ion-option value="No">No</ion-option>
+                                        
+                                        </ion-select>
+                                </ion-item> 
+                            </ion-col>
+                            
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-item>
+                            <ion-label stacked><ion-icon ios="ios-plane" md="md-plane" item-start></ion-icon>Preferred Airlines</ion-label>
+                            <ion-select formControlName="pref_airline">
+                                <ion-option *ngFor="let airline of data.airlines">{{airline.name}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-item no-lines>
+                            <ion-label stacked>Frequent Flyer No. (Optional)</ion-label>
+                            <ion-input formControlName="flier_no"></ion-input>
+                            
+                        </ion-item>
+                    </ion-row>
+
+                    <ion-row>
+                            <ion-col text-center>
+                                <button ion-button default-button round block margin-top color="primary" [disabled]="!multi.valid" type="submit">Submit</button>
+                            </ion-col>
+                    </ion-row>
+
+                </form>
+        </ion-list>
+    </div>
+
+</ion-content>

@@ -7,65 +7,59 @@
                 <h1 padding-left maps-title margin-top text-wrap>{{data.title}}</h1>
                 <!--Parallax Rateing-->
                 <div padding-left>
+                    <!-- location goes here -->
+                    <h3>{{data.city}}, {{data.state}}</h3>
                     <ion-icon float-left *ngFor="let item of data.iconsStars;let i = index" (click)="onStarClass(data.iconsStars, i, $event)">
                         <i icon-small *ngIf="item.isActive" class="icon {{item.iconActive}}"></i>
                         <i icon-small *ngIf="!item.isActive" class="icon {{item.iconInactive}}"></i>
                     </ion-icon>
                 </div>
-                <span span-small margin-left>{{data.reviews}}</span>
             </ion-item>
         </ion-col>
         <!---Content-->
         <ion-col col-12 map-content transparent>
             <ion-item-group>
-                <ion-item-divider no-lines>
-                    <h2 maps-description-title text-wrap margin-bottom>{{data.contentTitle}}</h2>
-                    <p maps-description text-wrap>{{data.contentDescription}}</p>
-                </ion-item-divider>
+                
                 <!--Info Time-->
                 <ion-item border>
-                    <ion-icon icon-medium color="primary" name="{{data.icon}}" item-start></ion-icon>
-                    <h2 no-paddnig>{{data.time}}</h2>
+                    <!-- Content Title-->
+                    <!-- <h2 parallax-subtitle margin-bottom text-wrap>Details</h2> -->
+                    <!-- Content Description-->
+                    <div [innerHTML]="data.details" text-wrap></div>
                 </ion-item>
             </ion-item-group>
         </ion-col>
     </ion-row>
-    <ion-row *ngIf="data != null">
-        <ion-col col-12>
-            <ion-list no-margin>
-                <ion-item item-bcg border no-lines *ngFor="let item of data.items;let i = index" (click)="onEvent('onItemClick', item)">
-                    <!--Content Avatar-->
-                    <ion-thumbnail item-start>
-                        <img [src]="item.image" alt="{{item.imageAlt}}">
-                    </ion-thumbnail>
-                    <!--Content Title-->
-                    <h2 no-margin item-title>{{item.title}}</h2>
-                    <!--Content Subtitle-->
-                    <h3 item-subtitle text-wrap>{{item.subtitle}}</h3>
-                    <!--Content Badge-->
-                    <ion-badge badge-light item-end>{{item.button}}</ion-badge>
-                </ion-item>
-            </ion-list>
-        </ion-col>
-    </ion-row>
     <ion-row>
-        <ion-col col-6>
+        <ion-col col-3>
             <button ion-item (click)="openMap(data.map.lat, data.map.lng)">
                 <ion-icon icon-small item-left item-start name="md-return-right"></ion-icon>
                 Directions
             </button>
         </ion-col>
-        <ion-col col-6>
+        <ion-col col-3>
             <button ion-item>
                 <ion-icon icon-small item-left item-start name="md-call" (click)="callWithNumber(data.phone)"></ion-icon>
                 Call
+            </button>
+        </ion-col>
+        <ion-col col-3>
+            <button ion-item>
+                <ion-icon icon-small item-left item-start name="md-globe" (click)="openWebsite(data.website)"></ion-icon>
+                Website
+            </button>
+        </ion-col>
+        <ion-col col-3>
+            <button ion-item>
+                <ion-icon icon-small item-left item-start name="md-pin" (click)="callWithNumber(data.phone)"></ion-icon>
+                Map
             </button>
         </ion-col>
         
     </ion-row>
     <ion-row>
         <ion-col col-12>
-            <agm-map [latitude]="data.map.lat" [longitude]="data.map.lng" [zoom]="data.map.zoom" [mapTypeControl]="data.map.mapTypeControl"
+            <agm-map gestureHandling="cooperative" [latitude]="data.map.lat" [longitude]="data.map.lng" [zoom]="data.map.zoom" [mapTypeControl]="data.map.mapTypeControl"
                 [streetViewControl]="data.map.streetViewControl">
                 <agm-marker [latitude]="data.map.lat" [longitude]="data.map.lng"></agm-marker>
             </agm-map>

@@ -1,0 +1,91 @@
+<!--
+  Generated template for the AvaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar no-border-bottom>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon>
+                    <ion-avatar class="avatar">
+                        <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                    </ion-avatar>
+                </ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+
+</ion-header>
+
+<ion-content padding>
+        <div (swipe)="swipe($event)" style="position: absolute;top:0;left:0;height:100%;width:100%;">
+            <h4 login-title text-center>Welcome {{data.fullname}}, <br><small>How may I serve you today?</small></h4>
+            
+            <ion-list *ngIf="data != null">
+                <form [formGroup]="ava" (ngSubmit)="sendRequest()">
+                    <ion-input type="hidden" value="{{data.customer_id}}" formControlName="customer_id"></ion-input>
+                    <ion-item>
+                        <ion-label stacked>Services</ion-label>
+                        <ion-select formControlName="service">
+                            <ion-option>Shopping</ion-option>
+                            <ion-option>Car Hire & Driver Services</ion-option>
+                            <ion-option>Pick Up & Deliveries</ion-option>
+                            <ion-option>Fitness Requests</ion-option>
+                            <ion-option>Auto Services</ion-option>
+                            <ion-option>General Repairs</ion-option>
+                            <ion-option>Home Services & Artisan Requests</ion-option>
+                            <ion-option>Reservations</ion-option>
+                            <ion-option>Healthcare Services</ion-option>
+                            <ion-option>Relocation Services</ion-option>
+                            <ion-option>Ticketing</ion-option>
+                            <ion-option>Emergencies</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked>Expected Delivery Date</ion-label>
+                        <ion-datetime displayFormat="DD MMM YYYY" formControlName="date"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked>Expected Delivery Time</ion-label>
+                        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="time" name="time"></ion-datetime>
+                    </ion-item>
+                    <ion-item no-lines>
+                        <ion-label stacked>Phone Number</ion-label>
+                        <ion-input type="text" formControlName="phone"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label stacked>How would you like to be contacted?</ion-label>
+                        <ion-select formControlName="contact_means">
+                            <ion-option>Phone Call</ion-option>
+                            <ion-option>SMS/Whatsapp</ion-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item no-lines>
+                        <ion-label stacked>Description</ion-label>
+                        <ion-textarea formControlName="desc" rows="10" placeholder="Please describe your request in full (500 characters max)"></ion-textarea>
+                    </ion-item>
+
+                    <ion-row>
+                        <ion-col text-center>
+                            <button ion-button default-button round small block class="new-button" type="submit" [disabled]="!ava.valid">
+                            SUBMIT
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </form>
+                
+            </ion-list>
+        </div>
+</ion-content>

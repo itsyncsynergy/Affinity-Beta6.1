@@ -1,2 +1,6 @@
-<google-card-layout-1 [data]="params.data" [events]="params.events">
-</google-card-layout-1>
+<ion-tabs [selectedIndex]="mySelectedIndex" name="Privileges" tabsPlacement='top'>
+    <ion-tab [root]="tab1Root" tabTitle="Access"></ion-tab>
+    <ion-tab [root]="tab2Root" tabTitle="Tickets"></ion-tab>
+    <ion-tab [root]="tab3Root" tabTitle="Styling"></ion-tab>
+    <ion-tab [root]="tab4Root" tabTitle="And Beyond"></ion-tab>
+</ion-tabs>

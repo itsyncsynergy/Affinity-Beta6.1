@@ -40,7 +40,7 @@ export class ForgotPage {
       "forgotPassword": "Forgot Password?",
       "login": "RESET PASSWORD",
       "subtitle": "Welcome",
-      "title": "Forgot Password?",
+      "title": "Forgot Password!",
       "skip": "Skip",
       "logo": "assets/images/logo/affinity.png",
       "errorUser": "Opss! You forgot your email?",

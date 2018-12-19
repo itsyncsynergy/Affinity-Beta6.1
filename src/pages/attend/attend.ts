@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, ModalController  } from 'ionic-angular';
 import { CustomerService } from '../../services/customer.service';
+import { AppSettings } from '../../app/appSettings';
 
 /**
  * Generated class for the AttendPage page.
@@ -17,18 +18,25 @@ import { CustomerService } from '../../services/customer.service';
 export class AttendPage {
   params: any = {};
   loading: Loading;
+  base_url: any = ""
+  user_image_link: any;
+  data:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private customerService: CustomerService, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private customerService: CustomerService, public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
+    this.base_url = AppSettings.BASE_URL;
+    this.user_image_link = this.base_url + localStorage.getItem('avatar');
+    
+
     let items = [];
     this.showLoading()
     this.customerService.getList('events').subscribe(response => {
       items = response;
-      this.params.data = {
+      this.data = {
         "headerTitle": "Attend",
         "items": response.event
         
       }
-      //this.loading.dismiss();
+      this.loading.dismiss();
     })
 
 
@@ -36,14 +44,21 @@ export class AttendPage {
       'onTextChange': function (text: any) {
         console.log("onTextChange");
       },
-      'onItemClick': function (category_id) {
-        console.log(category_id);
-        navCtrl.push('EventPage', {
-          id: category_id.id,
-          title: category_id.cate_title
-        })
-      }
+      
     }
+  }
+
+  ionViewDidEnter(){
+    this.base_url = AppSettings.BASE_URL;
+    this.user_image_link = this.base_url + localStorage.getItem('avatar');
+  }
+
+  onItemClick(category_id) {
+    console.log(category_id);
+   this.navCtrl.push('EventPage', {
+      id: category_id.id,
+      title: category_id.cate_title
+    })
   }
 
   ionViewDidLoad() {
@@ -51,10 +66,25 @@ export class AttendPage {
   }
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: '',
-      dismissOnPageChange: true
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
     });
-    //this.loading.present();
+    this.loading.present();
+  }
+
+  swipe(event) {
+    if(event.direction == 2) {
+      this.navCtrl.parent.select(3);
+    }
+    if(event.direction == 4) {
+      this.navCtrl.parent.select(1);
+    }
+  }
+
+  presentFilter() {
+    let modal = this.modalCtrl.create('ProfilePage');
+    modal.present();
+
   }
 
 }

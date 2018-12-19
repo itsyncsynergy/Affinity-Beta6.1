@@ -5,14 +5,115 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+    <ion-navbar no-border-bottom>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon>
+                    <ion-avatar class="avatar">
+                        <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                    </ion-avatar>
+                </ion-icon>
+            </button>
+        </ion-buttons>
 
-  <ion-navbar>
-    <ion-title>interest</ion-title>
-  </ion-navbar>
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
 
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content elastic-header>
+    <ion-item no-lines background-size id="elastic-header" [ngStyle]="{'background-image': 'url(' + base_url + headerImage + ')'}">
+        <div title-block *ngIf="data != null">
+          
+            <span new-category>{{data.category}}</span>
+            
+            <h1 parallax-title text-wrap>{{data.title}}</h1>
+            
+            <button ion-button round end *ngIf="data.status == 1" class="leave-button" (click)="Leave()">
+                <ion-icon ios="ios-exit" md="md-exit"></ion-icon>
+                Leave
+            </button>
+
+            <button ion-button round end *ngIf="data.status == 0" (click)="Join()">
+                    <ion-icon ios="ios-person-add" md="md-person-add"></ion-icon>
+                    Join
+            </button>
+            
+        </div>
+    </ion-item>    
+   
+    <ion-row>
+        <ion-segment [(ngModel)]="profile" color="primary"  (ionChange)="segmentChanged($event)" [ngStyle] = "{'background-color': '#FFFFF'}">
+          <ion-segment-button value="home" (click)="showHome()">
+             <p>Home</p>
+          </ion-segment-button>
+          <ion-segment-button value="posts" (click)="showPosts()">
+             <p>Posts</p>
+          </ion-segment-button>
+          <ion-segment-button value="activities" (click)="showActivities()">
+             <p>Activities</p>
+          </ion-segment-button>
+          
+        </ion-segment>
+    </ion-row>
+
+    <div *ngIf="data != null">
+        <div ng-switch-when="group" id="group">
+          <ion-list>
+              <div *ngIf="data.group != null" col-12 text-center [ngStyle]= "{'max-height': '250px', 'margin-top': '1rem', 'margin-bottom': '1rem', 'color': '#fff'}">
+                  <div [innerHTML]=data.group.details text-wrap></div>
+             </div>
+
+              <ion-grid *ngIf="data.gallery != null">
+                  <h3 login-title text-center>Gallery</h3>
+                  <ion-row>
+                    <ion-col col-4 col-md-4 col-xl-3 *ngFor="let item of data.gallery">
+                      <!-- <div class="image-container" [style.background-image]="'url(' + base_url + item.image + ')'"></div> -->
+
+                      <ion-card text-wrap>
+                            <img class="image-container" src="{{base_url + item.image}}"/>
+                        
+                     </ion-card>
+                    </ion-col>
+                  </ion-row>
+              </ion-grid>
+          </ion-list>
+              
+        </div>
+       
+        <div ng-switch-when="posts" id="posts" [ngStyle]="{'display': 'none'}">
+          <ion-list>
+              <div text-center [ngStyle]= "{'margin-top': '1rem'}">
+                  <ion-list *ngIf="data.posts != null">
+                      <ion-item *ngFor="let item of data.posts;" (click)="viewPost({id: item.id})">
+                        <ion-avatar item-start>
+                              <img [src]="base_url + item.avatar">
+                        </ion-avatar>
+                        <h4>{{item.title}}</h4>
+                        <div [innerHTML]=item.post text-wrap></div>
+                        
+                      </ion-item>
+                      
+                    </ion-list>
+              </div>
+          </ion-list>
+              
+        </div>
+
+        <div ng-switch-when="activities" id="activities" [ngStyle]="{'display': 'none'}">
+          <ion-list *ngIf="data.activities != null">
+              <mbsc-eventcalendar [data]="events" [options]="eventSettings"></mbsc-eventcalendar> 
+          </ion-list>
+            
+        </div> 
+         
+    </div>
 
 </ion-content>

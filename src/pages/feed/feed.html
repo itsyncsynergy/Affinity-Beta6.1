@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+
+    <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+    <ion-buttons right>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon>
+          <ion-avatar class="avatar">
+            <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+          </ion-avatar>
+        </ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+ 
+</ion-header>
+
+
+<ion-content elastic-header>
+    <ion-item no-lines background-size id="elastic-header" [ngStyle]="{'background-image': 'url(' + base_url + headerImage + ')'}">
+        <div title-block *ngIf="data != null">
+            <h1 parallax-title text-wrap>{{data.headerTitle}}</h1> 
+        </div>
+    </ion-item> 
+
+    <div>
+        <ion-list *ngIf="data != null">
+            <div text-center [ngStyle]= "{'margin-top': '1rem'}">
+                <ion-list>
+                    <ion-item *ngIf="data.url != null"> 
+                        <div [innerHTML]="data.post.length >= 30 ? (data.post | slice:0:300) : data.post" text-wrap></div>
+
+                        <br>
+                        <button ion-button default-button round block (click)="readMore(data.url)">
+                            Read More...
+                      </button>
+                    </ion-item>
+                    
+                    <ion-item *ngIf="data.url == null">
+                        <div [innerHTML]=data.post text-wrap></div>
+                    </ion-item>
+                </ion-list>
+            </div>   
+        </ion-list>    
+    </div>
+    <div *ngIf="data != null">
+       <ion-fab right middle *ngIf="data.url != null">
+          <button ion-fab color="vibrant" mini (click)="share(data.url, base_url + headerImage, data.headerTitle)"><ion-icon name="md-share"></ion-icon></button>
+       </ion-fab>
+    </div>
+   
+</ion-content>

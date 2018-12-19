@@ -1,3 +1,24 @@
 page-app-info {
+    .image-container {
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+        height: 75px !important;
+       
+    }
 
+    .img {
+        max-width: 60% !important;
+    }
+
+    h3 {
+        font-size: 16px !important;
+        font-weight: bold;
+        color: #fff;
+    }
+    .grid {
+
+        margin-top: 100px;
+        
+    }
 }

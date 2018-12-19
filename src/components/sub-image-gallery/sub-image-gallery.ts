@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AppSettings } from '../../app/appSettings';
 
 @IonicPage()
 @Component({
@@ -10,8 +11,11 @@ export class SubImageGallery {
 
     @Input() data: any;
     @Input() events: any;
+    base_url: any = ""
 
-    constructor(public navCtrl: NavController, navParams: NavParams) { }
+    constructor(public navCtrl: NavController, navParams: NavParams) {
+        this.base_url = AppSettings.BASE_URL;
+     }
 
     onEvent = (event: string, item, e): void => {
         if (e) {

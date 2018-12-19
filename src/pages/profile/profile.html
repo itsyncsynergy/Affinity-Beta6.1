@@ -1,27 +1,20 @@
 <!--- Theme Parallax - Profile -->
 <ion-header header-ios>
   <ion-navbar no-border-bottom>
-    <ion-buttons right>
-      <button ion-button clear icon-only (click)="appSettings()">
-        <ion-icon name="ios-cog-outline">
-        </ion-icon>
-      </button>
-    </ion-buttons>
-
-
+  
     <ion-buttons left>
-      <button ion-button clear (click)="dismiss()">
-        <ion-icon name="ios-arrow-back-outline">
-        </ion-icon>
+      <button ion-button (click)="dismiss()">
+          <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title [ngStyle]="{'text-align': 'center'}" >User Profile</ion-title>
 
   </ion-navbar>
 </ion-header>
 <!-- Content -->
 <ion-content elastic-header no-bounce>
   
-  <div>
+  <div *ngIf="data != null">
     <div padding background-size class="elastic-header2" id="elastic-header" [ngStyle]="{'background-image': 'url(' + base_url + data.avatar + ')'}"></div>
     <div padding background-size id="elastic-header" [ngStyle] = "{'z-index': '99999', 'position': 'relative'}">
       <ion-thumbnail *ngIf="data != null">
@@ -32,13 +25,14 @@
       <!-- Parallx Subtitle -->
       <div class="block-insert" text-center>
         <button button-clear-outline outline ion-button (click)="edit()">Edit Profile</button>
-        <button button-clear-outline outline ion-button style="padding: 1px !important;">
+        <button button-clear-outline outline ion-button style="padding: 1px !important;" (click)="Gonotif()">
           <ion-icon icon-medium name="ios-mail-outline"></ion-icon>
+          <ion-badge *ngIf="data.notif != null">{{data.notif}}</ion-badge>
         </button>
       </div>
     </div>
   </div>
-  <ion-row>
+  <ion-row *ngIf="data != null">
     <ion-segment [(ngModel)]="profile" color="primary" (ionChange)="segmentChanged($event)" [ngStyle] = "{'background-color': '#FFFFF'}">
       <ion-segment-button value="interest" (click)="showInterest()">
          <p>Interest</p>
@@ -54,15 +48,14 @@
       </ion-segment-button>
     </ion-segment>
   </ion-row>
-  <ion-row>
+  <ion-row *ngIf="data != null">
     <ion-row ng-switch-when="interest" id="interest">
-      <ion-col *ngIf="data.interests != null" col-12 [ngStyle]= "{'max-height': '250px', 'margin-top': '4rem', 'margin-bottom': '4rem'}">
-        <b *ngFor="let interest of data.interests; let i= index">
-          <button default-button button-clear-outline outline round ion-button interest-button [id]="interest.group_id+ '_0'" val="0"
-            (click)="toggleInterestButton(interest.group_id+'_0', interest.group_id+'_1', interest.group_id, 1)" [ngStyle]="{'display': 'none'}">{{interest.name}}</button>
-          <button default-button ion-button round interest-button [id]="interest.group_id+ '_1'" (click)="toggleInterestButton(interest.group_id+'_1', interest.group_id+'_0', interest.group_id, 0)"
-            >{{interest.name}}</button>
-        </b>
+     
+      <ion-col col-4 col-md-4 col-xl-3 *ngFor="let interest of data.interests">
+          <ion-card text-wrap (click)="toggleInterestButton(interest.group_id, 1)">
+              <img class="img-interest" src="{{base_url + interest.avatar}}"/>
+              <div class="card-title">{{interest.name}}</div> 
+          </ion-card>
       </ion-col>
       <ion-col *ngIf="data.interests == null" col-12>
         <div description text-center >
@@ -83,7 +76,7 @@
 
         <ion-list *ngIf="data.redemptions != null"  [ngStyle]="{'min-width': '100%'}">
           <ion-item *ngFor="let item of data.redemptions;">
-            <button ion-item (click)="openPage(p)">
+            <button ion-item>
                {{item.tagline + ' @ ' + item.name}}
             </button>
           </ion-item>
@@ -106,8 +99,8 @@
       
         <ion-list *ngIf="data.activities != null" [ngStyle]="{'min-width': '100%'}">
           <ion-item *ngFor="let item of data.activities;">
-            <button ion-item (click)="openPage(p)">
-              {{item.name + ' | ' + item.Spain}}
+            <button ion-item>
+              {{item.name + ' | ' + item.location}}
             </button>
           </ion-item>
         </ion-list>
@@ -125,39 +118,39 @@
     </ion-row>
     <ion-row ng-switch-when="membership" id="membership" [ngStyle]="{'display': 'none'}">
       <ion-col col-12>
-        <ion-list [ngStyle]="{'min-width': '100%'}">
+        <ion-list [ngStyle]="{'min-width': '100%'}" no-lines>
           <ion-item>
-            <button ion-item (click)="openPage(p)">
+            <button ion-item (click)="GotoSub()">
               Subscription
             </button>
           </ion-item>
           <ion-item>
-            <button ion-item>
+            <button ion-item (click)="GotoRenew()">
               Renew
             </button>
           </ion-item>
           <ion-item>
-            <button ion-item>
+            <button ion-item (click)="GotoChange()">
               Change Plan
             </button>
           </ion-item>
           <ion-item>
-            <button ion-item>
+            <button ion-item (click)="GotoUpgrade()">
               Upgrade
             </button>
           </ion-item>
           <ion-item>
-            <button ion-item>
+            <button ion-item (click)="GotoCard()">
               My Card
             </button>
           </ion-item>
         </ion-list>
       </ion-col>
       <ion-col col-12>
-        <div description text-center>
-          <p>Your subscription expires on July 20, 2018
-          </p>
-        </div>
+          <div description text-center>
+              <p>{{subscription.expiry_message}}
+              </p>
+          </div>
       </ion-col>
     </ion-row>
     

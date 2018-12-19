@@ -18,7 +18,7 @@ export class TransactionService{
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         
-        return this.http.post(this.api+'redeem/offers', JSON.stringify(transaction), {headers: headers}) 
+        return this.http.post(this.api+'transaction', JSON.stringify(transaction), {headers: headers}) 
                     .map(res => res.json());
         
     }

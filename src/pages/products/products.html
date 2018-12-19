@@ -1,2 +1,49 @@
-<google-card-layout-1 [data]="params.data" [events]="params.events">
-</google-card-layout-1>
+<!-- <google-card-layout-1 [data]="params.data" [events]="params.events">
+</google-card-layout-1> -->
+<ion-header>
+        <ion-navbar no-border-bottom>
+          <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+              <ion-icon>
+                <ion-avatar class="avatar">
+                  <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                </ion-avatar>
+              </ion-icon>
+            </button>
+          </ion-buttons>
+        
+          <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+        
+          <ion-buttons left>
+            <button ion-button menuToggle>
+              <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+            </button>
+          </ion-buttons>
+        
+        </ion-navbar>
+      
+      
+      </ion-header>
+      <ion-content>
+        <div (swipe)="swipe($event)" style="position: absolute;top:0;left:0;height:100%;width:100%;">
+            <ion-grid no-padding *ngIf="data != null">
+            <ion-row card-background-page style=" padding-bottom: 5rem;">
+                <ion-col col-12 col-md-6 col-lg-4 *ngFor="let item of data.items;" (click)="onItemClick({id: item.category_id, cate_title: item.cate_title})">
+
+                <ion-card>
+                    <!-- <img-loader *ngIf="item.images != null" [src]="base_url + item.images"></img-loader> 
+                    <img-loader *ngIf="item.avatar != null" [src]="base_url + item.avatar"></img-loader> -->
+                    <!--- Big Title -->
+                    <img *ngIf="item.image != null" src="{{item.image}}" />
+                    <img *ngIf="item.images != null" src="{{base_url + item.images}}" />
+                    <img *ngIf="item.avatar != null" src="{{base_url + item.avatar}}" />
+                    <h2 card-title text-capitalize><strong>{{item.title}}</strong></h2>
+                    <!--- Big Title -->
+                    <h2 card-title text-capitalize><strong>{{item.cate_title}}</strong></h2>
+                
+                </ion-card>
+                </ion-col>
+            </ion-row>
+            </ion-grid>
+        </div>
+      </ion-content>

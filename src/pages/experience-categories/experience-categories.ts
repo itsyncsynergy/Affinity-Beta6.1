@@ -28,7 +28,7 @@ export class ExperienceCategoriesPage {
     console.log(navParams.data.id);
     this.customerService.getList('experiences/' + navParams.data.id).subscribe(response => {
 
-
+      console.log(response);
       items = response;
       this.params.data = {
         "headerTitle": this.navParams.data.title,
@@ -53,12 +53,12 @@ export class ExperienceCategoriesPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ExclusiveOffersCategoriesPage');
+    console.log('ionViewDidLoad ExperienceCategoriesPage');
   }
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: '',
-      dismissOnPageChange: true
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
     });
     this.loading.present();
   }

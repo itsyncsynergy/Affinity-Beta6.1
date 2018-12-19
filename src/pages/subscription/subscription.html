@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+      <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu" ios="ios-options-outline" md="md-options"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+  
+      <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+  
+      <ion-buttons right>
+        <button ion-button icon-only (click)="presentFilter()">
+          <ion-icon>
+            <ion-avatar class="avatar">
+              <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+            </ion-avatar>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-navbar>
+   
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <ion-item>
+          <ion-label stacked>Membership</ion-label>
+          <ion-select formControlName="membership" (ionChange)="onMemberChange()">
+
+            <ion-option *ngFor="let member of membership" [value]="member">{{member}}</ion-option>
+          </ion-select>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label stacked>Plan</ion-label>
+          <ion-select formControlName="packages" (ionChange)="onPlanChange()">
+            <ion-option *ngFor="let plan of packages" [value]="plan">{{plan}}</ion-option>
+          </ion-select>
+        </ion-item>
+    
+        <ion-item no-lines>
+          <ion-label stacked>Amount</ion-label>
+          <ion-input [value]="price" formControlName="price" readonly>{{price}}</ion-input>
+        </ion-item>
+    
+        <ion-item no-lines>
+          <button ion-button default-button round block small text-capitalize [disabled]="!form.valid">Subscribe</button>
+        </ion-item>
+      </form>
+
+</ion-content>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, ViewController, LoadingController, Loading } from 'ionic-angular';
+import { CustomerService } from '../../services/customer.service';
 import { IService } from '../../services/IService';
 import { AppSettings } from '../../app/appSettings';
 
@@ -23,6 +23,7 @@ export class ProfileLeftPage {
   events: any;
   profile_segment: string
   base_url: any = "";
+  loading: Loading;
 
   redemption: any;
   interest: any;
@@ -31,37 +32,49 @@ export class ProfileLeftPage {
   membership: any;
   customer_id: any;
   username: any;
+  notif_count:any;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public customerService: CustomerService, public loadingCtrl: LoadingController) {
     this.profile_segment = 'interest';
     this.base_url = AppSettings.BASE_URL;
-    var user_name = localStorage.getItem('firstname') + ' ' + localStorage.getItem('lastname');
-    var avatar = localStorage.getItem('avatar');
-
-    this.redemption = JSON.parse(localStorage.getItem('redemption') || null);
-    this.interest = JSON.parse(localStorage.getItem('interest') || null);
-    this.activities = JSON.parse(localStorage.getItem('activities') || null);
-    this.subscription = JSON.parse(localStorage.getItem('subscription') || null);
-    this.membership = localStorage.getItem('membership');
     this.customer_id = localStorage.getItem('customer_id');
-    this.username = localStorage.getItem('username');
+    this.showLoading()
+    this.customerService.getList('notifications/' + this.customer_id).subscribe(response => {
+      var user_name = localStorage.getItem('firstname') + ' ' + localStorage.getItem('lastname');
+      var avatar = localStorage.getItem('avatar');
+      window.localStorage.setItem('notif_count', JSON.stringify(response['count']));
+      // localStorage.getItem('avatar');
+  
+      this.redemption = JSON.parse(localStorage.getItem('redemption') || null);
+      this.interest = JSON.parse(localStorage.getItem('interest') || null);
+      this.activities = JSON.parse(localStorage.getItem('activities') || null);
+      this.subscription = JSON.parse(localStorage.getItem('subscription') || null);
+      this.notif_count = JSON.parse(localStorage.getItem('notif_count'));
+      // this.membership = localStorage.getItem('membership');
+      this.membership = this.subscription.membership;
+      this.customer_id = localStorage.getItem('customer_id');
+      this.username = localStorage.getItem('username');
+  
+      console.log(this.subscription.expiry_message)
+      // window.localStorage.setItem('notif_count', JSON.stringify(response['count']));
 
-    console.log(this.subscription.expiry_message)
-
-    this.data = {
-      "avatar": avatar,
-      "headerImage": "assets/images/background/1.jpg",
-      "headerTitle": "Profile",
-      "redemptions": this.redemption,
-      "activities": this.activities,
-      "subscription": this.subscription,
-      "membership": this.membership,
-      "interests": this.interest,
-      "title": user_name,
-      "customer_id": this.customer_id,
-      "username": this.username
-    }
+        this.data = {
+          "avatar": avatar,
+          "headerImage": "assets/images/background/1.jpg",
+          "headerTitle": "Profile",
+          "redemptions": this.redemption,
+          "activities": this.activities,
+          "subscription": this.subscription,
+          "membership": this.membership,
+          "interests": this.interest,
+          "title": user_name,
+          "customer_id": this.customer_id,
+          "username": this.username,
+          "notif": this.notif_count
+        }
+        this.loading.dismiss();
+    })
 
     this.events = {
       'onProceed': function (item: any) {
@@ -75,19 +88,66 @@ export class ProfileLeftPage {
       },
     };
   }
-  toggleInterestButton(hide, show, value, action): void {
+  toggleInterestButton(value, action): void {
     //hide the clicked button
-    document.getElementById(hide).style.display = "none";
-    //show the new button
-    document.getElementById(show).style.display = "";
     //update interest list
     this.updateInterestList(value, action)
   }
 
   updateInterestList(value, action) {
     console.log(value + ' clicked with ' + action + ' action');
-    //
+    this.navCtrl.push('InterestPage', {
+      id: value
+    })
 
+  }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
+    });
+    this.loading.present();
+  }
+
+  ionViewDidEnter(){
+    this.profile_segment = 'interest';
+    this.base_url = AppSettings.BASE_URL;
+
+    this.customerService.getList('notifications/' + this.customer_id).subscribe(response => {
+      var user_name = localStorage.getItem('firstname') + ' ' + localStorage.getItem('lastname');
+    var avatar = localStorage.getItem('avatar');
+    window.localStorage.setItem('notif_count', JSON.stringify(response['count']));
+    // localStorage.getItem('avatar');
+
+    this.redemption = JSON.parse(localStorage.getItem('redemption') || null);
+    this.interest = JSON.parse(localStorage.getItem('interest') || null);
+    this.activities = JSON.parse(localStorage.getItem('activities') || null);
+    this.subscription = JSON.parse(localStorage.getItem('subscription') || null);
+    this.notif_count = JSON.parse(localStorage.getItem('notif_count'));
+    // this.membership = localStorage.getItem('membership');
+    this.membership = this.subscription.membership;
+    this.customer_id = localStorage.getItem('customer_id');
+    this.username = localStorage.getItem('username');
+
+    console.log(this.subscription.expiry_message)
+      // window.localStorage.setItem('notif_count', JSON.stringify(response['count']));
+
+        this.data = {
+          "avatar": avatar,
+          "headerImage": "assets/images/background/1.jpg",
+          "headerTitle": "Profile",
+          "redemptions": this.redemption,
+          "activities": this.activities,
+          "subscription": this.subscription,
+          "membership": this.membership,
+          "interests": this.interest,
+          "title": user_name,
+          "customer_id": this.customer_id,
+          "username": this.username,
+          "notif": this.notif_count
+        }
+    })
   }
 
   ionViewDidLoad() {
@@ -148,5 +208,40 @@ export class ProfileLeftPage {
   edit() {
     this.navCtrl.push('ProfileEditPage');
   }
+
+  GotoSub() {
+    this.navCtrl.push('SubscriptionPage');
+  }
+
+  GotoRenew() {
+    this.navCtrl.push('RenewPage', {
+      customer_id: this.customer_id
+    });
+  }
+
+  GotoChange() {
+    this.navCtrl.push('ChangePlanPage');
+  }
+
+  GotoUpgrade(){
+    this.navCtrl.push('UpgradePlanPage');
+    
+  }
+
+  GotoCard(){
+    this.navCtrl.push('MembershipCardPage', {
+      customer_id: this.customer_id
+    });
+  }
+
+  Gonotif(){
+    this.customerService.getList('read_notification/' + this.customer_id).subscribe(response => {
+      if (response['error'] == false) {
+        this.navCtrl.push('AppNotifPage');
+      } 
+    })
+    
+  }
+  
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { AppSettings } from '../../app/appSettings';
 /**
  * Generated class for the TravelsPage page.
  *
@@ -14,11 +14,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'travels.html',
 })
 export class TravelsPage {
-
+  base_url:any = ""
   data: any = {};
   events: any = {};
+  user_image_link: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+    this.base_url = AppSettings.BASE_URL;
+    this.user_image_link = this.base_url + localStorage.getItem('avatar');
     this.data = {
       "headerTitle": "Travels",
       "items": [
@@ -45,8 +48,14 @@ export class TravelsPage {
         },
         {
           "id": 4,
-          "title": "Travel Concierge",
+          "title": "Bespoke Travel",
           "link": 'TravelPackagesPage',
+          "subtitle": "",
+          "image": "assets/images/background/travel/bespoke.jpg"
+        },{
+          "id": 5,
+          "title": "Travel Concierge",
+          "link": "TravelConciergePage",
           "subtitle": "",
           "image": "assets/images/background/travel/travel_concierge.jpg"
         }
@@ -62,18 +71,16 @@ export class TravelsPage {
       }
     }
   }
-  // pageClick(category_id) {
-  //   console.log(category_id.id);
-  //   this.navCtrl.push(category_id.link, {
-  //     id: category_id.id,
-  //     headerTitle: '',
-  //   })
-  // }
+
+  ionViewDidEnter(){
+    this.base_url = AppSettings.BASE_URL;
+    this.user_image_link = this.base_url + localStorage.getItem('avatar');
+  }
 
   pageClick(id){
     console.log(id);
     if (id.id == 1) {
-      this.navCtrl.push('FlightBookingPage')
+      this.navCtrl.push('AirlinesPage')
       console.log('Got here Flight Booking');
     } else if (id.id == 2) {
       this.navCtrl.push('AirportConciergePage')
@@ -84,11 +91,29 @@ export class TravelsPage {
     } else if (id.id == 4) {
       this.navCtrl.push('TravelPackagesPage')
       console.log('Got here to Travel Packages');
+    } else if(id.id == 5) {
+      this.navCtrl.push('TravelConciergePage')
+      console.log('Got here to Travel Concierge');
     }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TravelsPage');
+  }
+
+  swipe(event) {
+    if(event.direction == 2) {
+      this.navCtrl.parent.select(2);
+    }
+    if(event.direction == 4) {
+      this.navCtrl.parent.select(0);
+    }
+  }
+
+  presentFilter() {
+    let modal = this.modalCtrl.create('ProfilePage');
+    modal.present();
+
   }
 
 }

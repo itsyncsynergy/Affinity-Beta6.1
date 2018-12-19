@@ -2,7 +2,7 @@
 
 <ion-content no-bounce>
   
-  <ion-grid no-padding *ngIf="data != null" [ngStyle]= "{'background-color': '#FFFFFF'}">
+  <ion-grid no-padding *ngIf="data != null" [ngStyle]= "{'background-color': '#0000;'}">
     <ion-row padding-horizontal align-self-center>
        
       
@@ -10,7 +10,8 @@
         
         <h1 ion-text padding-bottom login-title no-margin>{{data.title}}</h1>
       </ion-col>
-      <ion-col align-self-start col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+      <ion-col align-self-start col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 no-lines>
+        
         <!---Input field username-->
         <ion-item transparent>
           <ion-label stacked>{{data.labelUsername}}</ion-label>
@@ -18,7 +19,7 @@
           <ion-label error-field color="primary" no-margin *ngIf="!isUsernameValid">{{data.errorUser}}</ion-label>
       </ion-item>
         <!---Input field password-->
-        <ion-item>
+        <ion-item transparent>
           <ion-label stacked>{{data.labelPassword}}</ion-label>
           <ion-input required type="password" placeholder="{{data.password}}" [(ngModel)]="usercreds.password" name="password"></ion-input>
           <ion-label error-field color="primary" no-margin *ngIf="!isPasswordValid">{{data.errorPassword}}</ion-label>
@@ -28,7 +29,7 @@
             
           </ion-col>
           <ion-col col-6>
-            <a right [ngStyle] = "{'float': 'right', 'color': '#6a0608'}" (click)="onForgot()">{{data.forgotPassword}}</a>
+            <a right [ngStyle] = "{'float': 'right', 'color': '#FFFFFF'}" (click)="onForgot()">{{data.forgotPassword}}</a>
             
           </ion-col>
         </ion-row>
@@ -37,10 +38,11 @@
       <!---Share Section-->
       <ion-col align-self-end bottom-form col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6 [ngStyle]= "{'padding-bottom': '5rem'}" >
         <!---Login button-->
-        <button ion-button  full text-capitalize default-button (click)="login()">{{data.login}}</button>
+        <button ion-button default-button full text-capitalize round (click)="login()">{{data.login}}</button>
         
       </ion-col>
-      <ion-col no-padding col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
+      <!-- Social Media login -->
+      <!-- <ion-col no-padding col-12 col-sm-12 col-md-12 offset-lg-3 col-lg-6 offset-xl-3 col-xl-6>
         <ion-row text-center>
           <ion-col col-6>
             <p>or sign up with:</p>
@@ -48,21 +50,21 @@
           <ion-col col-6>
             <ion-row>
               <ion-col col-3>
-                <!---Facebook button-->
+                
                 <button clear button-icon-clear margin-right box-shadow ion-button (click)="onEvent('onFacebook')" [ngStyle]="{'border-radius': '50%', 'margin': '0px'}">
                   <i icon-medium class="icon icon-facebook"></i>
                 </button>
       
               </ion-col>
               <ion-col col-3>
-                <!---Twitter button-->
+              
                 <button clear button-icon-clear margin-right box-shadow ion-button (click)="onEvent('onTwitter')" [ngStyle]="{'border-radius': '50%', 'margin': '0px'}">
                   <i icon-medium class="icon icon-twitter"></i>
                 </button>
       
               </ion-col>
               <ion-col col-3>
-                <!---Pinterest button-->
+                
                 <button clear button-icon-clear margin-right box-shadow ion-button (click)="onEvent('onPinterest')" [ngStyle]="{'border-radius': '50%', 'margin': '0px'}">
                   <i icon-medium class="icon icon-google-plus"></i>
                 </button>
@@ -70,7 +72,7 @@
             </ion-row>
           </ion-col>
         </ion-row>
-      </ion-col>
+      </ion-col> -->
       <ion-col col-12>
         <div description text-center>
           <p>Don't have account? <a text-capitalize ion-text color="primary" (click)="signUp()">{{data.register}}</a></p>

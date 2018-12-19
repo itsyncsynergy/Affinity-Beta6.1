@@ -45,7 +45,7 @@ export class VolunteerCategoriesPage {
       'onItemClick': function (category_id) {
         console.log('got here 211')
         console.log(category_id.id);
-        navCtrl.push('DonateSinglePage', {
+        navCtrl.push('VolunteerSinglePage', {
           id: category_id.id,
         })
       }
@@ -57,8 +57,8 @@ export class VolunteerCategoriesPage {
   }
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: '',
-      dismissOnPageChange: true
+      spinner: 'hide',
+      content: '<img src="assets/images/logo/icon.gif" class="img-align" />',
     });
     this.loading.present();
   }

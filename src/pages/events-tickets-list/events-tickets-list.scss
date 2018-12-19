@@ -1,0 +1,119 @@
+page-events-tickets-list {
+    @include settingAnimationHeader;
+    @-webkit-keyframes color-change {
+    0% {
+      color: #FFFFFF !important;
+    }
+
+    100% {
+      color: #FFFFFF !important;
+    }
+  }
+  .elastic-header2 {
+    filter: blur(50px);
+    -webkit-filter: blur(50px);
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: -1;
+  }
+
+  .toolbar-ios {
+    min-height: 64px;
+  }
+
+  
+  .content-ios .scroll-content {
+    top: -64px !important;
+  }
+
+  .active .back-button,
+  .active .toolbar-title {
+    color: theme-colors('textColors', 'accent') !important;
+    animation-name: color-change;
+    animation-duration: 400ms;
+  }
+
+  .back-button,
+  .toolbar-title {
+    color: #FFFFFF !important;
+  }
+
+  .item-subtitle {
+    color: #FFFFFF !important;
+  }
+
+  .scroll-content {
+    top: -56px;
+  }
+
+  .item-md p {
+    color: #FFFFFF;
+  }
+
+  [background-size] {
+    height: 300px;
+
+
+    [parallax-title] {
+      color: color($parallaxPage, parallax-title-basic);
+      z-index: 99999;
+      position: relative;
+    }
+
+    [parallax-subtitle] {
+      color: color($parallaxPage, parallax-subtitle-basic);
+      z-index: 99999;
+      position: relative;
+    }
+
+    
+    [item-title] {
+    color: #6A0608 !important;
+    font-size: 14px !important;
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+    ion-thumbnail {
+      opacity: 1 !important;
+      z-index: 99999;
+      position: relative;
+
+      img {
+        //border-radius: 50% !important;
+        height: 92px;
+        width: 92px;
+        margin: 90px auto 0;
+
+      }
+    }
+  } 
+
+  [card-background-page] {
+        ion-card {
+            height: 160px;
+            position: relative;
+            text-align: center;
+            box-shadow: none;
+            border-radius: $border-radius;
+        }
+        ion-card-content {
+            position: absolute !important;
+            top: 20% !important;
+            width: 96%;
+            left: 2%;
+        }
+        [gallery-title] {
+            font-size: $h1-font-size !important;
+            font-weight: 700;
+            color: color($imageGallery, full-gallery-2-title ) !important;
+        }
+        [gallery-subtitle] {
+            color: color($imageGallery, full-gallery-2-title ) !important;
+        }
+    }
+}

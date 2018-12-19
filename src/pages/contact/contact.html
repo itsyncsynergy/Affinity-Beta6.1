@@ -5,14 +5,56 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+    <ion-navbar>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon>
+                    <ion-avatar class="avatar">
+                        <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                    </ion-avatar>
+                </ion-icon>
+            </button>
+        </ion-buttons>
 
-  <ion-navbar>
-    <ion-title>contact</ion-title>
-  </ion-navbar>
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
 
 </ion-header>
 
-
 <ion-content padding>
+  <h3 login-title text-center>Welcome {{data.fullname}}, <small>How may I serve you today?</small></h3>
+  
+  <ion-list *ngIf="data != null">
+      <form [formGroup]="contact" (ngSubmit)="sendRequest()">
+          <ion-input type="hidden" value="{{data.customer_id}}" formControlName="customer_id"></ion-input>
+          
+          <ion-item no-lines>
+              <ion-label stacked>Subject</ion-label>
+              <ion-input type="text" formControlName="title"></ion-input>
+          </ion-item>
+
+          <ion-item no-lines>
+              <ion-label stacked>Description</ion-label>
+              <ion-textarea formControlName="message" rows="10" placeholder="Please describe your request in full (500 characters max)"></ion-textarea>
+          </ion-item>
+
+          <ion-row>
+              <ion-col text-center>
+                <button ion-button default-button round small block class="new-button" type="submit" [disabled]="!contact.valid">
+                  SUBMIT
+                </button>
+              </ion-col>
+          </ion-row>
+      </form>
+      
+  </ion-list>
 
 </ion-content>

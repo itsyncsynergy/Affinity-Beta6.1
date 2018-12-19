@@ -25,10 +25,7 @@ login-layout-2 {
       right: 0 !important;
       font-size: 12px;
     }
-    .item-inner {
-      border-bottom-color: theme-colors('textColors', 'secondary') !important;
-      box-shadow: none !important;
-  }
+  
   ion-label {
     margin: 0 !important;
   }
@@ -66,4 +63,5 @@ login-layout-2 {
       margin-right: 0;
     }
   }
+
 }

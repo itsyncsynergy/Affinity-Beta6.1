@@ -1,0 +1,180 @@
+page-merchant-redeem {
+    // Settings Animation
+  @include settingAnimationHeader;
+  @-webkit-keyframes color-change {
+    0% {
+      color: #FFFFFF !important;
+    }
+
+    100% {
+      color: #FFFFFF !important;
+    }
+  }
+
+  .label-md {
+    color: #FFFFFF !important;
+  }
+
+  .label-ios {
+    color: #FFFFFF !important;
+  }
+
+  .alert-md .alert-radio-label {
+    overflow: hidden;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    text-overflow: ellipsis;
+    white-space: normal !important;
+    color: initial;
+    padding: 13px 26px;
+}
+
+.alert-ios .alert-radio-label {
+  overflow: hidden;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-overflow: ellipsis;
+  white-space: normal !important;
+  color: initial;
+  padding: 13px 26px;
+}
+
+  .select-text {
+    color: #fff !important;
+}
+
+  .toolbar-ios {
+    min-height: 64px;
+  }
+
+  .bar-button-default-ios,
+  .toolbar-title-ios {
+    padding-top: 20px;
+  }
+  .content-ios .scroll-content {
+    top: -64px !important;
+  }
+
+  .active .back-button,
+  .active .toolbar-title {
+    color: theme-colors('textColors', 'accent') !important;
+    animation-name: color-change;
+    animation-duration: 400ms;
+  }
+
+  .back-button,
+  .toolbar-title {
+    color: #FFFFFF !important;
+  }
+
+  .scroll-content {
+    top: -56px !important;
+  }
+
+  // Parallax Big Image
+  [background-size] {
+    @include darkening-blend-mode;
+    height: 250px;
+    position: relative;
+    // Parallax Header Top
+    [parallax-header] {
+      color: color($parallaxPage, parallax-title-basic);
+      z-index: 9999;
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+    }
+
+    [parallax-subtitle] {
+      color: color($parallaxPage, parallax-subtitle-basic);
+    }
+  }
+  // Settings Badge
+  ion-badge {
+    position: absolute;
+    right: 12px;
+    bottom: 0;
+  }
+  // Settings Content Avatar
+  ion-thumbnail {
+    opacity: 0.7;
+    filter: none;
+
+    img {
+      border-radius: $border-radius !important;
+    }
+  }
+
+  .input-wrapper {
+    display: block;
+  }
+    ion-grid,
+  ion-row {
+    height: 100%;
+  }
+  // Avatar
+  ion-thumbnail {
+    display: block;
+    clear: both;
+    filter: none;
+    opacity: 1;
+
+    img {
+      max-width: 50px;
+      max-height: 50px;
+    }
+  }
+
+  ion-item {
+    padding-left: 0 !important;
+    padding-bottom: 15px !important;
+    
+
+    [error-field] {
+      margin: 0 !important;
+      position: absolute !important;
+      bottom: 0 !important;
+      right: 0 !important;
+      font-size: 12px;
+    }
+  //   .item-inner {
+  //     background-color: #FAFAFA !important;
+  //     //border-bottom-color: theme-colors('textColors', 'secondary') !important;
+  //     box-shadow: none !important;
+  // }
+  ion-label {
+    margin: 0 !important;
+  }
+}
+[login-title] {
+    color: #6A0608;
+  }
+
+  [login-subtitle] {
+    color: color($loginPage, login-subtitle-logo-1);
+  }
+
+  .toolbar-ios {
+    min-height: 64px;
+  }
+
+  .bar-button-default-ios,
+  .toolbar-title-ios {
+    padding-top: 20px;
+  }
+  // Title
+  [register-title] {
+    margin-right: 20%;
+    color: #6A0608 !important;
+  }
+
+  [stacked] {
+    font-size: 10px !important;
+  }
+
+}

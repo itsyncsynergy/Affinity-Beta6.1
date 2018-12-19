@@ -1,2 +1,46 @@
-<google-card-layout-1 [data]="params.data" [events]="params.events">
-</google-card-layout-1>
+<!-- <google-card-layout-1 [data]="params.data" [events]="params.events">
+</google-card-layout-1> -->
+<!--Theme Google Card - Full Image Cards-->
+<ion-header>
+    <ion-navbar no-border-bottom>
+        <ion-buttons right>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon>
+                    <ion-avatar class="avatar">
+                        <img [src]="user_image_link" style="height: 32px; width: 32px; border-radius: 50% !important;">
+                    </ion-avatar>
+                </ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title [ngStyle]="{'text-align': 'center'}" *ngIf="data != null">{{data.headerTitle}}</ion-title>
+
+        <ion-buttons left>
+            <button ion-button menuToggle>
+                <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+
+
+</ion-header>
+<ion-content>
+    <div (swipe)="swipe($event)" style="position: absolute;top:0;left:0;height:100%;width:100%;">
+        <ion-grid no-padding *ngIf="data != null">
+            <ion-row card-background-page style=" padding-bottom: 5rem;">
+                <ion-col col-12 col-md-6 col-lg-4 *ngFor="let item of data.items;" (click)="pageClick({id: item.id})">
+                    <ion-card>
+                        <img-loader *ngIf="item.image != null" [src]="base_url + item.image"></img-loader>
+                        <img-loader *ngIf="item.avatar != null" [src]="base_url + item.avatar"></img-loader>
+                        <!--- Big Title -->
+                        <img src="{{item.avatar2}}"/>
+                        <h2 card-title>{{item.title}}</h2>
+                        <!--- Big Title -->
+                        <h2 card-title>{{item.cate_title}}</h2>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

@@ -1,5 +1,5 @@
 <!--Theme Wizard Big Image With Text -->
-<ion-slides #wizardSlider (ionSlideDidChange)="slideHasChanged()" pager="true" *ngIf="data != null">
+<ion-slides #wizardSlider (ionSlideDidChange)="slideHasChanged()" pager="true" *ngIf="data != null" autoplay="2000" loop="true" speed="1000">
     <ion-slide background-size padding *ngFor="let item of data.items;" [ngStyle]="{'background-image': 'url(' + item.backgroundImage + ')'}">
         
     </ion-slide>
@@ -7,11 +7,15 @@
 <!--Button section-->
 <ion-grid [ngStyle] = "{'position': 'absolute', 'z-index': '10', 'bottom': '0px', 'padding': '0px'}" >
     <ion-row>
-        <ion-col [ngStyle] = "{'padding': '2px'}">
-            <button ion-button text-capitalize (click)="registerPage()" [ngStyle] = "{'text-align': 'center', 'min-width': '100%', 'height': '5.5rem'}">Sign Up</button>
-        </ion-col>
-        <ion-col [ngStyle] = "{'padding': '2px'}">
-            <button ion-button text-capitalize (click)="loginPage()" [ngStyle] = "{'text-align': 'center', 'min-width': '100%', 'height': '5.5rem'}" >Login</button>
-        </ion-col>
+       <div class="button-new">
+            <button ion-button default-button text-capitalize (click)="registerPage()" [ngStyle] = "{'text-align': 'center', 'min-width': '60%', 'height': '5.5rem'}">LETS GET STARTED</button>
+            <div style="color: #fff">Already Registered? <a (click)="loginPage()">LOGIN</a> </div>
+       </div>
+
+            
+       
+        <!-- <ion-col [ngStyle] = "{'padding': '2px'}">
+            <button ion-button default-button text-capitalize (click)="loginPage()" [ngStyle] = "{'text-align': 'center', 'min-width': '100%', 'height': '5.5rem'}" >Login</button>
+        </ion-col> -->
     </ion-row>
 </ion-grid>

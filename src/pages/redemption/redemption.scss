@@ -29,7 +29,7 @@ page-redemption {
       font-size: 12px;
     }
     .item-inner {
-      background-color: #FAFAFA !important;
+      background: transparent !important;
       //border-bottom-color: theme-colors('textColors', 'secondary') !important;
       box-shadow: none !important;
   }
@@ -38,7 +38,7 @@ page-redemption {
   }
 }
 [login-title] {
-    color: #6A0608;
+    color: rgb(255, 255, 255);
   }
 
   [login-subtitle] {
@@ -47,6 +47,10 @@ page-redemption {
 
   .toolbar-ios {
     min-height: 64px;
+  }
+
+  .item-md {
+    background: transparent !important;
   }
 
   .bar-button-default-ios,
@@ -61,6 +65,11 @@ page-redemption {
 
   [stacked] {
     font-size: 10px !important;
+  }
+
+  .searchbar-md .searchbar-input {
+    background-color: #231010 !important;
+	  
   }
 
 }

@@ -1,5 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { Component, Input, ViewChild } from '@angular/core';
+import { IonicPage, AlertController, App, FabContainer, ItemSliding, List, ModalController, NavController, ToastController, LoadingController, Refresher } from 'ionic-angular';
+import { AppSettings } from "../../../app/appSettings";
+
+import { ConferenceData } from '../../../providers/conference-data';
+import { UserData } from '../../../providers/user-data';
 
 @IonicPage()
 @Component({
@@ -11,12 +15,31 @@ export class SearchBarLayout2 {
   @Input() data: any;
   @Input() events: any;
 
-  searchTerm: any = "";
-  allItems: any;
+  @ViewChild('scheduleList', { read: List }) scheduleList: List;
+
+  dayIndex = 0;
+  queryText = '';
+  segment = 'all';
+  excludeTracks: any = [];
+  shownSessions: any = [];
+  groups: any = [];
+  confDate: string;
   user_image_link: any;
 
-  constructor() {
-    this.user_image_link = localStorage.getItem('base_url') + localStorage.getItem('avatar');
+  base_url: any = "";
+  searchTerm: any = "";
+  allItems: any;
+
+  constructor(public alertCtrl: AlertController,
+    public app: App,
+    public loadingCtrl: LoadingController,
+    public modalCtrl: ModalController,
+    public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public confData: ConferenceData,
+    public user: UserData) {
+      this.base_url = AppSettings.BASE_URL;
+      this.user_image_link = this.base_url + localStorage.getItem('avatar');
    }
 
   getItems(event: any): void {
@@ -24,7 +47,7 @@ export class SearchBarLayout2 {
       this.allItems = this.data.items;
     }
     this.data.items = this.allItems.filter((item) => {
-      return item.title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      return item.cate_title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
     });
   }
 
@@ -38,5 +61,34 @@ export class SearchBarLayout2 {
       }
     }
     console.log(event);
+  }
+
+  updateSchedule() {
+    // Close any open sliding items when the schedule updates
+    this.scheduleList && this.scheduleList.closeSlidingItems();
+
+    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
+      this.shownSessions = data.shownSessions;
+      this.groups = data.groups;
+    });
+  }
+
+  presentFilter() {
+    let modal = this.modalCtrl.create('ProfilePage', this.excludeTracks);
+    modal.present();
+
+    modal.onWillDismiss((data: any[]) => {
+      if (data) {
+        this.excludeTracks = data;
+        this.updateSchedule();
+      }
+    });
+
+  }
+
+  logout() {
+    console.log('Am in here');
+    localStorage.clear();
+    this.navCtrl.setRoot('WelcomeWizardPage');
   }
 }
